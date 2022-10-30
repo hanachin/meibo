@@ -23,8 +23,9 @@ module Meibo
     def write(path)
       Zip::File.open(path, ::Zip::File::CREATE) do |zipfile|
         manifest = build_manifest
-        zipfile.get_output_stream(::Meibo::Manifest::FILENAME) do |f|
-          manifest.rows.each do |row|
+        zipfile.get_output_stream(::Meibo::Manifest.filename) do |f|
+          f.puts ::Meibo::Manifest.header_fields.to_csv
+          manifest.to_a.each do |row|
             f.puts row.to_csv
           end
         end

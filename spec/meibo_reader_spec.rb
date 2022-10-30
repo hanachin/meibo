@@ -53,6 +53,34 @@ RSpec.describe Meibo::Reader do
 
   it "works" do
     Meibo::Reader.open(oneroster_zip_file_path) do |reader|
+      reader.manifest => {
+        manifest_version: '1.0',
+        oneroster_version: '1.2',
+        file_academic_sessions: 'bulk',
+        file_categories: 'absent',
+        file_classes: 'bulk',
+        file_class_resources: 'absent',
+        file_courses: 'bulk',
+        file_course_resources: 'absent',
+        file_demographics: 'bulk',
+        file_enrollments: 'bulk',
+        file_line_item_learning_objective_ids: 'absent',
+        file_line_items: 'absent',
+        file_line_item_score_scales: 'absent',
+        file_orgs: 'bulk',
+        file_resources: 'absent',
+        file_result_learning_objective_ids: 'absent',
+        file_results: 'absent',
+        file_result_score_scales: 'absent',
+        file_roles: 'bulk',
+        file_score_scales: 'absent',
+        file_user_profiles: 'bulk',
+        file_user_resources: 'absent',
+        file_users: 'bulk',
+        source_system_name: nil,
+        source_system_code: nil
+      }
+
       academic_sessions = reader.to_enum(:each_academic_session).to_a
       start_date = Date.new(2022, 4, 1)
       end_date = Date.new(2023, 3, 31)

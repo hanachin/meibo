@@ -20,40 +20,28 @@ module Meibo
       klass.define_singleton_method(:attribute_names) { attribute_names } 
       klass.define_singleton_method(:header_fields) { header_fields } 
 
-      converters_list = []
-      if converters[:boolean]
-        converters_list << Converter.build_boolean_field_converters(converters[:boolean].map {|field| attribute_names.index(field) })
-      end
-      if converters[:date]
-        converters_list << Converter.build_date_field_converters(converters[:date].map {|field| attribute_names.index(field) })
-      end
-      if converters[:integer]
-        converters_list << Converter.build_integer_field_converters(converters[:integer].map {|field| attribute_names.index(field) })
-      end
-      if converters[:list]
-        converters_list << Converter.build_list_field_converters(converters[:list].map {|field| attribute_names.index(field) })
-      end
-      if converters[:year]
-        converters_list << Converter.build_year_field_converters(converters[:year].map {|field| attribute_names.index(field) })
-      end
-      header_converters = Converter.build_header_field_to_attribute_converter(attribute_name_to_header_field_map)
-      parser_converters = converters_list.map {|converters| converters[:parser_converter] }.freeze
-      combined_parser_converters = lambda do |field, field_info|
-        parser_converters.each {|converter| field = converter[field, field_info] }
-        field
-      end
-      write_converters = converters_list.map {|converters| converters[:write_converter] }.freeze
-      combined_write_converters = lambda do |field, field_info|
-        write_converters.each {|converter| field = converter[field, field_info] }
-        field
-      end
-      klass.define_singleton_method(:header_converters) { header_converters }
-      klass.define_singleton_method(:parser_converters) { combined_parser_converters }
-      klass.define_singleton_method(:write_converters) { combined_write_converters }
-  
+      define_header_converters(klass, attribute_name_to_header_field_map)
+      define_parser_converters(klass, attribute_names: attribute_names, converters: converters)
+      define_write_converters(klass, attribute_names: attribute_names, converters: converters)
+
       klass.attr_reader(*attribute_names)
       klass.extend(ClassMethods)
       klass.include(Data)
+    end
+
+    def self.define_header_converters(klass, attribute_name_to_header_field_map)
+      header_converters = Converter.build_header_field_to_attribute_converter(attribute_name_to_header_field_map)
+      klass.define_singleton_method(:header_converters) { header_converters }
+    end
+
+    def self.define_parser_converters(klass, attribute_names:, converters:)
+      parser_converter = Converter.build_parser_converter(fields: attribute_names, converters: converters)
+      klass.define_singleton_method(:parser_converters) { parser_converter }
+    end
+
+    def self.define_write_converters(klass, attribute_names:, converters:)
+      write_converter = Converter.build_write_converter(fields: attribute_names, converters: converters)
+      klass.define_singleton_method(:write_converters) { write_converter }
     end
 
     def to_csv(...)

@@ -53,6 +53,10 @@ module Meibo
       data_class.parse(read_csv(data_class.filename), &block)
     end
 
+    def manifest
+      @manifest ||= Meibo::Manifest.parse(read_csv(Meibo::Manifest.filename))
+    end
+
     private
 
     def read_csv(filename)
