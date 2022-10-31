@@ -2,6 +2,9 @@
 
 module Meibo
   class Manifest
+    MANIFEST_VERSION = '1.0'
+    ONEROSTER_VERSION = '1.2'
+
     FILE_TYPE = {
       absent: 'absent',
       bulk: 'bulk',
@@ -38,8 +41,8 @@ module Meibo
 
     # NOTE: 想定値
     DEFAULT_VALUES = {
-      manifest_version: '1.0',
-      oneroster_version: '1.2',
+      manifest_version: MANIFEST_VERSION,
+      oneroster_version: ONEROSTER_VERSION,
       file_academic_sessions: FILE_TYPE[:bulk],
       file_categories: FILE_TYPE[:absent],
       file_classes: FILE_TYPE[:bulk],
