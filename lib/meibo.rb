@@ -10,6 +10,4 @@ require_relative "meibo/version"
 
 module Meibo
   CSV_ENCODING = 'UTF-8'
-
-  class Error < StandardError; end
 end
