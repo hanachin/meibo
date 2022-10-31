@@ -2,7 +2,7 @@
 
 module Meibo
   class Manifest
-    CSV_FILE_TYPE = {
+    FILE_TYPE = {
       absent: 'absent',
       bulk: 'bulk',
       delta: 'delta'
@@ -40,27 +40,27 @@ module Meibo
     DEFAULT_VALUES = {
       manifest_version: '1.0',
       oneroster_version: '1.2',
-      file_academic_sessions: CSV_FILE_TYPE[:bulk],
-      file_categories: CSV_FILE_TYPE[:absent],
-      file_classes: CSV_FILE_TYPE[:bulk],
-      file_class_resources: CSV_FILE_TYPE[:absent],
-      file_courses: CSV_FILE_TYPE[:bulk],
-      file_course_resources: CSV_FILE_TYPE[:absent],
-      file_demographics: CSV_FILE_TYPE[:bulk],
-      file_enrollments: CSV_FILE_TYPE[:bulk],
-      file_line_item_learning_objective_ids: CSV_FILE_TYPE[:absent],
-      file_line_items: CSV_FILE_TYPE[:absent],
-      file_line_item_score_scales: CSV_FILE_TYPE[:absent],
-      file_orgs: CSV_FILE_TYPE[:bulk],
-      file_resources: CSV_FILE_TYPE[:absent],
-      file_result_learning_objective_ids: CSV_FILE_TYPE[:absent],
-      file_results: CSV_FILE_TYPE[:absent],
-      file_result_score_scales: CSV_FILE_TYPE[:absent],
-      file_roles: CSV_FILE_TYPE[:bulk],
-      file_score_scales: CSV_FILE_TYPE[:absent],
-      file_user_profiles: CSV_FILE_TYPE[:bulk],
-      file_user_resources: CSV_FILE_TYPE[:absent],
-      file_users: CSV_FILE_TYPE[:bulk]
+      file_academic_sessions: FILE_TYPE[:bulk],
+      file_categories: FILE_TYPE[:absent],
+      file_classes: FILE_TYPE[:bulk],
+      file_class_resources: FILE_TYPE[:absent],
+      file_courses: FILE_TYPE[:bulk],
+      file_course_resources: FILE_TYPE[:absent],
+      file_demographics: FILE_TYPE[:bulk],
+      file_enrollments: FILE_TYPE[:bulk],
+      file_line_item_learning_objective_ids: FILE_TYPE[:absent],
+      file_line_items: FILE_TYPE[:absent],
+      file_line_item_score_scales: FILE_TYPE[:absent],
+      file_orgs: FILE_TYPE[:bulk],
+      file_resources: FILE_TYPE[:absent],
+      file_result_learning_objective_ids: FILE_TYPE[:absent],
+      file_results: FILE_TYPE[:absent],
+      file_result_score_scales: FILE_TYPE[:absent],
+      file_roles: FILE_TYPE[:bulk],
+      file_score_scales: FILE_TYPE[:absent],
+      file_user_profiles: FILE_TYPE[:bulk],
+      file_user_resources: FILE_TYPE[:absent],
+      file_users: FILE_TYPE[:bulk]
     }.freeze
 
     attr_reader :manifest_version, :oneroster_version, :file_academic_sessions, :file_categories, :file_classes, :file_class_resources, :file_courses, :file_course_resources, :file_demographics, :file_enrollments, :file_line_item_learning_objective_ids, :file_line_items, :file_line_item_score_scales, :file_orgs, :file_resources, :file_result_learning_objective_ids, :file_results, :file_result_score_scales, :file_roles, :file_score_scales, :file_user_profiles, :file_user_resources, :file_users, :source_system_name, :source_system_code
@@ -114,9 +114,9 @@ module Meibo
       @source_system_code = source_system_code
     end
 
-    def delta_file_attributes
+    def file_attributes(file_type:)
       PROPERTY_NAME_TO_ATTRIBUTE_MAP.values.filter_map do |attribute|
-        attribute.start_with?('file_') && public_send(attribute) == CSV_FILE_TYPE[:delta] && attribute
+        attribute.start_with?('file_') && public_send(attribute) == file_type && attribute
       end
     end
 

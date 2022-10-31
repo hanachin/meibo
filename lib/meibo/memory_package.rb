@@ -56,9 +56,9 @@ module Meibo
 
     def csv_file_type(data)
       if data.empty?
-        Meibo::Manifest::CSV_FILE_TYPE[:absent]
+        Meibo::Manifest::FILE_TYPE[:absent]
       else
-        Meibo::Manifest::CSV_FILE_TYPE[:bulk]
+        Meibo::Manifest::FILE_TYPE[:bulk]
       end
     end
 
