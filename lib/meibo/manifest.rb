@@ -114,6 +114,12 @@ module Meibo
       @source_system_code = source_system_code
     end
 
+    def delta_file_attributes
+      PROPERTY_NAME_TO_ATTRIBUTE_MAP.values.filter_map do |attribute|
+        attribute.start_with?('file_') && public_send(attribute) == CSV_FILE_TYPE[:delta] && attribute
+      end
+    end
+
     def deconstruct
       to_a
     end
