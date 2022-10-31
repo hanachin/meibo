@@ -2,7 +2,7 @@
 
 module Meibo
   class Organization
-    Data.define(
+    DataModel.define(
       self,
       filename: 'orgs.csv',
       attribute_name_to_header_field_map: {

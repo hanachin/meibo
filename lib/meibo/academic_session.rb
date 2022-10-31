@@ -2,7 +2,7 @@
 
 module Meibo
   class AcademicSession
-    Data.define(
+    DataModel.define(
       self,
       filename: 'academicSessions.csv',
       attribute_name_to_header_field_map: {

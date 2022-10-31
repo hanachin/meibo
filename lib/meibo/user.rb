@@ -2,7 +2,7 @@
 
 module Meibo
   class User
-    Data.define(
+    DataModel.define(
       self,
       filename: 'users.csv',
       attribute_name_to_header_field_map: {

@@ -2,7 +2,7 @@
 
 module Meibo
   class Enrollment
-    Data.define(
+    DataModel.define(
       self,
       filename: 'enrollments.csv',
       attribute_name_to_header_field_map: {

@@ -3,7 +3,7 @@
 require 'csv'
 
 module Meibo
-  module Data
+  module DataModel
     module ClassMethods
       def parse(csv)
         return to_enum(:parse, csv) unless block_given?
@@ -28,7 +28,7 @@ module Meibo
 
       klass.attr_reader(*attribute_names)
       klass.extend(ClassMethods)
-      klass.include(Data)
+      klass.include(self)
     end
 
     def self.define_header_converters(klass, attribute_name_to_header_field_map)

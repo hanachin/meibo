@@ -79,7 +79,7 @@ module Meibo
     }
     header_fields = attribute_name_to_header_field_map.values
     define_singleton_method(:header_fields) { header_fields }
-    Data.define_header_converters(self, attribute_name_to_header_field_map)
+    DataModel.define_header_converters(self, attribute_name_to_header_field_map)
 
     def self.parse(csv)
       properties = CSV.parse(csv, encoding: Meibo::CSV_ENCODING, headers: true, header_converters: header_converters)

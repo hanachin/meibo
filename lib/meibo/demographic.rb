@@ -2,7 +2,7 @@
 
 module Meibo
   class Demographic
-    Data.define(
+    DataModel.define(
       self,
       filename: 'demographics.csv',
       attribute_name_to_header_field_map: {
