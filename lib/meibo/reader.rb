@@ -7,8 +7,8 @@ module Meibo
   class Reader
     class CsvFileNotFound < Meibo::Error; end
 
-    def self.open(filename)
-      Zip::File.open(filename) do |zipfile|
+    def self.open(file_path)
+      Zip::File.open(file_path) do |zipfile|
         yield new(zipfile: zipfile)
       end
     end
