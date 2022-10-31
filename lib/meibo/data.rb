@@ -6,6 +6,8 @@ module Meibo
   module Data
     module ClassMethods
       def parse(csv)
+        return to_enum(:parse, csv) unless block_given?
+
         CSV.parse(csv, encoding: Meibo::CSV_ENCODING, headers: true, converters: parser_converters, header_converters: header_converters).each do |row|
           yield new(**row.to_h)
         end

@@ -81,7 +81,7 @@ RSpec.describe Meibo::Reader do
         source_system_code: nil
       }
 
-      academic_sessions = reader.to_enum(:each_academic_session).to_a
+      academic_sessions = *reader.each_academic_session
       start_date = Date.new(2022, 4, 1)
       end_date = Date.new(2023, 3, 31)
       academic_sessions => [
@@ -95,7 +95,7 @@ RSpec.describe Meibo::Reader do
           school_year: 2022
         }
       ]
-      organizations = reader.to_enum(:each_organization).to_a
+      organizations = *reader.each_organization
       organizations => [
         {
           sourced_id: org_sourced_id,
@@ -105,7 +105,7 @@ RSpec.describe Meibo::Reader do
           parent_sourced_id: NilClass
         }
       ]
-      courses = reader.to_enum(:each_course).to_a
+      courses = *reader.each_course
       courses => [
         {
           sourced_id: course_sourced_id,
@@ -118,7 +118,7 @@ RSpec.describe Meibo::Reader do
           subject_codes: []
         }
       ]
-      classrooms = reader.to_enum(:each_classroom).to_a
+      classrooms = *reader.each_classroom
       classrooms => [
         {
           sourced_id: classroom_sourced_id,
@@ -136,7 +136,7 @@ RSpec.describe Meibo::Reader do
           special_needs: NilClass
         }
       ]
-      users = reader.to_enum(:each_user).to_a
+      users = *reader.each_user
       users => [
         {
           sourced_id: user_sourced_id,
@@ -165,7 +165,7 @@ RSpec.describe Meibo::Reader do
           home_class: NilClass
         }
       ]
-      demographics = reader.to_enum(:each_demographic).to_a
+      demographics = *reader.each_demographic
       demographics => [
         {
           sourced_id: ^user_sourced_id,
@@ -184,7 +184,7 @@ RSpec.describe Meibo::Reader do
           public_school_residence_status: NilClass
         }
       ]
-      user_profiles = reader.to_enum(:each_user_profile).to_a
+      user_profiles = *reader.each_user_profile
       user_profiles => [
         {
           sourced_id: user_profile_sourced_id,
@@ -198,7 +198,7 @@ RSpec.describe Meibo::Reader do
           password: NilClass
         }
       ]
-      roles = reader.to_enum(:each_role).to_a
+      roles = *reader.each_role
       roles => [
         {
           sourced_id: String,
@@ -211,7 +211,7 @@ RSpec.describe Meibo::Reader do
           user_profile_sourced_id: ^user_profile_sourced_id
         }
       ]
-      enrollments = reader.to_enum(:each_enrollment).to_a
+      enrollments = *reader.each_enrollment
       enrollments => [
         {
           sourced_id: String,
