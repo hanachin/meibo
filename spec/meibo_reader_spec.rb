@@ -118,8 +118,8 @@ RSpec.describe Meibo::Reader do
           subject_codes: []
         }
       ]
-      classrooms = *reader.each_classroom
-      classrooms => [
+      classes = *reader.each_class
+      classes => [
         {
           sourced_id: classroom_sourced_id,
           title: '1年1組',

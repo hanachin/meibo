@@ -23,7 +23,7 @@ module Meibo
       data_class.parse(read_csv(data_class.filename), &block)
     end
 
-    def each_classroom(data_class: Meibo::Classroom, &block)
+    def each_class(data_class: Meibo::Classroom, &block)
       data_class.parse(read_csv(data_class.filename), &block)
     end
 
