@@ -54,25 +54,25 @@ module Meibo
 
     private
 
-    def csv_file_type(data)
+    def procesing_mode(data)
       if data.empty?
-        Meibo::Manifest::FILE_TYPE[:absent]
+        Meibo::Manifest::PROCESSING_MODES[:absent]
       else
-        Meibo::Manifest::FILE_TYPE[:bulk]
+        Meibo::Manifest::PROCESSING_MODES[:bulk]
       end
     end
 
     def build_manifest
       manifest_properties = {
-        file_academic_sessions: csv_file_type(academic_sessions),
-        file_classes: csv_file_type(classes),
-        file_courses: csv_file_type(courses),
-        file_demographics: csv_file_type(demographics),
-        file_enrollments: csv_file_type(enrollments),
-        file_orgs: csv_file_type(organizations),
-        file_roles: csv_file_type(roles),
-        file_user_profiles: csv_file_type(user_profiles),
-        file_users: csv_file_type(users)
+        file_academic_sessions: procesing_mode(academic_sessions),
+        file_classes: procesing_mode(classes),
+        file_courses: procesing_mode(courses),
+        file_demographics: procesing_mode(demographics),
+        file_enrollments: procesing_mode(enrollments),
+        file_orgs: procesing_mode(organizations),
+        file_roles: procesing_mode(roles),
+        file_user_profiles: procesing_mode(user_profiles),
+        file_users: procesing_mode(users)
       }.merge(self.manifest_properties)
       Meibo::Manifest.build_from_default(**manifest_properties)
     end

@@ -5,10 +5,10 @@ module Meibo
     MANIFEST_VERSION = '1.0'
     ONEROSTER_VERSION = '1.2'
 
-    FILE_TYPE = {
-      absent: 'absent',
-      bulk: 'bulk',
-      delta: 'delta'
+    PROCESSING_MODES = {
+      absent: ProcessingMode.new('absent'),
+      bulk: ProcessingMode.new('bulk'),
+      delta: ProcessingMode.new('delta')
     }.freeze
 
     PROPERTY_NAME_TO_ATTRIBUTE_MAP = {
@@ -43,27 +43,27 @@ module Meibo
     DEFAULT_VALUES = {
       manifest_version: MANIFEST_VERSION,
       oneroster_version: ONEROSTER_VERSION,
-      file_academic_sessions: FILE_TYPE[:bulk],
-      file_categories: FILE_TYPE[:absent],
-      file_classes: FILE_TYPE[:bulk],
-      file_class_resources: FILE_TYPE[:absent],
-      file_courses: FILE_TYPE[:bulk],
-      file_course_resources: FILE_TYPE[:absent],
-      file_demographics: FILE_TYPE[:bulk],
-      file_enrollments: FILE_TYPE[:bulk],
-      file_line_item_learning_objective_ids: FILE_TYPE[:absent],
-      file_line_items: FILE_TYPE[:absent],
-      file_line_item_score_scales: FILE_TYPE[:absent],
-      file_orgs: FILE_TYPE[:bulk],
-      file_resources: FILE_TYPE[:absent],
-      file_result_learning_objective_ids: FILE_TYPE[:absent],
-      file_results: FILE_TYPE[:absent],
-      file_result_score_scales: FILE_TYPE[:absent],
-      file_roles: FILE_TYPE[:bulk],
-      file_score_scales: FILE_TYPE[:absent],
-      file_user_profiles: FILE_TYPE[:bulk],
-      file_user_resources: FILE_TYPE[:absent],
-      file_users: FILE_TYPE[:bulk]
+      file_academic_sessions: PROCESSING_MODES[:bulk],
+      file_categories: PROCESSING_MODES[:absent],
+      file_classes: PROCESSING_MODES[:bulk],
+      file_class_resources: PROCESSING_MODES[:absent],
+      file_courses: PROCESSING_MODES[:bulk],
+      file_course_resources: PROCESSING_MODES[:absent],
+      file_demographics: PROCESSING_MODES[:bulk],
+      file_enrollments: PROCESSING_MODES[:bulk],
+      file_line_item_learning_objective_ids: PROCESSING_MODES[:absent],
+      file_line_items: PROCESSING_MODES[:absent],
+      file_line_item_score_scales: PROCESSING_MODES[:absent],
+      file_orgs: PROCESSING_MODES[:bulk],
+      file_resources: PROCESSING_MODES[:absent],
+      file_result_learning_objective_ids: PROCESSING_MODES[:absent],
+      file_results: PROCESSING_MODES[:absent],
+      file_result_score_scales: PROCESSING_MODES[:absent],
+      file_roles: PROCESSING_MODES[:bulk],
+      file_score_scales: PROCESSING_MODES[:absent],
+      file_user_profiles: PROCESSING_MODES[:bulk],
+      file_user_resources: PROCESSING_MODES[:absent],
+      file_users: PROCESSING_MODES[:bulk]
     }.freeze
 
     attr_reader :manifest_version, :oneroster_version, :file_academic_sessions, :file_categories, :file_classes, :file_class_resources, :file_courses, :file_course_resources, :file_demographics, :file_enrollments, :file_line_item_learning_objective_ids, :file_line_items, :file_line_item_score_scales, :file_orgs, :file_resources, :file_result_learning_objective_ids, :file_results, :file_result_score_scales, :file_roles, :file_score_scales, :file_user_profiles, :file_user_resources, :file_users, :source_system_name, :source_system_code
@@ -117,9 +117,9 @@ module Meibo
       @source_system_code = source_system_code
     end
 
-    def file_attributes(file_type:)
+    def file_attributes(processing_mode:)
       PROPERTY_NAME_TO_ATTRIBUTE_MAP.values.filter_map do |attribute|
-        attribute.start_with?('file_') && public_send(attribute) == file_type && attribute
+        attribute.start_with?('file_') && public_send(attribute) == processing_mode && attribute
       end
     end
 
