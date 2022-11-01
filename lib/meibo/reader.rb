@@ -5,7 +5,7 @@ require 'zip'
 
 module Meibo
   class Reader
-    class CsvFileNotFound < Meibo::Error; end
+    class CsvFileNotFoundError < Meibo::Error; end
 
     def self.open(file_path)
       Zip::File.open(file_path) do |zipfile|
@@ -120,7 +120,7 @@ module Meibo
     end
 
     def read_csv(filename)
-      raise CsvFileNotFound, "#{filename} not found" unless file_entry?(filename)
+      raise CsvFileNotFoundError, "#{filename} not found" unless file_entry?(filename)
 
       @zipfile.read(filename)
     end

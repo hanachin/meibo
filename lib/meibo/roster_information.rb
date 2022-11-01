@@ -7,7 +7,7 @@ module Meibo
         Reader.open(file_path) do |reader|
           begin
             manifest = reader.manifest
-          rescue CsvFileNotFound
+          rescue Meibo::Reader::CsvFileNotFoundError
             raise NotSupportedError, 'OneRoster 1.0はサポートしていません'
           rescue
             raise NotSupportedError, "#{Meibo::Manifest.filename}の読み込みに失敗しました"
