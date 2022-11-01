@@ -71,7 +71,7 @@ module Meibo
       @users = UserSet.new(users, organization_set: @organizations)
       @demographics = DemographicSet.new(demographics, user_set: @users)
       @user_profiles = UserProfileSet.new(user_profiles, user_set: @users)
-      @roles = RoleSet.new(roles, user_set: @users, user_profile_set: @user_profiles)
+      @roles = RoleSet.new(roles, organization_set: @organizations, user_set: @users, user_profile_set: @user_profiles)
       @enrollments = EnrollmentSet.new(enrollments, classroom_set: @classes, organization_set: @organizations, user_set: @users)
     end
 
