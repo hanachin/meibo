@@ -19,6 +19,42 @@ module Meibo
       @zipfile = zipfile
     end
 
+    def academic_sessions
+      each_academic_session.to_a
+    end
+
+    def classes
+      each_class.to_a
+    end
+
+    def courses
+      each_course.to_a
+    end
+
+    def demographics
+      each_demographic.to_a
+    end
+
+    def enrollments
+      each_enrollment.to_a
+    end
+
+    def organizations
+      each_organization.to_a
+    end
+
+    def roles
+      each_role.to_a
+    end
+
+    def users
+      each_user.to_a
+    end
+
+    def user_profiles
+      each_user_profile.to_a
+    end
+
     def each_academic_session(data_class: Meibo::AcademicSession, &block)
       data_class.parse(read_csv(data_class.filename), &block)
     end
@@ -57,6 +93,22 @@ module Meibo
 
     def manifest
       @manifest ||= Meibo::Manifest.parse(read_csv(Meibo::Manifest.filename))
+    end
+
+    def load_data
+      [
+        :academic_sessions,
+        :classes,
+        :courses,
+        :demographics,
+        :enrollments,
+        :organizations,
+        :roles,
+        :users,
+        :user_profiles
+      ].filter_map {|data_method|
+        [data_method, public_send(data_method).to_a] rescue nil
+      }.to_h
     end
 
     private
