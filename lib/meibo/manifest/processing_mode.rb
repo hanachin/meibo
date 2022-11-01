@@ -23,7 +23,13 @@ module Meibo
       end
 
       def ==(other)
-        @mode == other.mode
+        if other.is_a?(ProcessingMode)
+          @mode == other.mode
+        elsif other.is_a?(String)
+          to_s == other
+        else
+          false
+        end
       end
 
       def to_s

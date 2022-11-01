@@ -138,7 +138,7 @@ module Meibo
 
     def file_attributes(processing_mode:)
       PROPERTY_NAME_TO_ATTRIBUTE_MAP.values.filter_map do |attribute|
-        attribute.start_with?('file_') && public_send(attribute) == processing_mode && attribute
+        attribute.start_with?('file_') && public_send(attribute) == processing_mode.to_s && attribute
       end
     end
 
