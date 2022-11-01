@@ -22,7 +22,7 @@ module Meibo
         agent_sourced_ids: 'agentSourcedIds',
         grades: 'grades',
         password: 'password',
-        user_master_identifier: 'userMasterIdenfitier',
+        user_master_identifier: 'userMasterIdentifier',
         resource_sourced_ids: 'resourceSourcedIds',
         preferred_given_name: 'preferredGivenName',
         preferred_middle_name: 'preferredMiddleName',
