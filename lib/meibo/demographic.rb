@@ -7,6 +7,8 @@ module Meibo
       filename: 'demographics.csv',
       attribute_name_to_header_field_map: {
         sourced_id: 'sourcedId',
+        status: 'status',
+        date_last_modified: 'dateLastModified',
         birth_date: 'birthDate',
         sex: 'sex',
         american_indian_or_alaska_native: 'americanIndianOrAlaskaNative',
@@ -44,8 +46,10 @@ module Meibo
       other: 'other',
     }.freeze
 
-    def initialize(sourced_id:, birth_date: nil, sex: nil, american_indian_or_alaska_native: nil, asian: nil, black_or_african_american: nil, native_hawaiian_or_other_pacific_islander: nil, white: nil, demographic_race_two_or_more_races: nil, hispanic_or_latino_ethnicity: nil, country_of_birth_code: nil, state_of_birth_abbreviation: nil, city_of_birth: nil, public_school_residence_status: nil)
+    def initialize(sourced_id:, status: nil, date_last_modified: nil, birth_date: nil, sex: nil, american_indian_or_alaska_native: nil, asian: nil, black_or_african_american: nil, native_hawaiian_or_other_pacific_islander: nil, white: nil, demographic_race_two_or_more_races: nil, hispanic_or_latino_ethnicity: nil, country_of_birth_code: nil, state_of_birth_abbreviation: nil, city_of_birth: nil, public_school_residence_status: nil)
       @sourced_id = sourced_id
+      @status = status
+      @date_last_modified = date_last_modified
       @birth_date = birth_date
       @sex = sex
       @american_indian_or_alaska_native = american_indian_or_alaska_native

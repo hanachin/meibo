@@ -7,6 +7,8 @@ module Meibo
       filename: 'classes.csv',
       attribute_name_to_header_field_map: {
         sourced_id: 'sourcedId',
+        status: 'status',
+        date_last_modified: 'dateLastModified',
         title: 'title',
         grades: 'grades',
         course_sourced_id: 'courseSourcedId',
@@ -41,8 +43,10 @@ module Meibo
       scheduled: 'scheduled'
     }.freeze
 
-    def initialize(sourced_id:, title:, grades: [], course_sourced_id:, class_code: nil, class_type:, location: nil, school_sourced_id:, term_sourced_ids:, subjects: [], subject_codes: [], periods: [], special_needs: nil)
+    def initialize(sourced_id:, status: nil, date_last_modified: nil, title:, grades: [], course_sourced_id:, class_code: nil, class_type:, location: nil, school_sourced_id:, term_sourced_ids:, subjects: [], subject_codes: [], periods: [], special_needs: nil)
       @sourced_id = sourced_id
+      @status = status
+      @date_last_modified = date_last_modified
       @title = title
       @grades = grades
       @course_sourced_id = course_sourced_id

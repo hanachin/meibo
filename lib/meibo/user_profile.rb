@@ -7,6 +7,8 @@ module Meibo
       filename: 'userProfiles.csv',
       attribute_name_to_header_field_map: {
         sourced_id: 'sourcedId',
+        status: 'status',
+        date_last_modified: 'dateLastModified',
         user_sourced_id: 'userSourcedId',
         profile_type: 'profileType',
         vendor_id: 'vendorId',
@@ -21,8 +23,10 @@ module Meibo
       }
     )
 
-    def initialize(sourced_id:, user_sourced_id:, profile_type:, vendor_id:, application_id: nil, description: nil, credential_type:, username:, password: nil)
+    def initialize(sourced_id:, status: nil, date_last_modified: nil, user_sourced_id:, profile_type:, vendor_id:, application_id: nil, description: nil, credential_type:, username:, password: nil)
       @sourced_id = sourced_id
+      @status = status
+      @date_last_modified = date_last_modified
       @user_sourced_id = user_sourced_id
       @profile_type = profile_type
       @vendor_id = vendor_id

@@ -7,6 +7,8 @@ module Meibo
       filename: 'orgs.csv',
       attribute_name_to_header_field_map: {
         sourced_id: 'sourcedId',
+        status: 'status',
+        date_last_modified: 'dateLastModified',
         name: 'name',
         type: 'type',
         identifier: 'identifier',
@@ -22,8 +24,10 @@ module Meibo
       school: 'school'
     }.freeze
 
-    def initialize(sourced_id:, name:, type:, identifier: nil, parent_sourced_id: (type == TYPES[:district] ? 'NULL' : nil))
+    def initialize(sourced_id:, status: nil, date_last_modified: nil, name:, type:, identifier: nil, parent_sourced_id: (type == TYPES[:district] ? 'NULL' : nil))
       @sourced_id = sourced_id
+      @status = status
+      @date_last_modified = date_last_modified
       @name = name
       @type = type
       @identifier = identifier

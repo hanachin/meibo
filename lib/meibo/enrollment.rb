@@ -7,6 +7,8 @@ module Meibo
       filename: 'enrollments.csv',
       attribute_name_to_header_field_map: {
         sourced_id: 'sourcedId',
+        status: 'status',
+        date_last_modified: 'dateLastModified',
         class_sourced_id: 'classSourcedId',
         school_sourced_id: 'schoolSourcedId',
         user_sourced_id: 'userSourcedId',
@@ -36,8 +38,10 @@ module Meibo
 
     # NOTE: 児童生徒の場合primaryはfalse固定
     # MEMO: 保護者の場合もそうでは?
-    def initialize(sourced_id:, class_sourced_id:, school_sourced_id:, user_sourced_id:, role:, primary: (role == ROLES[:student] ? false : nil), begin_date: nil, end_date: nil, shusseki_no: nil, public_flg: nil)
+    def initialize(sourced_id:, status: nil, date_last_modified: nil, class_sourced_id:, school_sourced_id:, user_sourced_id:, role:, primary: (role == ROLES[:student] ? false : nil), begin_date: nil, end_date: nil, shusseki_no: nil, public_flg: nil)
       @sourced_id = sourced_id
+      @status = status
+      @date_last_modified = date_last_modified
       @class_sourced_id = class_sourced_id
       @school_sourced_id = school_sourced_id
       @user_sourced_id = user_sourced_id

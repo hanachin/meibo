@@ -7,6 +7,8 @@ module Meibo
       filename: 'roles.csv',
       attribute_name_to_header_field_map: {
         sourced_id: 'sourcedId',
+        status: 'status',
+        date_last_modified: 'dateLastModified',
         user_sourced_id: 'userSourcedId',
         role_type: 'roleType',
         role: 'role',
@@ -39,8 +41,10 @@ module Meibo
       guardian: 'guardian'
     }.freeze
 
-    def initialize(sourced_id:, user_sourced_id:, role_type:, role:, begin_date: nil, end_date: nil, org_sourced_id:, user_profile_sourced_id: nil)
+    def initialize(sourced_id:, status: nil, date_last_modified: nil, user_sourced_id:, role_type:, role:, begin_date: nil, end_date: nil, org_sourced_id:, user_profile_sourced_id: nil)
       @sourced_id = sourced_id
+      @status = status
+      @date_last_modified = date_last_modified
       @user_sourced_id = user_sourced_id
       @role_type = role_type
       @role = role
