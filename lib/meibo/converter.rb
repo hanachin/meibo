@@ -33,6 +33,10 @@ module Meibo
           end
         end
         lambda do |field, field_info|
+          # NOTE: convert blank sourcedId to nil
+          if field_info.index.zero?
+            field = nil if field.empty?
+          end
           converter_list.each {|converter| field = converter[field, field_info] }
           field
         end
