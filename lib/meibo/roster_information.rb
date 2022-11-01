@@ -36,13 +36,13 @@ module Meibo
       def validate_manifest_version(manifest_version)
         return if manifest_version == Meibo::Manifest::MANIFEST_VERSION
 
-        raise NotSupportedError, "manifest.version: #{manifest.manifest_version}はサポートしていません"
+        raise NotSupportedError, "manifest.version: #{manifest_version}はサポートしていません"
       end
 
       def validate_oneroster_version(oneroster_version)
         return if oneroster_version == Meibo::Manifest::ONEROSTER_VERSION
 
-        raise NotSupportedError, "oneroster.version: #{manifest.oneroster_version}はサポートしていません"
+        raise NotSupportedError, "oneroster.version: #{oneroster_version}はサポートしていません"
       end
 
       def validate_supported_processing_mode(manifest)
