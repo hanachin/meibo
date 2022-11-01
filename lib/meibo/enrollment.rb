@@ -21,6 +21,9 @@ module Meibo
         boolean: [:public_flg],
         date: [:begin_date, :end_date],
         integer: [:shusseki_no]
+      },
+      validation: {
+        required: [:sourced_id, :class_sourced_id, :school_sourced_id, :user_sourced_id, :role]
       }
     )
 

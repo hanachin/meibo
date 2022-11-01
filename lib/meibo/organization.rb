@@ -11,6 +11,9 @@ module Meibo
         type: 'type',
         identifier: 'identifier',
         parent_sourced_id: 'parentSourcedId'
+      },
+      validation: {
+        required: [:sourced_id, :name, :type]
       }
     )
 

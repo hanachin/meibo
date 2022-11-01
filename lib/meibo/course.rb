@@ -17,6 +17,9 @@ module Meibo
       },
       converters: {
         list: [:grades, :subjects, :subject_codes]
+      },
+      validation: {
+        required: [:sourced_id, :title, :org_sourced_id]
       }
     )
 

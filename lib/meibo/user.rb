@@ -33,6 +33,9 @@ module Meibo
       },
       converters: {
         list: [:user_ids, :agent_sourced_ids, :grades, :resource_sourced_ids]
+      },
+      validation: {
+        required: [:sourced_id, :enabled_user, :username, :given_name, :family_name]
       }
     )
 

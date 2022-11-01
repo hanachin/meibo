@@ -29,6 +29,10 @@ module Meibo
           :subject_codes,
           :periods
         ]
+      },
+      validation: {
+        required: [:sourced_id, :title, :class_type, :school_sourced_id],
+        not_empty: [:term_sourced_ids]
       }
     )
 

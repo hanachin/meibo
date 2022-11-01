@@ -31,6 +31,9 @@ module Meibo
           :demographic_race_two_or_more_races,
           :hispanic_or_latino_ethnicity
         ]
+      },
+      validation: {
+        required: [:sourced_id]
       }
     )
 

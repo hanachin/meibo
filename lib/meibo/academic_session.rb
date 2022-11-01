@@ -17,6 +17,9 @@ module Meibo
       converters: {
         date: [:start_date, :end_date],
         year: [:school_year]
+      },
+      validation: {
+        required: [:sourced_id, :title, :type, :start_date, :end_date, :school_year]
       }
     )
 

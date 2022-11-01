@@ -17,6 +17,9 @@ module Meibo
       },
       converters: {
         date: [:begin_date, :end_date]
+      },
+      validation: {
+        required: [:sourced_id, :user_sourced_id, :role_type, :role, :org_sourced_id]
       }
     )
 

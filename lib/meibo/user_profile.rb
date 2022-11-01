@@ -15,6 +15,9 @@ module Meibo
         credential_type: 'credentialType',
         username: 'username',
         password: 'password'
+      },
+      validation: {
+        required: [:sourced_id, :user_sourced_id, :profile_type, :vendor_id, :credential_type, :username]
       }
     )
 
