@@ -38,6 +38,7 @@ module Meibo
       'source.systemName' => :source_system_name,
       'source.systemCode' => :source_system_code
     }.freeze
+    ATTRIBUTE_TO_PROPERTY_NAME_MAP = PROPERTY_NAME_TO_ATTRIBUTE_MAP.to_h {|property_name, attribute| [attribute, property_name] }.freeze
 
     # NOTE: 想定値
     DEFAULT_VALUES = {
@@ -84,6 +85,18 @@ module Meibo
     define_singleton_method(:header_fields) { header_fields }
     DataModel.define_header_converters(self, attribute_name_to_header_field_map)
 
+    def self.attribute_to_property_name(attribute)
+      ATTRIBUTE_TO_PROPERTY_NAME_MAP.fetch(attribute)
+    end
+
+    def self.filename_for_attribute(attribute)
+      property_name = attribute_to_property_name(attribute)
+
+      raise Meibo::Error, "#{property_name}はファイルのプロパティではありません" unless property_name.start_with?('file.')
+
+      property_name.split('file.', 2).last + '.csv'
+    end
+
     def self.parse(csv)
       properties = CSV.parse(csv, encoding: Meibo::CSV_ENCODING, headers: true, header_converters: header_converters)
       new(**properties.to_h {|property| [PROPERTY_NAME_TO_ATTRIBUTE_MAP.fetch(property[:property_name]), property[:value]] })
@@ -115,6 +128,12 @@ module Meibo
       @file_users = file_users
       @source_system_name = source_system_name
       @source_system_code = source_system_code
+    end
+
+    def filenames(processing_mode:)
+      file_attributes(processing_mode: processing_mode).map do |attribute|
+        self.class.filename_for_attribute(attribute)
+      end
     end
 
     def file_attributes(processing_mode:)

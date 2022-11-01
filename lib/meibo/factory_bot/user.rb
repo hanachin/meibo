@@ -16,5 +16,7 @@ FactoryBot.define do
     sequence(:username) {|n| "user#{n}@example.com" }
     sequence(:given_name) {|n| "John#{n}" }
     sequence(:family_name) {|n| "Doe#{n}" }
+    agent_sourced_ids { agents&.map(&:sourced_id) }
+    primary_org_sourced_id { primary_organization&.sourced_id }
   end
 end
