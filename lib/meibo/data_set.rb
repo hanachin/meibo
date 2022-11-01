@@ -10,9 +10,13 @@ module Meibo
     end
 
     def check_semantically_consistent
-      return if @data.size == @data_hash.size
+      unless @data.size == @data_hash.size
+        raise SourcedIdDuplicatedError, 'sourcedIdが重複しています'
+      end
 
-      raise SourcedIdDuplicatedError, 'sourcedIdが重複しています'
+      unless @data_hash[nil].nil?
+        raise DataNotFoundError, "sourcedIdがありません"
+      end
     end
 
     def each(...)
