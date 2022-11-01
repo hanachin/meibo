@@ -28,6 +28,7 @@ module Meibo
         preferred_middle_name: 'preferredMiddleName',
         preferred_family_name: 'preferredFamilyName',
         primary_org_sourced_id: 'primaryOrgSourcedId',
+        pronouns: 'pronouns',
         kana_given_name: 'metadata.jp.kanaGivenName',
         kana_family_name: 'metadata.jp.kanaFamilyName',
         kana_middle_name: 'metadata.jp.kanaMiddleName',
@@ -42,7 +43,7 @@ module Meibo
     )
 
     # NOTE: enabled_userは必須ではないが固定
-    def initialize(sourced_id:, status: nil, date_last_modified: nil, enabled_user: true, username:, user_ids: nil, given_name:, family_name:, middle_name: nil, identifier: nil, email: nil, sms: nil, phone: nil, agent_sourced_ids: [], grades: nil, password: nil, user_master_identifier: nil, resource_sourced_ids: nil, preferred_given_name: nil, preferred_middle_name: nil, preferred_family_name: nil, primary_org_sourced_id: nil, kana_given_name: nil, kana_family_name: nil, kana_middle_name: nil, home_class: nil)
+    def initialize(sourced_id:, status: nil, date_last_modified: nil, enabled_user: true, username:, user_ids: nil, given_name:, family_name:, middle_name: nil, identifier: nil, email: nil, sms: nil, phone: nil, agent_sourced_ids: [], grades: nil, password: nil, user_master_identifier: nil, resource_sourced_ids: nil, preferred_given_name: nil, preferred_middle_name: nil, preferred_family_name: nil, primary_org_sourced_id: nil, pronouns: nil, kana_given_name: nil, kana_family_name: nil, kana_middle_name: nil, home_class: nil)
       @sourced_id = sourced_id
       @status = status
       @date_last_modified = date_last_modified
