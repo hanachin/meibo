@@ -18,6 +18,7 @@ module Meibo
           validate_supported_processing_mode(manifest)
           processing_modes = Meibo::Manifest::PROCESSING_MODES
           validate_absent_files(reader, manifest.filenames(processing_mode: processing_modes[:absent]))
+          validate_bulk_files(reader, manifest.filenames(processing_mode: processing_modes[:bulk]))
 
           new(**reader.load_data).tap(&:check_semantically_consistent)
         end
@@ -30,6 +31,14 @@ module Meibo
           next unless reader.file_entry?(absent_filename)
 
           raise NotSupportedError, "#{absent_filename}が存在します"
+        end
+      end
+
+      def validate_bulk_files(reader, bulk_filenames)
+        bulk_filenames.each do |bulk_filename|
+          next if reader.file_entry?(bulk_filename)
+
+          raise NotSupportedError, "#{bulk_filename}が存在しません"
         end
       end
 
