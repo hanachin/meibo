@@ -111,13 +111,13 @@ module Meibo
       }.to_h
     end
 
-    private
-
     def file_entry?(filename)
       @zipfile.get_entry(filename).file?
     rescue Errno::ENOENT
       false
     end
+
+    private
 
     def read_csv(filename)
       raise CsvFileNotFoundError, "#{filename} not found" unless file_entry?(filename)
