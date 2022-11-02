@@ -4,7 +4,6 @@ module Meibo
   class Course
     DataModel.define(
       self,
-      filename: 'courses.csv',
       attribute_name_to_header_field_map: {
         sourced_id: 'sourcedId',
         status: 'status',

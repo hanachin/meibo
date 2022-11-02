@@ -23,9 +23,7 @@ module Meibo
       end
     end
 
-    def self.define(klass, attribute_name_to_header_field_map:, filename:, converters: {}, validation: {})
-      klass.define_singleton_method(:filename) { filename }
-
+    def self.define(klass, attribute_name_to_header_field_map:, converters: {})
       attribute_name_to_header_field_map = attribute_name_to_header_field_map.dup.freeze
       attribute_names = attribute_name_to_header_field_map.keys.freeze
       header_fields = attribute_name_to_header_field_map.values.freeze

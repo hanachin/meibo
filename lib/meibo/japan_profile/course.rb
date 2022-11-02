@@ -5,8 +5,7 @@ module Meibo
     class Course < ::Meibo::Course
       DataModel.define(
         self,
-        filename: 'courses.csv',
-        attribute_name_to_header_field_map: superclass.attribute_name_to_header_field_map,
+                attribute_name_to_header_field_map: superclass.attribute_name_to_header_field_map,
         converters: superclass.converters.merge(enum: { course_code: [''].freeze }.freeze)
       )
 

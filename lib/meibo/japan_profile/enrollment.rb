@@ -12,8 +12,7 @@ module Meibo
 
       DataModel.define(
         self,
-        filename: 'enrollments.csv',
-        attribute_name_to_header_field_map: superclass.attribute_name_to_header_field_map.merge(
+                attribute_name_to_header_field_map: superclass.attribute_name_to_header_field_map.merge(
           shusseki_no: 'metadata.jp.ShussekiNo',
           public_flg: 'metadata.jp.PublicFlg'
         ).freeze,
