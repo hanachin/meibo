@@ -6,7 +6,7 @@ RSpec.describe Meibo::Reader do
   let(:oneroster_zip_file_path) { Dir.mktmpdir + '/oneroster.zip' }
 
   before do
-    package = Meibo::MemoryPackage.new(profile: Meibo::JapanProfile)
+    package = Meibo::RosterInformation.new(profile: Meibo::JapanProfile)
     builder = Meibo::Builder.new(package: package, profile: Meibo::JapanProfile)
     school_year_academic_session = builder.build_academic_session(school_year: 2022)
     organization = builder.build_organization(

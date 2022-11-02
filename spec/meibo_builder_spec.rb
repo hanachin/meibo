@@ -2,7 +2,7 @@
 
 RSpec.describe Meibo::Builder do
   it "works" do
-    package = Meibo::MemoryPackage.new
+    package = Meibo::RosterInformation.new
     builder = Meibo::Builder.new(package: package, profile: Meibo::JapanProfile)
     school_year_academic_session = builder.build_academic_session(school_year: 2022)
     organization = builder.build_organization(
