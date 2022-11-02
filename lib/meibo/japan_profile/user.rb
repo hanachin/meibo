@@ -5,7 +5,7 @@ module Meibo
     class User < ::Meibo::User
       DataModel.define(
         self,
-                attribute_name_to_header_field_map: superclass.attribute_name_to_header_field_map.merge(
+        attribute_name_to_header_field_map: superclass.attribute_name_to_header_field_map.merge(
           kana_given_name: 'metadata.jp.kanaGivenName',
           kana_family_name: 'metadata.jp.kanaFamilyName',
           kana_middle_name: 'metadata.jp.kanaMiddleName',
