@@ -70,6 +70,7 @@ module Meibo
       @preferred_middle_name = preferred_middle_name
       @preferred_family_name = preferred_family_name
       @primary_org_sourced_id = primary_org_sourced_id
+      @pronouns = pronouns
       @kana_given_name = kana_given_name
       @kana_family_name = kana_family_name
       @kana_middle_name = kana_middle_name
