@@ -6,6 +6,8 @@ require 'time'
 module Meibo
   module Converter
     TYPES = %i[
+      list
+      required
       academic_session_type
       boolean
       class_type
@@ -14,9 +16,7 @@ module Meibo
       enrollment_role
       gender
       integer
-      list
       org_type
-      required
       role
       role_type
       status
@@ -234,8 +234,8 @@ module Meibo
         required_field_indexes = required_field_indexes.dup.freeze
         lambda do |field, field_info|
           if required_field_indexes.include?(field_info.index)
-            raise InvalidDataTypeError if field.nil?
-            raise InvalidDataTypeError if field.respond_to?(:empty?) && field.empty?
+            raise MissingDataError if field.nil?
+            raise MissingDataError if field.respond_to?(:empty?) && field.empty?
           end
           field
         end
