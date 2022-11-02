@@ -14,6 +14,9 @@ module Meibo
         identifier: 'identifier',
         parent_sourced_id: 'parentSourcedId'
       },
+      converters: {
+        datetime: [:date_last_modified]
+      },
       validation: {
         required: [:sourced_id, :name, :type]
       }

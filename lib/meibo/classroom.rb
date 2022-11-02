@@ -24,6 +24,7 @@ module Meibo
       },
       converters: {
         boolean: [:special_needs],
+        datetime: [:date_last_modified],
         list: [
           :grades,
           :term_sourced_ids,

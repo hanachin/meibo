@@ -1,10 +1,11 @@
 # frozen_string_literal: true
 
 require 'date'
+require 'time'
 
 module Meibo
   module Converter
-    TYPES = [:boolean, :date, :integer, :list, :year].freeze
+    TYPES = [:boolean, :date, :datetime, :integer, :list, :year].freeze
 
     class << self
       def build_header_field_to_attribute_converter(attribute_name_to_header_field_map)
@@ -80,6 +81,28 @@ module Meibo
         lambda do |field, field_info|
           if date_field_indexes.include?(field_info.index)
             field && Date.iso8601(field)
+          else
+            field
+          end
+        end
+      end
+
+      def build_datetime_field_write_converter(datetime_field_indexes)
+        datetime_field_indexes = datetime_field_indexes.dup.freeze
+        lambda do |field, field_info|
+          if datetime_field_indexes.include?(field_info.index)
+            field&.utc&.iso8601
+          else
+            field
+          end
+        end
+      end
+
+      def build_datetime_field_parser_converter(datetime_field_indexes)
+        datetime_field_indexes = datetime_field_indexes.dup.freeze
+        lambda do |field, field_info|
+          if datetime_field_indexes.include?(field_info.index)
+            field && Time.iso8601(field)
           else
             field
           end

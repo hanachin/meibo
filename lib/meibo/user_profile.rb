@@ -18,6 +18,9 @@ module Meibo
         username: 'username',
         password: 'password'
       },
+      converters: {
+        datetime: [:date_last_modified]
+      },
       validation: {
         required: [:sourced_id, :user_sourced_id, :profile_type, :vendor_id, :credential_type, :username]
       }

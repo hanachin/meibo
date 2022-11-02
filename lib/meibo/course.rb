@@ -18,6 +18,7 @@ module Meibo
         subject_codes: 'subjectCodes'
       },
       converters: {
+        datetime: [:date_last_modified],
         list: [:grades, :subjects, :subject_codes]
       },
       validation: {

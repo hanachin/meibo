@@ -18,7 +18,8 @@ module Meibo
         user_profile_sourced_id: 'userProfileSourcedId'
       },
       converters: {
-        date: [:begin_date, :end_date]
+        date: [:begin_date, :end_date],
+        datetime: [:date_last_modified]
       },
       validation: {
         required: [:sourced_id, :user_sourced_id, :role_type, :role, :org_sourced_id]

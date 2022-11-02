@@ -35,6 +35,7 @@ module Meibo
         home_class: 'metadata.jp.homeClass'
       },
       converters: {
+        datetime: [:date_last_modified],
         list: [:user_ids, :agent_sourced_ids, :grades, :resource_sourced_ids]
       },
       validation: {

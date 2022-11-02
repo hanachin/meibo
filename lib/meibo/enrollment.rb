@@ -22,6 +22,7 @@ module Meibo
       converters: {
         boolean: [:public_flg],
         date: [:begin_date, :end_date],
+        datetime: [:date_last_modified],
         integer: [:shusseki_no]
       },
       validation: {
