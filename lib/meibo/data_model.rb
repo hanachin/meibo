@@ -4,7 +4,6 @@ require 'csv'
 
 module Meibo
   module DataModel
-    class InvalidDataTypeError < Error; end
     class MissingDataError < Error; end
 
     module ClassMethods

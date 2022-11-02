@@ -40,6 +40,8 @@ module Meibo
           end
           converter_list.each {|converter| field = converter[field, field_info] }
           field
+        rescue
+          raise Meibo::InvalidDataTypeError
         end
       end
 
