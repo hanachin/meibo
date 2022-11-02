@@ -8,6 +8,15 @@ module Meibo
       def parse(csv)
         return to_enum(:parse, csv) unless block_given?
 
+        actual_headers = CSV.parse_line(csv)
+        missing_headers = base_header_fields - actual_headers
+        unless missing_headers.empty?
+          raise MissingHeadersError, "missing headers: #{missing_headers.join(',')}"
+        end
+        unless actual_headers.take(base_header_fields.size) == base_header_fields
+          raise ScrambledHeadersError
+        end
+
         CSV.parse(csv, encoding: Meibo::CSV_ENCODING, headers: true, converters: parser_converters, header_converters: header_converters).each do |row|
           yield new(**row.to_h)
         end
@@ -19,8 +28,10 @@ module Meibo
 
       attribute_names = attribute_name_to_header_field_map.keys.freeze
       header_fields = attribute_name_to_header_field_map.values.freeze
-      klass.define_singleton_method(:attribute_names) { attribute_names } 
-      klass.define_singleton_method(:header_fields) { header_fields } 
+      base_header_fields = header_fields.reject {|header_field| header_field.start_with?('metadata.jp.') }.freeze
+      klass.define_singleton_method(:attribute_names) { attribute_names }
+      klass.define_singleton_method(:header_fields) { header_fields }
+      klass.define_singleton_method(:base_header_fields) { base_header_fields }
 
       define_header_converters(klass, attribute_name_to_header_field_map)
       define_parser_converters(klass, attribute_names: attribute_names, converters: converters)

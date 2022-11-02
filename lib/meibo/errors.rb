@@ -6,6 +6,8 @@ module Meibo
   class DataNotFoundError < Error; end
   class InvalidDataTypeError < Error; end
   class MissingDataError < Error; end
+  class MissingHeadersError < Error; end
   class NotSupportedError < Error; end
+  class ScrambledHeadersError < Error; end
   class SourcedIdDuplicatedError < Error; end
 end
