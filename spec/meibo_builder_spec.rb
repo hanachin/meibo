@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
-RSpec.describe Meibo::JapanProfile::Builder do
+RSpec.describe Meibo::Builder do
   it "works" do
     package = Meibo::MemoryPackage.new
-    builder = Meibo::JapanProfile::Builder.new(package: package)
+    builder = Meibo::Builder.new(package: package, profile: Meibo::JapanProfile)
     school_year_academic_session = builder.build_academic_session(school_year: 2022)
     organization = builder.build_organization(
       name: '小学校',

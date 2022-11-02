@@ -211,8 +211,8 @@ module Meibo
       def build_status_field_parser_converter(status_field_indexes)
         status_field_indexes = status_field_indexes.dup.freeze
         lambda do |field, field_info|
-          if status_field_indexes.include?(field_info.index)
-            raise InvalidDataTypeError unless field.nil? || field == 'active' || field == 'tobedeleted'
+          if field && status_field_indexes.include?(field_info.index)
+            raise InvalidDataTypeError, "invalid status: #{field}" unless field == 'active' || field == 'tobedeleted'
           else
             field
           end

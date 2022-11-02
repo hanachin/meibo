@@ -6,24 +6,13 @@ module Meibo
   class Builder
     extend Forwardable
 
-    BUILDERS = {
-      academic_session: AcademicSessionBuilder.create(AcademicSession),
-      classroom: ClassroomBuilder.create(Classroom),
-      course: CourseBuilder.create(Course),
-      demographic: DemographicBuilder.create(Demographic),
-      enrollment: EnrollmentBuilder.create(Enrollment),
-      organization: OrganizationBuilder.create(Organization),
-      role: RoleBuilder.create(Role),
-      user: UserBuilder.create(User),
-      user_profile: UserProfileBuilder.create(UserProfile)
-    }
-
-    attr_reader :package
+    attr_reader :package, :profile
 
     def_delegators :@package, :academic_sessions, :classes, :courses, :demographics, :enrollments, :organizations, :roles, :users, :user_profiles
 
-    def initialize(package:)
+    def initialize(package:, profile: BaseProfile)
       @package = package
+      @profile = profile
     end
 
     def build_academic_session(**kw)
@@ -31,7 +20,7 @@ module Meibo
     end
 
     def build_classroom(**kw)
-      builder_for(:classroom).new(builder: self, **kw)
+      builder_for(:class).new(builder: self, **kw)
     end
 
     def build_course(**kw)
@@ -47,7 +36,7 @@ module Meibo
     end
 
     def build_organization(**kw)
-      builder_for(:organization).new(builder: self, **kw)
+      builder_for(:org).new(builder: self, **kw)
     end
 
     def build_role(**kw)
@@ -65,7 +54,7 @@ module Meibo
     private
 
     def builder_for(key)
-      BUILDERS[key]
+      profile.builder_for(key)
     end
   end
 end

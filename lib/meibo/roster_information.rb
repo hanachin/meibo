@@ -1,8 +1,8 @@
 module Meibo
   class RosterInformation
     class << self
-      def from_file(file_path)
-        Reader.open(file_path) do |reader|
+      def from_file(file_path, profile: BaseProfile)
+        Reader.open(file_path, profile: profile) do |reader|
           begin
             manifest = reader.manifest
           rescue CsvFileNotFoundError

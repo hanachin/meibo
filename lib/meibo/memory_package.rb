@@ -5,9 +5,10 @@ require 'csv'
 
 module Meibo
   class MemoryPackage
-    attr_reader :manifest_properties, :academic_sessions, :classes, :courses, :demographics, :enrollments, :organizations, :roles, :user_profiles, :users
+    attr_reader :profile, :manifest_properties, :academic_sessions, :classes, :courses, :demographics, :enrollments, :organizations, :roles, :user_profiles, :users
 
-    def initialize(manifest_properties: {}, academic_sessions: [], classes: [], courses: [], demographics: [], enrollments: [], organizations: [], roles: [], user_profiles: [], users: [])
+    def initialize(profile: BaseProfile, manifest_properties: {}, academic_sessions: [], classes: [], courses: [], demographics: [], enrollments: [], organizations: [], roles: [], user_profiles: [], users: [])
+      @profile = profile
       @manifest_properties = manifest_properties
       @academic_sessions = academic_sessions
       @classes = classes
@@ -29,20 +30,13 @@ module Meibo
             f.puts row.to_csv
           end
         end
-        [
-          [::Meibo::AcademicSession, academic_sessions],
-          [::Meibo::Classroom, classes],
-          [::Meibo::Course, courses],
-          [::Meibo::Demographic, demographics],
-          [::Meibo::Enrollment, enrollments],
-          [::Meibo::Organization, organizations],
-          [::Meibo::Role, roles],
-          [::Meibo::UserProfile, user_profiles],
-          [::Meibo::User, users]
-        ].each do |klass, data|
-          next if data.empty?
+        file_properties.each do |file_attribute, processing_mode|
+          next if processing_mode.absent?
 
-          zipfile.get_output_stream(klass.filename) do |f|
+          klass = profile.data_model_for(file_attribute)
+          filename = profile.filename_for(file_attribute)
+          data = data_for(file_attribute)
+          zipfile.get_output_stream(filename) do |f|
             f.puts klass.header_fields.to_csv
             data.each do |row|
               f.puts row.to_csv(write_converters: klass.write_converters)
@@ -54,16 +48,28 @@ module Meibo
 
     private
 
-    def procesing_mode(data)
-      if data.empty?
-        Meibo::Manifest::PROCESSING_MODES[:absent]
-      else
-        Meibo::Manifest::PROCESSING_MODES[:bulk]
-      end
+    def build_manifest
+      new_manifest_properties = file_properties.merge(manifest_properties)
+      Meibo::Manifest.build_from_default(**new_manifest_properties)
     end
 
-    def build_manifest
-      manifest_properties = {
+    def data_for(file_attribute)
+      data_method = {
+        file_academic_sessions: :academic_sessions,
+        file_classes: :classes,
+        file_courses: :courses,
+        file_demographics: :demographics,
+        file_enrollments: :enrollments,
+        file_orgs: :organizations,
+        file_roles: :roles,
+        file_user_profiles: :user_profiles,
+        file_users: :users
+      }[file_attribute]
+      public_send(data_method)
+    end
+
+    def file_properties
+      {
         file_academic_sessions: procesing_mode(academic_sessions),
         file_classes: procesing_mode(classes),
         file_courses: procesing_mode(courses),
@@ -73,8 +79,15 @@ module Meibo
         file_roles: procesing_mode(roles),
         file_user_profiles: procesing_mode(user_profiles),
         file_users: procesing_mode(users)
-      }.merge(self.manifest_properties)
-      Meibo::Manifest.build_from_default(**manifest_properties)
+      }
+    end
+
+    def procesing_mode(data)
+      if data.empty?
+        Meibo::Manifest::PROCESSING_MODES[:absent]
+      else
+        Meibo::Manifest::PROCESSING_MODES[:bulk]
+      end
     end
   end
 end

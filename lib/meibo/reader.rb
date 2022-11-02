@@ -5,15 +5,16 @@ require 'zip'
 
 module Meibo
   class Reader
-    def self.open(file_path)
+    def self.open(file_path, profile: BaseProfile)
       Zip::File.open(file_path) do |zipfile|
-        yield new(zipfile: zipfile)
+        yield new(zipfile: zipfile, profile: profile)
       end
     end
 
-    attr_reader :zipfile
+    attr_reader :profile, :zipfile
 
-    def initialize(zipfile:)
+    def initialize(zipfile:, profile:)
+      @profile = profile
       @zipfile = zipfile
     end
 
@@ -53,44 +54,50 @@ module Meibo
       each_user_profile.to_a
     end
 
-    def each_academic_session(data_class: Meibo::AcademicSession, &block)
-      data_class.parse(read_csv(data_class.filename), &block)
+    def each_academic_session(&block)
+      read_data(:file_academic_sessions, &block)
     end
 
-    def each_class(data_class: Meibo::Classroom, &block)
-      data_class.parse(read_csv(data_class.filename), &block)
+    def each_class(&block)
+      read_data(:file_classes, &block)
     end
 
-    def each_course(data_class: Meibo::Course, &block)
-      data_class.parse(read_csv(data_class.filename), &block)
+    def each_course(&block)
+      read_data(:file_courses, &block)
     end
 
-    def each_demographic(data_class: Meibo::Demographic, &block)
-      data_class.parse(read_csv(data_class.filename), &block)
+    def each_demographic(&block)
+      read_data(:file_demographics, &block)
     end
 
-    def each_enrollment(data_class: Meibo::Enrollment, &block)
-      data_class.parse(read_csv(data_class.filename), &block)
+    def each_enrollment(&block)
+      read_data(:file_enrollments, &block)
     end
 
-    def each_organization(data_class: Meibo::Organization, &block)
-      data_class.parse(read_csv(data_class.filename), &block)
+    def each_organization(&block)
+      read_data(:file_orgs, &block)
     end
 
-    def each_role(data_class: Meibo::Role, &block)
-      data_class.parse(read_csv(data_class.filename), &block)
+    def each_role(&block)
+      read_data(:file_roles, &block)
     end
 
-    def each_user_profile(data_class: Meibo::UserProfile, &block)
-      data_class.parse(read_csv(data_class.filename), &block)
+    def each_user_profile(&block)
+      read_data(:file_user_profiles, &block)
     end
 
-    def each_user(data_class: Meibo::User, &block)
-      data_class.parse(read_csv(data_class.filename), &block)
+    def each_user(&block)
+      read_data(:file_users, &block)
     end
 
     def manifest
-      @manifest ||= Meibo::Manifest.parse(read_csv(Meibo::Manifest.filename))
+      @manifest ||= begin
+        filename = Meibo::Manifest.filename
+        raise CsvFileNotFoundError, "#{filename} not found" unless file_entry?(filename)
+
+        csv = @zipfile.read(filename)
+        Meibo::Manifest.parse(csv)
+      end
     end
 
     def load_bulk_files
@@ -120,10 +127,12 @@ module Meibo
 
     private
 
-    def read_csv(filename)
+    def read_data(file_attribute, &block)
+      filename = profile.filename_for(file_attribute)
       raise CsvFileNotFoundError, "#{filename} not found" unless file_entry?(filename)
 
-      @zipfile.read(filename)
+      csv = @zipfile.read(filename)
+      profile.data_model_for(file_attribute).parse(csv, &block)
     end
   end
 end
