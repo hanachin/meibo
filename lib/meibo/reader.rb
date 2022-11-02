@@ -128,7 +128,7 @@ module Meibo
     private
 
     def read_data(file_attribute, &block)
-      filename = profile.filename_for(file_attribute)
+      filename = Manifest.filename_for(file_attribute)
       raise CsvFileNotFoundError, "#{filename} not found" unless file_entry?(filename)
 
       csv = @zipfile.read(filename)

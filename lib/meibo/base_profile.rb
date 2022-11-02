@@ -26,40 +26,12 @@ module Meibo
       file_users: Meibo::User
     }
 
-    FILE_ATTRIBUTE_TO_FILENAME = {
-      file_academic_sessions: 'academicSessions.csv',
-      file_categories: 'categories.csv',
-      file_classes: 'classes.csv',
-      file_class_resources: 'classResources.csv',
-      file_courses: 'courses.csv',
-      file_course_resources: 'courseResources.csv',
-      file_demographics: 'demographics.csv',
-      file_enrollments: 'enrollments.csv',
-      file_line_item_learning_objective_ids: 'lineItemLearningObjectiveIds.csv',
-      file_line_items: 'lineItems.csv',
-      file_line_item_score_scales: 'lineItemScoreScales.csv',
-      file_orgs: 'orgs.csv',
-      file_resources: 'resources.csv',
-      file_result_learning_objective_ids: 'resultLearningObjectiveIds.csv',
-      file_results: 'results.csv',
-      file_result_score_scales: 'resultScoreScales.csv',
-      file_roles: 'roles.csv',
-      file_score_scales: 'scoreScales.csv',
-      file_user_profiles: 'userProfiles.csv',
-      file_user_resources: 'userResources.csv',
-      file_users: 'users.csv',
-    }.freeze
-
     def self.builder_for(key)
       BUILDERS[key]
     end
 
     def self.data_model_for(file_attribute)
       DATA_MODELS[file_attribute]
-    end
-
-    def self.filename_for(file_attribute)
-      FILE_ATTRIBUTE_TO_FILENAME[file_attribute]
     end
   end
 end

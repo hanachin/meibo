@@ -35,9 +35,5 @@ module Meibo
     def self.data_model_for(file_attribute)
       DATA_MODELS[file_attribute]
     end
-
-    def self.filename_for(file_attribute)
-      FILE_ATTRIBUTE_TO_FILENAME[file_attribute]
-    end
   end
 end

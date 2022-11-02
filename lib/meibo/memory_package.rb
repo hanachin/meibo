@@ -34,7 +34,7 @@ module Meibo
           next if processing_mode.absent?
 
           klass = profile.data_model_for(file_attribute)
-          filename = profile.filename_for(file_attribute)
+          filename = Manifest.filename_for(file_attribute)
           data = data_for(file_attribute)
           zipfile.get_output_stream(filename) do |f|
             f.puts klass.header_fields.to_csv

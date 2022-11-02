@@ -89,7 +89,7 @@ module Meibo
       ATTRIBUTE_TO_PROPERTY_NAME_MAP.fetch(attribute)
     end
 
-    def self.filename_for_attribute(attribute)
+    def self.filename_for(attribute)
       property_name = attribute_to_property_name(attribute)
 
       raise Meibo::Error, "#{property_name}はファイルのプロパティではありません" unless property_name.start_with?('file.')
@@ -132,7 +132,7 @@ module Meibo
 
     def filenames(processing_mode:)
       file_attributes(processing_mode: processing_mode).map do |attribute|
-        self.class.filename_for_attribute(attribute)
+        self.class.filename_for(attribute)
       end
     end
 
