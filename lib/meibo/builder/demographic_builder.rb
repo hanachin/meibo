@@ -4,8 +4,12 @@ require 'securerandom'
 
 module Meibo
   class Builder
-    class DemographicBuilder < Demographic
-      attr_reader :builder, :user
+    module DemographicBuilder
+      extend BaseBuilder
+
+      def self.builder_attribute_names
+        [:builder, :user]
+      end
 
       def initialize(builder:, user:, **kw)
         super(sourced_id: user.sourced_id, **kw)

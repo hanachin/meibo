@@ -4,8 +4,12 @@ require 'securerandom'
 
 module Meibo
   class Builder
-    class AcademicSessionBuilder < AcademicSession
-      attr_reader :builder, :parent
+    module AcademicSessionBuilder
+      extend BaseBuilder
+
+      def self.builder_attribute_names
+        [:builder, :parent]
+      end
 
       def initialize(builder:, sourced_id: SecureRandom.uuid, parent: nil, **kw)
         super(

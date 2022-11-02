@@ -4,8 +4,12 @@ require 'securerandom'
 
 module Meibo
   class Builder
-    class ClassroomBuilder < Classroom
-      attr_reader :builder, :course, :school, :terms
+    module ClassroomBuilder
+      extend BaseBuilder
+
+      def self.builder_attribute_names
+        [:builder, :course, :school, :terms]
+      end
 
       def initialize(builder:, sourced_id: SecureRandom.uuid, course:, school:, terms:, **kw)
         super(
@@ -23,8 +27,7 @@ module Meibo
       end
 
       def build_enrollment(**kw)
-        EnrollmentBuilder.new(
-          builder: builder,
+        builder.build_enrollment(
           classroom: self,
           school: school,
           **kw

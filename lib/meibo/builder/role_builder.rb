@@ -4,8 +4,12 @@ require 'securerandom'
 
 module Meibo
   class Builder
-    class RoleBuilder < Role
-      attr_reader :builder, :user, :organization, :user_profile
+    module RoleBuilder
+      extend BaseBuilder
+
+      def self.builder_attribute_names
+        [:builder, :user, :organization, :user_profile]
+      end
 
       def initialize(builder:, sourced_id: SecureRandom.uuid, user:, organization:, user_profile: nil, **kw)
         super(

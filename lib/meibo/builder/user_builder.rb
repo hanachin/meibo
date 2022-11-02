@@ -4,8 +4,12 @@ require 'securerandom'
 
 module Meibo
   class Builder
-    class UserBuilder < User
-      attr_reader :builder, :agents, :primary_organization
+    module UserBuilder
+      extend BaseBuilder
+
+      def self.builder_attribute_names
+        [:builder, :agents, :primary_organization]
+      end
 
       def initialize(builder:, sourced_id: SecureRandom.uuid, agents: nil, primary_organization: nil, **kw)
         super(
@@ -21,11 +25,11 @@ module Meibo
       end
 
       def build_demographic(**kw)
-        DemographicBuilder.new(builder: builder, user: self, **kw)
+        builder.build_demographic(user: self, **kw)
       end
 
       def build_profile(**kw)
-        UserProfileBuilder.new(builder: builder, user: self, **kw)
+        builder.build_user_profile(user: self, **kw)
       end
     end
   end
