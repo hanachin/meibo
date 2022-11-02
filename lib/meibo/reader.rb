@@ -5,8 +5,6 @@ require 'zip'
 
 module Meibo
   class Reader
-    class CsvFileNotFoundError < Meibo::Error; end
-
     def self.open(file_path)
       Zip::File.open(file_path) do |zipfile|
         yield new(zipfile: zipfile)

@@ -13,7 +13,7 @@ RSpec.describe Meibo::DemographicSet do
 
     it "raise error if user not found" do
       demographic_set = Meibo::DemographicSet.new([demographic], user_set: Meibo::UserSet.new([], organization_set: organization_set))
-      expect { demographic_set.check_semantically_consistent }.to raise_error(Meibo::DataSet::DataNotFoundError, /sourcedId: #{user.sourced_id} /)
+      expect { demographic_set.check_semantically_consistent }.to raise_error(Meibo::DataNotFoundError, /sourcedId: #{user.sourced_id} /)
     end
   end
 end

@@ -6,7 +6,7 @@ RSpec.describe Meibo::DataSet do
 
     it "raise error if sourcedId is blank" do
       data_set = Meibo::DataSet.new([build(:meibo_academic_session, sourced_id: nil)])
-      expect { data_set.check_semantically_consistent }.to raise_error(Meibo::DataSet::DataNotFoundError, 'sourcedIdがありません')
+      expect { data_set.check_semantically_consistent }.to raise_error(Meibo::DataNotFoundError, 'sourcedIdがありません')
     end
 
     it "does not raise error if sourcedId is unique" do
@@ -16,7 +16,7 @@ RSpec.describe Meibo::DataSet do
 
     it "raise error if sourcedId is not unique" do
       data_set = Meibo::DataSet.new([data, data])
-      expect { data_set.check_semantically_consistent }.to raise_error(Meibo::DataSet::SourcedIdDuplicatedError)
+      expect { data_set.check_semantically_consistent }.to raise_error(Meibo::SourcedIdDuplicatedError)
     end
   end
 end

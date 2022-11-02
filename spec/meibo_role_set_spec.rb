@@ -19,7 +19,7 @@ RSpec.describe Meibo::RoleSet do
       it 'raise error if organization not found' do
         organization_set = Meibo::OrganizationSet.new([])
         role_set = Meibo::RoleSet.new([role], organization_set: organization_set, user_set: user_set, user_profile_set: user_profile_set)
-        expect { role_set.check_semantically_consistent }.to raise_error(Meibo::DataSet::DataNotFoundError, /sourcedId: #{organization.sourced_id} /)
+        expect { role_set.check_semantically_consistent }.to raise_error(Meibo::DataNotFoundError, /sourcedId: #{organization.sourced_id} /)
       end
     end
 
@@ -36,7 +36,7 @@ RSpec.describe Meibo::RoleSet do
       it 'raise error if user not found' do
         user_set = Meibo::UserSet.new([], organization_set: organization_set)
         role_set = Meibo::RoleSet.new([role], organization_set: organization_set, user_set: user_set, user_profile_set: user_profile_set)
-        expect { role_set.check_semantically_consistent }.to raise_error(Meibo::DataSet::DataNotFoundError, /sourcedId: #{user.sourced_id} /)
+        expect { role_set.check_semantically_consistent }.to raise_error(Meibo::DataNotFoundError, /sourcedId: #{user.sourced_id} /)
       end
     end
 
@@ -54,7 +54,7 @@ RSpec.describe Meibo::RoleSet do
       it "raise error if user profile not found" do
         user_profile_set = Meibo::UserProfileSet.new([], user_set: user_set)
         role_set = Meibo::RoleSet.new([role], organization_set: organization_set, user_set: user_set, user_profile_set: user_profile_set)
-        expect { role_set.check_semantically_consistent }.to raise_error(Meibo::DataSet::DataNotFoundError, /sourcedId: #{user_profile.sourced_id} /)
+        expect { role_set.check_semantically_consistent }.to raise_error(Meibo::DataNotFoundError, /sourcedId: #{user_profile.sourced_id} /)
       end
     end
 

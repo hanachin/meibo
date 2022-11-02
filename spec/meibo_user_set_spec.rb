@@ -14,7 +14,7 @@ RSpec.describe Meibo::UserSet do
 
       it "raise error if primary organization not found" do
         user_set = Meibo::UserSet.new([user], organization_set: Meibo::OrganizationSet.new([]))
-        expect { user_set.check_semantically_consistent }.to raise_error(Meibo::DataSet::DataNotFoundError, /sourcedId: #{primary_organization.sourced_id} /)
+        expect { user_set.check_semantically_consistent }.to raise_error(Meibo::DataNotFoundError, /sourcedId: #{primary_organization.sourced_id} /)
       end
     end
 

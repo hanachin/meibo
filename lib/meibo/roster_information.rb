@@ -1,13 +1,11 @@
 module Meibo
   class RosterInformation
-    class NotSupportedError < Meibo::Error; end
-
     class << self
       def from_file(file_path)
         Reader.open(file_path) do |reader|
           begin
             manifest = reader.manifest
-          rescue Meibo::Reader::CsvFileNotFoundError
+          rescue CsvFileNotFoundError
             raise NotSupportedError, 'OneRoster 1.0はサポートしていません'
           rescue
             raise NotSupportedError, "#{Meibo::Manifest.filename}の読み込みに失敗しました"

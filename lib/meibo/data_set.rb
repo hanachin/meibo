@@ -1,9 +1,5 @@
 module Meibo
   class DataSet
-    class SemanticallyInconsistentError < Error; end
-    class DataNotFoundError < SemanticallyInconsistentError; end
-    class SourcedIdDuplicatedError < SemanticallyInconsistentError; end
-
     def initialize(data)
       @data = data
       @data_hash = data.to_h {|datum| [datum.sourced_id, datum] }

@@ -17,7 +17,7 @@ RSpec.describe Meibo::CourseSet do
       it "raise error if organization not found" do
         organization_set = Meibo::OrganizationSet.new([])
         course_set = Meibo::CourseSet.new([course], academic_session_set: academic_session_set, organization_set: organization_set)
-        expect { course_set.check_semantically_consistent }.to raise_error(Meibo::DataSet::DataNotFoundError, /sourcedId: #{organization.sourced_id} /)
+        expect { course_set.check_semantically_consistent }.to raise_error(Meibo::DataNotFoundError, /sourcedId: #{organization.sourced_id} /)
       end
     end
 
@@ -35,7 +35,7 @@ RSpec.describe Meibo::CourseSet do
       it "raise error if school_year not found" do
         academic_session_set = Meibo::AcademicSessionSet.new([])
         course_set = Meibo::CourseSet.new([course_with_school_year], academic_session_set: academic_session_set, organization_set: organization_set)
-        expect { course_set.check_semantically_consistent }.to raise_error(Meibo::DataSet::DataNotFoundError, /sourcedId: #{school_year.sourced_id} /)
+        expect { course_set.check_semantically_consistent }.to raise_error(Meibo::DataNotFoundError, /sourcedId: #{school_year.sourced_id} /)
       end
     end
   end

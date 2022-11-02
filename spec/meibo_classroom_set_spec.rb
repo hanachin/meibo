@@ -19,7 +19,7 @@ RSpec.describe Meibo::ClassroomSet do
       it "raise error if course not found" do
         course_set = Meibo::CourseSet.new([], academic_session_set: academic_session_set, organization_set: organization_set)
         classroom_set = Meibo::ClassroomSet.new([classroom], academic_session_set: academic_session_set, course_set: course_set, organization_set: organization_set)
-        expect { classroom_set.check_semantically_consistent }.to raise_error(Meibo::DataSet::DataNotFoundError, /sourcedId: #{course.sourced_id} /)
+        expect { classroom_set.check_semantically_consistent }.to raise_error(Meibo::DataNotFoundError, /sourcedId: #{course.sourced_id} /)
       end
     end
 
@@ -32,7 +32,7 @@ RSpec.describe Meibo::ClassroomSet do
       it "raise error if school not found" do
         organization_set = Meibo::OrganizationSet.new([])
         classroom_set = Meibo::ClassroomSet.new([classroom], academic_session_set: academic_session_set, course_set: course_set, organization_set: organization_set)
-        expect { classroom_set.check_semantically_consistent }.to raise_error(Meibo::DataSet::DataNotFoundError, /sourcedId: #{school.sourced_id} /)
+        expect { classroom_set.check_semantically_consistent }.to raise_error(Meibo::DataNotFoundError, /sourcedId: #{school.sourced_id} /)
       end
     end
 
@@ -45,7 +45,7 @@ RSpec.describe Meibo::ClassroomSet do
       it "raise error if term not found" do
         academic_session_set = Meibo::AcademicSessionSet.new([])
         classroom_set = Meibo::ClassroomSet.new([classroom], academic_session_set: academic_session_set, course_set: course_set, organization_set: organization_set)
-        expect { classroom_set.check_semantically_consistent }.to raise_error(Meibo::DataSet::DataNotFoundError, /sourcedId: #{academic_session.sourced_id} /)
+        expect { classroom_set.check_semantically_consistent }.to raise_error(Meibo::DataNotFoundError, /sourcedId: #{academic_session.sourced_id} /)
       end
 
       context 'empty' do
@@ -54,7 +54,7 @@ RSpec.describe Meibo::ClassroomSet do
         it "raise error" do
           academic_session_set = Meibo::AcademicSessionSet.new([])
           classroom_set = Meibo::ClassroomSet.new([classroom], academic_session_set: academic_session_set, course_set: course_set, organization_set: organization_set)
-          expect { classroom_set.check_semantically_consistent }.to raise_error(Meibo::DataSet::DataNotFoundError, 'termSourcedIdは1つ以上指定してください')
+          expect { classroom_set.check_semantically_consistent }.to raise_error(Meibo::DataNotFoundError, 'termSourcedIdは1つ以上指定してください')
         end
       end
     end

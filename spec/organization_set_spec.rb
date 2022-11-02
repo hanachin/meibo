@@ -12,7 +12,7 @@ RSpec.describe Meibo::OrganizationSet do
 
     it "raise error if parent not found" do
       organization_set = Meibo::OrganizationSet.new([organization])
-      expect { organization_set.check_semantically_consistent }.to raise_error(Meibo::DataSet::DataNotFoundError, /sourcedId: #{parent_organization.sourced_id} /)
+      expect { organization_set.check_semantically_consistent }.to raise_error(Meibo::DataNotFoundError, /sourcedId: #{parent_organization.sourced_id} /)
     end
   end
 end

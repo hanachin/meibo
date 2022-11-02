@@ -12,7 +12,7 @@ RSpec.describe Meibo::AcademicSessionSet do
 
     it "raise error if parent found" do
       academic_session_set = Meibo::AcademicSessionSet.new([academic_session])
-      expect { academic_session_set.check_semantically_consistent }.to raise_error(Meibo::DataSet::DataNotFoundError, /sourcedId: #{parent_academic_session.sourced_id} /)
+      expect { academic_session_set.check_semantically_consistent }.to raise_error(Meibo::DataNotFoundError, /sourcedId: #{parent_academic_session.sourced_id} /)
     end
   end
 end
