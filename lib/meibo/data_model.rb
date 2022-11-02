@@ -4,8 +4,6 @@ require 'csv'
 
 module Meibo
   module DataModel
-    class MissingDataError < Error; end
-
     module ClassMethods
       def parse(csv)
         return to_enum(:parse, csv) unless block_given?
@@ -27,7 +25,6 @@ module Meibo
       define_header_converters(klass, attribute_name_to_header_field_map)
       define_parser_converters(klass, attribute_names: attribute_names, converters: converters)
       define_write_converters(klass, attribute_names: attribute_names, converters: converters)
-      define_validate_method(klass, validation)
 
       klass.attr_reader(*attribute_names)
       klass.extend(ClassMethods)
@@ -47,23 +44,6 @@ module Meibo
     def self.define_write_converters(klass, attribute_names:, converters:)
       write_converter = Converter.build_write_converter(fields: attribute_names, converters: converters)
       klass.define_singleton_method(:write_converters) { write_converter }
-    end
-
-    def self.define_validate_method(klass, validation)
-      required_attributes = validation[:required]&.dup&.freeze
-      not_empty_attributes = validation[:not_empty]&.dup&.freeze
-      klass.define_method(:validate) do
-        if required_attributes
-          required_attributes.each do |attribute|
-            raise MissingDataError unless public_send(attribute)
-          end
-        end
-        if not_empty_attributes
-          not_empty_attributes.each do |attribute|
-            raise MissingDataError if public_send(attribute).empty?
-          end
-        end
-      end
     end
 
     def to_csv(...)

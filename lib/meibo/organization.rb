@@ -16,10 +16,8 @@ module Meibo
       },
       converters: {
         datetime: [:date_last_modified],
+        required: [:sourced_id, :name, :type],
         status: [:status]
-      },
-      validation: {
-        required: [:sourced_id, :name, :type]
       }
     )
 

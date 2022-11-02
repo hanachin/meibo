@@ -5,7 +5,7 @@ require 'time'
 
 module Meibo
   module Converter
-    TYPES = [:boolean, :date, :datetime, :integer, :list, :status, :year].freeze
+    TYPES = [:boolean, :date, :datetime, :integer, :list, :required, :status, :year].freeze
 
     class << self
       def build_header_field_to_attribute_converter(attribute_name_to_header_field_map)
@@ -157,6 +157,29 @@ module Meibo
           end
         end
       end
+
+      def build_required_field_write_converter(required_field_indexes)
+        required_field_indexes = required_field_indexes.dup.freeze
+        lambda do |field, field_info|
+          if required_field_indexes.include?(field_info.index)
+            field&.to_s
+          else
+            field
+          end
+        end
+      end
+
+      def build_required_field_parser_converter(required_field_indexes)
+        required_field_indexes = required_field_indexes.dup.freeze
+        lambda do |field, field_info|
+          if required_field_indexes.include?(field_info.index)
+            raise if field.nil?
+            raise if field.respond_to?(:empty?) && field.empty?
+          end
+          field
+        end
+      end
+
 
       def build_status_field_write_converter(status_field_indexes)
         status_field_indexes = status_field_indexes.dup.freeze

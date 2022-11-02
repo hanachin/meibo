@@ -37,10 +37,8 @@ module Meibo
       converters: {
         datetime: [:date_last_modified],
         list: [:user_ids, :agent_sourced_ids, :grades, :resource_sourced_ids],
+        required: [:sourced_id, :enabled_user, :username, :given_name, :family_name],
         status: [:status]
-      },
-      validation: {
-        required: [:sourced_id, :enabled_user, :username, :given_name, :family_name]
       }
     )
 

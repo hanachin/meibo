@@ -32,11 +32,8 @@ module Meibo
           :subject_codes,
           :periods
         ],
-        status: [:status]
-      },
-      validation: {
         required: [:sourced_id, :title, :class_type, :school_sourced_id],
-        not_empty: [:term_sourced_ids]
+        status: [:status]
       }
     )
 

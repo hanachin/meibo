@@ -20,10 +20,8 @@ module Meibo
       },
       converters: {
         datetime: [:date_last_modified],
+        required: [:sourced_id, :user_sourced_id, :profile_type, :vendor_id, :credential_type, :username],
         status: [:status]
-      },
-      validation: {
-        required: [:sourced_id, :user_sourced_id, :profile_type, :vendor_id, :credential_type, :username]
       }
     )
 

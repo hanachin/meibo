@@ -20,10 +20,8 @@ module Meibo
       converters: {
         datetime: [:date_last_modified],
         list: [:grades, :subjects, :subject_codes],
+        required: [:sourced_id, :title, :org_sourced_id],
         status: [:status]
-      },
-      validation: {
-        required: [:sourced_id, :title, :org_sourced_id]
       }
     )
 

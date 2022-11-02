@@ -34,10 +34,8 @@ module Meibo
           :hispanic_or_latino_ethnicity
         ],
         datetime: [:date_last_modified],
+        required: [:sourced_id],
         status: [:status]
-      },
-      validation: {
-        required: [:sourced_id]
       }
     )
 
