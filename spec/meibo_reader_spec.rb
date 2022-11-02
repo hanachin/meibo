@@ -140,7 +140,7 @@ RSpec.describe Meibo::Reader do
       users => [
         {
           sourced_id: user_sourced_id,
-          enabled_user: 'true',
+          enabled_user: true,
           username: 'john.doe@example.com',
           user_ids: [],
           given_name: 'John',
