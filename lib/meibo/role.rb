@@ -43,7 +43,7 @@ module Meibo
       guardian: 'guardian'
     }.freeze
 
-    def initialize(sourced_id:, status: nil, date_last_modified: nil, user_sourced_id:, role_type:, role:, begin_date: nil, end_date: nil, org_sourced_id:, user_profile_sourced_id: nil)
+    def initialize(sourced_id:, status: nil, date_last_modified: nil, user_sourced_id:, role_type:, role:, begin_date: nil, end_date: nil, org_sourced_id:, user_profile_sourced_id: nil, **extension_fields)
       @sourced_id = sourced_id
       @status = status
       @date_last_modified = date_last_modified
@@ -54,6 +54,7 @@ module Meibo
       @end_date = end_date
       @org_sourced_id = org_sourced_id
       @user_profile_sourced_id = user_profile_sourced_id
+      @extension_fields = extension_fields
     end
   end
 end

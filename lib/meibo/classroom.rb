@@ -43,7 +43,7 @@ module Meibo
       scheduled: 'scheduled'
     }.freeze
 
-    def initialize(sourced_id:, status: nil, date_last_modified: nil, title:, grades: [], course_sourced_id:, class_code: nil, class_type:, location: nil, school_sourced_id:, term_sourced_ids:, subjects: [], subject_codes: [], periods: [], special_needs: nil)
+    def initialize(sourced_id:, status: nil, date_last_modified: nil, title:, grades: [], course_sourced_id:, class_code: nil, class_type:, location: nil, school_sourced_id:, term_sourced_ids:, subjects: [], subject_codes: [], periods: [], special_needs: nil, **extension_fields)
       unless subjects.is_a?(Array) && subject_codes.is_a?(Array) && subjects.size == subject_codes.size
         raise InvalidDataTypeError
       end
@@ -63,6 +63,7 @@ module Meibo
       @subject_codes = subject_codes
       @periods = periods
       @special_needs = special_needs
+      @extension_fields = extension_fields
     end
   end
 end

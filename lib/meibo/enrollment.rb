@@ -39,7 +39,7 @@ module Meibo
 
     # NOTE: 児童生徒の場合primaryはfalse固定
     # MEMO: 保護者の場合もそうでは?
-    def initialize(sourced_id:, status: nil, date_last_modified: nil, class_sourced_id:, school_sourced_id:, user_sourced_id:, role:, primary: (role == ROLES[:student] ? false : nil), begin_date: nil, end_date: nil, shusseki_no: nil, public_flg: nil)
+    def initialize(sourced_id:, status: nil, date_last_modified: nil, class_sourced_id:, school_sourced_id:, user_sourced_id:, role:, primary: (role == ROLES[:student] ? false : nil), begin_date: nil, end_date: nil, shusseki_no: nil, public_flg: nil, **extension_fields)
       @sourced_id = sourced_id
       @status = status
       @date_last_modified = date_last_modified
@@ -51,6 +51,7 @@ module Meibo
       @end_date = end_date
       @shusseki_no = shusseki_no
       @public_flg = public_flg
+      @extension_fields = extension_fields
     end
   end
 end

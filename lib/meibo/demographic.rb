@@ -48,7 +48,7 @@ module Meibo
       other: 'other',
     }.freeze
 
-    def initialize(sourced_id:, status: nil, date_last_modified: nil, birth_date: nil, sex: nil, american_indian_or_alaska_native: nil, asian: nil, black_or_african_american: nil, native_hawaiian_or_other_pacific_islander: nil, white: nil, demographic_race_two_or_more_races: nil, hispanic_or_latino_ethnicity: nil, country_of_birth_code: nil, state_of_birth_abbreviation: nil, city_of_birth: nil, public_school_residence_status: nil)
+    def initialize(sourced_id:, status: nil, date_last_modified: nil, birth_date: nil, sex: nil, american_indian_or_alaska_native: nil, asian: nil, black_or_african_american: nil, native_hawaiian_or_other_pacific_islander: nil, white: nil, demographic_race_two_or_more_races: nil, hispanic_or_latino_ethnicity: nil, country_of_birth_code: nil, state_of_birth_abbreviation: nil, city_of_birth: nil, public_school_residence_status: nil, **extension_fields)
       @sourced_id = sourced_id
       @status = status
       @date_last_modified = date_last_modified
@@ -65,6 +65,7 @@ module Meibo
       @state_of_birth_abbreviation = state_of_birth_abbreviation
       @city_of_birth = city_of_birth
       @public_school_residence_status = public_school_residence_status
+      @extension_fields = extension_fields
     end
   end
 end

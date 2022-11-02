@@ -38,7 +38,7 @@ module Meibo
     #   - typeはschoolYear固定
     #   - start_dateは対象年度の開始日固定
     #   - end_dateは対象年度の終了日固定
-    def initialize(sourced_id:, status: nil, date_last_modified: nil, school_year:, title: "#{school_year}年度", type: TYPES[:school_year], start_date: Date.new(school_year, 4, 1), end_date: Date.new(school_year + 1, 3, 31), parent_sourced_id: nil)
+    def initialize(sourced_id:, status: nil, date_last_modified: nil, school_year:, title: "#{school_year}年度", type: TYPES[:school_year], start_date: Date.new(school_year, 4, 1), end_date: Date.new(school_year + 1, 3, 31), parent_sourced_id: nil, **extension_fields)
       @sourced_id = sourced_id
       @status = status
       @date_last_modified = date_last_modified
@@ -48,6 +48,7 @@ module Meibo
       @end_date = end_date
       @parent_sourced_id = parent_sourced_id
       @school_year = school_year
+      @extension_fields = extension_fields
     end
   end
 end

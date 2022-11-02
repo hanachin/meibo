@@ -25,7 +25,7 @@ module Meibo
       }
     )
 
-    def initialize(sourced_id:, status: nil, date_last_modified: nil, user_sourced_id:, profile_type:, vendor_id:, application_id: nil, description: nil, credential_type:, username:, password: nil)
+    def initialize(sourced_id:, status: nil, date_last_modified: nil, user_sourced_id:, profile_type:, vendor_id:, application_id: nil, description: nil, credential_type:, username:, password: nil, **extension_fields)
       @sourced_id = sourced_id
       @status = status
       @date_last_modified = date_last_modified
@@ -37,6 +37,7 @@ module Meibo
       @credential_type = credential_type
       @username = username
       @password = password
+      @extension_fields = extension_fields
     end
   end
 end

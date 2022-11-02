@@ -26,7 +26,7 @@ module Meibo
       define_parser_converters(klass, attribute_names: attribute_names, converters: converters)
       define_write_converters(klass, attribute_names: attribute_names, converters: converters)
 
-      klass.attr_reader(*attribute_names)
+      klass.attr_reader(*attribute_names, :extension_fields)
       klass.extend(ClassMethods)
       klass.include(self)
     end

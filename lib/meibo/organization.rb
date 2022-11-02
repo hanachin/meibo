@@ -27,7 +27,7 @@ module Meibo
       school: 'school'
     }.freeze
 
-    def initialize(sourced_id:, status: nil, date_last_modified: nil, name:, type:, identifier: nil, parent_sourced_id: (type == TYPES[:district] ? 'NULL' : nil))
+    def initialize(sourced_id:, status: nil, date_last_modified: nil, name:, type:, identifier: nil, parent_sourced_id: (type == TYPES[:district] ? 'NULL' : nil), **extension_fields)
       @sourced_id = sourced_id
       @status = status
       @date_last_modified = date_last_modified
@@ -35,6 +35,7 @@ module Meibo
       @type = type
       @identifier = identifier
       @parent_sourced_id = parent_sourced_id
+      @extension_fields = extension_fields
     end
   end
 end
