@@ -2,6 +2,11 @@
 
 module Meibo
   class Classroom
+    TYPES = {
+      homeroom: 'homeroom',
+      scheduled: 'scheduled'
+    }.freeze
+
     DataModel.define(
       self,
       filename: 'classes.csv',
@@ -19,31 +24,26 @@ module Meibo
         term_sourced_ids: 'termSourcedIds',
         subjects: 'subjects',
         subject_codes: 'subjectCodes',
-        periods: 'periods',
-        special_needs: 'metadata.jp.specialNeeds'
-      },
+        periods: 'periods'
+      }.freeze,
       converters: {
-        boolean: [:special_needs],
-        class_type: [:class_type],
-        datetime: [:date_last_modified],
+        datetime: [:date_last_modified].freeze,
+        enum: {
+          class_type: [*TYPES.values, ENUM_EXT_PATTERN].freeze
+        }.freeze,
         list: [
           :grades,
           :term_sourced_ids,
           :subjects,
           :subject_codes,
           :periods
-        ],
-        required: [:sourced_id, :title, :class_type, :course_sourced_id, :term_sourced_ids, :school_sourced_id],
-        status: [:status]
+        ].freeze,
+        required: [:sourced_id, :title, :class_type, :course_sourced_id, :term_sourced_ids, :school_sourced_id].freeze,
+        status: [:status].freeze
       }
     )
 
-    TYPES = {
-      homeroom: 'homeroom',
-      scheduled: 'scheduled'
-    }.freeze
-
-    def initialize(sourced_id:, status: nil, date_last_modified: nil, title:, grades: [], course_sourced_id:, class_code: nil, class_type:, location: nil, school_sourced_id:, term_sourced_ids:, subjects: [], subject_codes: [], periods: [], special_needs: nil, **extension_fields)
+    def initialize(sourced_id:, status: nil, date_last_modified: nil, title:, grades: [], course_sourced_id:, class_code: nil, class_type:, location: nil, school_sourced_id:, term_sourced_ids:, subjects: [], subject_codes: [], periods: [], **extension_fields)
       unless subjects.is_a?(Array) && subject_codes.is_a?(Array) && subjects.size == subject_codes.size
         raise InvalidDataTypeError
       end
@@ -62,7 +62,6 @@ module Meibo
       @subjects = subjects
       @subject_codes = subject_codes
       @periods = periods
-      @special_needs = special_needs
       @extension_fields = extension_fields
     end
   end

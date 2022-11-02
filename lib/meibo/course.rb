@@ -25,8 +25,7 @@ module Meibo
       }
     )
 
-    # NOTE: courseCodeは空文字固定
-    def initialize(sourced_id:, status: nil, date_last_modified: nil, school_year_sourced_id: nil, title:, course_code: '', grades: [], org_sourced_id:, subjects: [], subject_codes: [], **extension_fields)
+    def initialize(sourced_id:, status: nil, date_last_modified: nil, school_year_sourced_id: nil, title:, course_code: nil, grades: [], org_sourced_id:, subjects: [], subject_codes: [], **extension_fields)
       unless subjects.is_a?(Array) && subject_codes.is_a?(Array) && subjects.size == subject_codes.size
         raise InvalidDataTypeError
       end

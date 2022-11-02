@@ -9,11 +9,11 @@ module Meibo
         return to_enum(:parse, csv) unless block_given?
 
         actual_headers = CSV.parse_line(csv)
-        missing_headers = base_header_fields - actual_headers
+        missing_headers = header_fields - actual_headers
         unless missing_headers.empty?
           raise MissingHeadersError, "missing headers: #{missing_headers.join(',')}"
         end
-        unless actual_headers.take(base_header_fields.size) == base_header_fields
+        unless actual_headers.take(header_fields.size) == header_fields
           raise ScrambledHeadersError
         end
 
@@ -26,12 +26,14 @@ module Meibo
     def self.define(klass, attribute_name_to_header_field_map:, filename:, converters: {}, validation: {})
       klass.define_singleton_method(:filename) { filename }
 
+      attribute_name_to_header_field_map = attribute_name_to_header_field_map.dup.freeze
       attribute_names = attribute_name_to_header_field_map.keys.freeze
       header_fields = attribute_name_to_header_field_map.values.freeze
-      base_header_fields = header_fields.reject {|header_field| header_field.start_with?('metadata.jp.') }.freeze
-      klass.define_singleton_method(:attribute_names) { attribute_names }
-      klass.define_singleton_method(:header_fields) { header_fields }
-      klass.define_singleton_method(:base_header_fields) { base_header_fields }
+      converters = converters.dup.freeze
+      define_class_attribute(klass, :attribute_name_to_header_field_map, attribute_name_to_header_field_map)
+      define_class_attribute(klass, :attribute_names, attribute_names)
+      define_class_attribute(klass, :header_fields, header_fields)
+      define_class_attribute(klass, :converters, converters)
 
       define_header_converters(klass, attribute_name_to_header_field_map)
       define_parser_converters(klass, attribute_names: attribute_names, converters: converters)
@@ -40,6 +42,10 @@ module Meibo
       klass.attr_reader(*attribute_names, :extension_fields)
       klass.extend(ClassMethods)
       klass.include(self)
+    end
+
+    def self.define_class_attribute(klass, attribute, value)
+      klass.define_singleton_method(attribute) { value }
     end
 
     def self.define_header_converters(klass, attribute_name_to_header_field_map)

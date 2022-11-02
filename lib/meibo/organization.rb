@@ -2,6 +2,15 @@
 
 module Meibo
   class Organization
+    TYPES = {
+      department: 'department',
+      school: 'school',
+      district: 'district',
+      local: 'local',
+      state: 'state',
+      national: 'national'
+    }.freeze
+
     DataModel.define(
       self,
       filename: 'orgs.csv',
@@ -16,16 +25,11 @@ module Meibo
       },
       converters: {
         datetime: [:date_last_modified],
-        org_type: [:type],
+        enum: { type: [*TYPES.values, ENUM_EXT_PATTERN].freeze },
         required: [:sourced_id, :name, :type],
         status: [:status]
       }
     )
-
-    TYPES = {
-      district: 'district',
-      school: 'school'
-    }.freeze
 
     def initialize(sourced_id:, status: nil, date_last_modified: nil, name:, type:, identifier: nil, parent_sourced_id: (type == TYPES[:district] ? 'NULL' : nil), **extension_fields)
       @sourced_id = sourced_id
