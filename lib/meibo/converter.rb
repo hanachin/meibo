@@ -82,7 +82,7 @@ module Meibo
         date_field_indexes = date_field_indexes.dup.freeze
         lambda do |field, field_info|
           if date_field_indexes.include?(field_info.index)
-            field && Date.iso8601(field)
+            field && Date.strptime(field, '%Y-%m-%d')
           else
             field
           end
