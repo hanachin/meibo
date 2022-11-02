@@ -28,7 +28,7 @@ module Meibo
 
     TYPES = {
       grading_period: 'gradingPeriod',
-      semster: 'semster',
+      semester: 'semester',
       school_year: 'schoolYear',
       term: 'term'
     }.freeze
