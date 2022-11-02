@@ -19,7 +19,8 @@ module Meibo
       },
       converters: {
         datetime: [:date_last_modified],
-        list: [:grades, :subjects, :subject_codes]
+        list: [:grades, :subjects, :subject_codes],
+        status: [:status]
       },
       validation: {
         required: [:sourced_id, :title, :org_sourced_id]

@@ -54,10 +54,6 @@ module Meibo
       required_attributes = validation[:required]&.dup&.freeze
       not_empty_attributes = validation[:not_empty]&.dup&.freeze
       klass.define_method(:validate) do
-        unless status.nil? || status == 'active' || status == 'tobedeleted'
-          raise InvalidDataTypeError
-        end
-
         if required_attributes
           required_attributes.each do |attribute|
             raise MissingDataError unless public_send(attribute)

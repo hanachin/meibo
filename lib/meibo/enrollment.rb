@@ -23,7 +23,8 @@ module Meibo
         boolean: [:public_flg],
         date: [:begin_date, :end_date],
         datetime: [:date_last_modified],
-        integer: [:shusseki_no]
+        integer: [:shusseki_no],
+        status: [:status]
       },
       validation: {
         required: [:sourced_id, :class_sourced_id, :school_sourced_id, :user_sourced_id, :role]

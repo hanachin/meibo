@@ -19,6 +19,7 @@ module Meibo
       converters: {
         date: [:start_date, :end_date],
         datetime: [:date_last_modified],
+        status: [:status],
         year: [:school_year]
       },
       validation: {
