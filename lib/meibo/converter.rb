@@ -5,7 +5,24 @@ require 'time'
 
 module Meibo
   module Converter
-    TYPES = [:boolean, :date, :datetime, :integer, :list, :required, :status, :year].freeze
+    TYPES = %i[
+      academic_session_type
+      boolean
+      class_type
+      date
+      datetime
+      enrollment_role
+      gender
+      integer
+      list
+      org_type
+      required
+      role
+      role_type
+      status
+      user_ids
+      year
+    ].freeze
 
     class << self
       def build_header_field_to_attribute_converter(attribute_name_to_header_field_map)
@@ -41,8 +58,16 @@ module Meibo
           end
           converter_list.each {|converter| field = converter[field, field_info] }
           field
-        rescue
-          raise Meibo::InvalidDataTypeError
+        end
+      end
+
+      def build_academic_session_type_field_parser_converter(academic_session_type_field_indexes)
+        academic_session_type_field_indexes = academic_session_type_field_indexes.dup.freeze
+        lambda do |field, field_info|
+          if academic_session_type_field_indexes.include?(field_info.index)
+            raise InvalidDataTypeError unless Meibo::AcademicSession::TYPES.values.include?(field)
+          end
+          field
         end
       end
 
@@ -50,10 +75,29 @@ module Meibo
         boolean_field_indexes = boolean_field_indexes.dup.freeze
         lambda do |field, field_info|
           if boolean_field_indexes.include?(field_info.index)
-            field && field == 'true'
+            case field
+            when 'true'
+              true
+            when 'false'
+              false
+            when nil
+              nil
+            else
+              raise InvalidDataTypeError
+            end
           else
             field
           end
+        end
+      end
+
+      def build_class_type_field_parser_converter(class_type_field_indexes)
+        class_type_field_indexes = class_type_field_indexes.dup.freeze
+        lambda do |field, field_info|
+          if class_type_field_indexes.include?(field_info.index)
+            raise InvalidDataTypeError unless Meibo::Classroom::TYPES.values.include?(field)
+          end
+          field
         end
       end
 
@@ -71,8 +115,12 @@ module Meibo
       def build_date_field_parser_converter(date_field_indexes)
         date_field_indexes = date_field_indexes.dup.freeze
         lambda do |field, field_info|
-          if date_field_indexes.include?(field_info.index)
-            field && Date.strptime(field, '%Y-%m-%d')
+          if field && date_field_indexes.include?(field_info.index)
+            begin
+              Date.strptime(field, '%Y-%m-%d')
+            rescue
+              raise InvalidDataTypeError
+            end
           else
             field
           end
@@ -93,19 +141,47 @@ module Meibo
       def build_datetime_field_parser_converter(datetime_field_indexes)
         datetime_field_indexes = datetime_field_indexes.dup.freeze
         lambda do |field, field_info|
-          if datetime_field_indexes.include?(field_info.index)
-            field && Time.iso8601(field)
+          if field && datetime_field_indexes.include?(field_info.index)
+            begin
+              Time.iso8601(field)
+            rescue
+              raise InvalidDataTypeError
+            end
           else
             field
           end
         end
       end
 
+      def build_enrollment_role_field_parser_converter(enrollment_role_field_indexes)
+        enrollment_role_field_indexes = enrollment_role_field_indexes.dup.freeze
+        lambda do |field, field_info|
+          if enrollment_role_field_indexes.include?(field_info.index)
+            raise InvalidDataTypeError unless Meibo::Enrollment::ROLES.values.include?(field)
+          end
+          field
+        end
+      end
+
+      def build_gender_field_parser_converter(gender_field_indexes)
+        gender_field_indexes = gender_field_indexes.dup.freeze
+        lambda do |field, field_info|
+          if field && gender_field_indexes.include?(field_info.index)
+            raise InvalidDataTypeError unless Meibo::Demographic::SEX.values.include?(field)
+          end
+          field
+        end
+      end
+
       def build_integer_field_parser_converter(integer_field_indexes)
         integer_field_indexes = integer_field_indexes.dup.freeze
         lambda do |field, field_info|
-          if integer_field_indexes.include?(field_info.index)
-            field && Integer(field, 10)
+          if field && integer_field_indexes.include?(field_info.index)
+            begin
+              Integer(field, 10)
+            rescue
+              raise InvalidDataTypeError
+            end
           else
             field
           end
@@ -144,12 +220,42 @@ module Meibo
         end
       end
 
+      def build_org_type_field_parser_converter(org_type_field_indexes)
+        org_type_field_indexes = org_type_field_indexes.dup.freeze
+        lambda do |field, field_info|
+          if org_type_field_indexes.include?(field_info.index)
+            raise InvalidDataTypeError unless Meibo::Organization::TYPES.values.include?(field)
+          end
+          field
+        end
+      end
+
       def build_required_field_parser_converter(required_field_indexes)
         required_field_indexes = required_field_indexes.dup.freeze
         lambda do |field, field_info|
           if required_field_indexes.include?(field_info.index)
-            raise if field.nil?
-            raise if field.respond_to?(:empty?) && field.empty?
+            raise InvalidDataTypeError if field.nil?
+            raise InvalidDataTypeError if field.respond_to?(:empty?) && field.empty?
+          end
+          field
+        end
+      end
+
+      def build_role_field_parser_converter(role_field_indexes)
+        role_field_indexes = role_field_indexes.dup.freeze
+        lambda do |field, field_info|
+          if role_field_indexes.include?(field_info.index)
+            raise InvalidDataTypeError unless Meibo::Role::ROLES.values.include?(field)
+          end
+          field
+        end
+      end
+
+      def build_role_type_field_parser_converter(role_type_field_indexes)
+        role_type_field_indexes = role_type_field_indexes.dup.freeze
+        lambda do |field, field_info|
+          if role_type_field_indexes.include?(field_info.index)
+            raise InvalidDataTypeError unless Meibo::Role::TYPES.values.include?(field)
           end
           field
         end
@@ -159,10 +265,20 @@ module Meibo
         status_field_indexes = status_field_indexes.dup.freeze
         lambda do |field, field_info|
           if status_field_indexes.include?(field_info.index)
-            raise unless field.nil? || field == 'active' || field == 'tobedeleted'
+            raise InvalidDataTypeError unless field.nil? || field == 'active' || field == 'tobedeleted'
           else
             field
           end
+        end
+      end
+
+      def build_user_ids_field_parser_converter(user_ids_field_indexes)
+        user_ids_field_indexes = user_ids_field_indexes.dup.freeze
+        lambda do |field, field_info|
+          if user_ids_field_indexes.include?(field_info.index)
+            raise InvalidDataTypeError unless field.all? {|user_id| Meibo::User::USER_ID_FORMAT_REGEXP.match?(user_id) }
+          end
+          field
         end
       end
 
@@ -180,8 +296,12 @@ module Meibo
       def build_year_field_parser_converter(year_field_indexes)
         year_field_indexes = year_field_indexes.dup.freeze
         lambda do |field, field_info|
-          if year_field_indexes.include?(field_info.index)
-            field && Integer(field, 10)
+          if field && year_field_indexes.include?(field_info.index)
+            begin
+              Integer(field, 10)
+            rescue
+              raise InvalidDataTypeError
+            end
           else
             field
           end

@@ -17,6 +17,7 @@ module Meibo
         school_year: 'schoolYear'
       },
       converters: {
+        academic_session_type: [:type],
         date: [:start_date, :end_date],
         datetime: [:date_last_modified],
         required: [:sourced_id, :title, :type, :start_date, :end_date, :school_year],

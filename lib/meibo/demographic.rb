@@ -33,7 +33,9 @@ module Meibo
           :demographic_race_two_or_more_races,
           :hispanic_or_latino_ethnicity
         ],
+        date: [:birth_date],
         datetime: [:date_last_modified],
+        gender: [:sex],
         required: [:sourced_id],
         status: [:status]
       }

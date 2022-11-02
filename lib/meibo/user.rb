@@ -2,6 +2,8 @@
 
 module Meibo
   class User
+    USER_ID_FORMAT_REGEXP = /\A\{[^:\}]+:[^\}]+\}\z/
+
     DataModel.define(
       self,
       filename: 'users.csv',
@@ -35,10 +37,12 @@ module Meibo
         home_class: 'metadata.jp.homeClass'
       },
       converters: {
+        boolean: [:enabled_user],
         datetime: [:date_last_modified],
         list: [:user_ids, :agent_sourced_ids, :grades, :resource_sourced_ids],
         required: [:sourced_id, :enabled_user, :username, :given_name, :family_name],
-        status: [:status]
+        status: [:status],
+        user_ids: [:user_ids]
       }
     )
 

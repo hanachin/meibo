@@ -27,6 +27,10 @@ module Meibo
 
     # NOTE: courseCodeは空文字固定
     def initialize(sourced_id:, status: nil, date_last_modified: nil, school_year_sourced_id: nil, title:, course_code: '', grades: [], org_sourced_id:, subjects: [], subject_codes: [])
+      unless subjects.is_a?(Array) && subject_codes.is_a?(Array) && subjects.size == subject_codes.size
+        raise InvalidDataTypeError
+      end
+
       @sourced_id = sourced_id
       @status = status
       @date_last_modified = date_last_modified

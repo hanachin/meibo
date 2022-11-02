@@ -24,6 +24,7 @@ module Meibo
       },
       converters: {
         boolean: [:special_needs],
+        class_type: [:class_type],
         datetime: [:date_last_modified],
         list: [
           :grades,
@@ -32,7 +33,7 @@ module Meibo
           :subject_codes,
           :periods
         ],
-        required: [:sourced_id, :title, :class_type, :school_sourced_id],
+        required: [:sourced_id, :title, :class_type, :course_sourced_id, :term_sourced_ids, :school_sourced_id],
         status: [:status]
       }
     )
@@ -43,6 +44,10 @@ module Meibo
     }.freeze
 
     def initialize(sourced_id:, status: nil, date_last_modified: nil, title:, grades: [], course_sourced_id:, class_code: nil, class_type:, location: nil, school_sourced_id:, term_sourced_ids:, subjects: [], subject_codes: [], periods: [], special_needs: nil)
+      unless subjects.is_a?(Array) && subject_codes.is_a?(Array) && subjects.size == subject_codes.size
+        raise InvalidDataTypeError
+      end
+
       @sourced_id = sourced_id
       @status = status
       @date_last_modified = date_last_modified

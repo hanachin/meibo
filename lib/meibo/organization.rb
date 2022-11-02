@@ -16,6 +16,7 @@ module Meibo
       },
       converters: {
         datetime: [:date_last_modified],
+        org_type: [:type],
         required: [:sourced_id, :name, :type],
         status: [:status]
       }

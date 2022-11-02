@@ -21,6 +21,8 @@ module Meibo
         date: [:begin_date, :end_date],
         datetime: [:date_last_modified],
         required: [:sourced_id, :user_sourced_id, :role_type, :role, :org_sourced_id],
+        role: [:role],
+        role_type: [:role_type],
         status: [:status]
       }
     )
