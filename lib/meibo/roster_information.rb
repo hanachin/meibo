@@ -20,7 +20,7 @@ module Meibo
           validate_absent_files(reader, manifest.filenames(processing_mode: processing_modes[:absent]))
           validate_bulk_files(reader, manifest.filenames(processing_mode: processing_modes[:bulk]))
 
-          new(**reader.load_data).tap(&:check_semantically_consistent)
+          new(**reader.load_bulk_files).tap(&:check_semantically_consistent)
         end
       end
 

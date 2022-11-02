@@ -95,19 +95,22 @@ module Meibo
       @manifest ||= Meibo::Manifest.parse(read_csv(Meibo::Manifest.filename))
     end
 
-    def load_data
-      [
-        :academic_sessions,
-        :classes,
-        :courses,
-        :demographics,
-        :enrollments,
-        :organizations,
-        :roles,
-        :users,
-        :user_profiles
-      ].filter_map {|data_method|
-        [data_method, public_send(data_method).to_a] rescue nil
+    def load_bulk_files
+      bulk_file_attributes = manifest.file_attributes(processing_mode: Meibo::Manifest::PROCESSING_MODES[:bulk])
+      {
+        file_academic_sessions: :academic_sessions,
+        file_classes: :classes,
+        file_courses: :courses,
+        file_demographics: :demographics,
+        file_enrollments: :enrollments,
+        file_orgs: :organizations,
+        file_roles: :roles,
+        file_users: :users,
+        file_user_profiles: :user_profiles
+      }.filter_map {|file_attribute, data_method|
+        if bulk_file_attributes.include?(file_attribute)
+          [data_method, public_send(data_method).to_a]
+        end
       }.to_h
     end
 
