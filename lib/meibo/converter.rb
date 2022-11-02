@@ -28,9 +28,10 @@ module Meibo
       def build_converter(fields:, converters:, write_or_parser:)
         converter_list = TYPES.filter_map do |converter_type|
           fields_to_be_converted = converters[converter_type]
-          if fields_to_be_converted
+          method_name = "build_#{converter_type}_field_#{write_or_parser}_converter"
+          if fields_to_be_converted && respond_to?(method_name, true)
             indexes = fields_to_be_converted.map {|field| fields.index(field) }
-            send("build_#{converter_type}_field_#{write_or_parser}_converter", indexes)
+            send(method_name, indexes)
           end
         end
         lambda do |field, field_info|
@@ -42,17 +43,6 @@ module Meibo
           field
         rescue
           raise Meibo::InvalidDataTypeError
-        end
-      end
-
-      def build_boolean_field_write_converter(boolean_field_indexes)
-        boolean_field_indexes = boolean_field_indexes.dup.freeze
-        lambda do |field, field_info|
-          if boolean_field_indexes.include?(field_info.index)
-            field&.to_s
-          else
-            field
-          end
         end
       end
 
@@ -111,10 +101,6 @@ module Meibo
         end
       end
 
-      def build_integer_field_write_converter(integer_field_indexes)
-        lambda {|field, _field_info| field }
-      end
-
       def build_integer_field_parser_converter(integer_field_indexes)
         integer_field_indexes = integer_field_indexes.dup.freeze
         lambda do |field, field_info|
@@ -158,17 +144,6 @@ module Meibo
         end
       end
 
-      def build_required_field_write_converter(required_field_indexes)
-        required_field_indexes = required_field_indexes.dup.freeze
-        lambda do |field, field_info|
-          if required_field_indexes.include?(field_info.index)
-            field&.to_s
-          else
-            field
-          end
-        end
-      end
-
       def build_required_field_parser_converter(required_field_indexes)
         required_field_indexes = required_field_indexes.dup.freeze
         lambda do |field, field_info|
@@ -177,18 +152,6 @@ module Meibo
             raise if field.respond_to?(:empty?) && field.empty?
           end
           field
-        end
-      end
-
-
-      def build_status_field_write_converter(status_field_indexes)
-        status_field_indexes = status_field_indexes.dup.freeze
-        lambda do |field, field_info|
-          if status_field_indexes.include?(field_info.index)
-            field&.to_s
-          else
-            field
-          end
         end
       end
 
