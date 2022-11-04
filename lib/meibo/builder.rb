@@ -6,12 +6,12 @@ module Meibo
   class Builder
     extend Forwardable
 
-    attr_reader :package, :profile
+    attr_reader :roster, :profile
 
-    def_delegators :@package, :academic_sessions, :classes, :courses, :demographics, :enrollments, :organizations, :roles, :users, :user_profiles
+    def_delegators :@roster, :academic_sessions, :classes, :courses, :demographics, :enrollments, :organizations, :roles, :users, :user_profiles
 
-    def initialize(package:, profile: Profile.new)
-      @package = package
+    def initialize(roster:, profile: Profile.new)
+      @roster = roster
       @profile = profile
     end
 

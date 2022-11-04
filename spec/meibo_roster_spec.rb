@@ -5,8 +5,8 @@ RSpec.describe Meibo::Roster do
 
   before do
     profile = Meibo::JapanProfile.new
-    package = Meibo::Roster.new(profile: profile)
-    builder = Meibo::Builder.new(package: package, profile: profile)
+    roster = Meibo::Roster.new(profile: profile)
+    builder = Meibo::Builder.new(roster: roster, profile: profile)
     school_year_academic_session = builder.build_academic_session(school_year: 2022)
     organization = builder.build_organization(
       name: '小学校',
@@ -45,7 +45,7 @@ RSpec.describe Meibo::Roster do
       user: user,
       role: Meibo::JapanProfile::Enrollment::ROLES[:student]
     )
-    package.write(oneroster_zip_file_path)
+    roster.write(oneroster_zip_file_path)
   end
 
   after { File.unlink(oneroster_zip_file_path) }
