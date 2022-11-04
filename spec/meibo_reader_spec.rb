@@ -8,7 +8,7 @@ RSpec.describe Meibo::Reader do
   before do
     profile = Meibo::JapanProfile.new
     roster = Meibo::Roster.new(profile: profile)
-    builder = Meibo::Builder.new(roster: roster, profile: profile)
+    builder = roster.builder
     school_year_academic_session = builder.build_academic_session(school_year: 2022)
     organization = builder.build_organization(
       name: '小学校',

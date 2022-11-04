@@ -80,6 +80,10 @@ module Meibo
       @enrollments = EnrollmentSet.new(enrollments, roster: self)
     end
 
+    def builder
+      Builder.new(roster: self, profile: profile)
+    end
+
     def check_semantically_consistent
       [
         academic_sessions,
