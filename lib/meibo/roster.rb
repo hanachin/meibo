@@ -4,7 +4,7 @@ require 'zip'
 require 'csv'
 
 module Meibo
-  class RosterInformation
+  class Roster
     class << self
       def from_file(file_path, profile: BaseProfile)
         Reader.open(file_path, profile: profile) do |reader|

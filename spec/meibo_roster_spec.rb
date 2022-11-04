@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-RSpec.describe Meibo::RosterInformation do
+RSpec.describe Meibo::Roster do
   let(:oneroster_zip_file_path) { Dir.mktmpdir + '/oneroster.zip' }
 
   before do
-    package = Meibo::RosterInformation.new(profile: Meibo::JapanProfile)
+    package = Meibo::Roster.new(profile: Meibo::JapanProfile)
     builder = Meibo::Builder.new(package: package, profile: Meibo::JapanProfile)
     school_year_academic_session = builder.build_academic_session(school_year: 2022)
     organization = builder.build_organization(
@@ -50,9 +50,9 @@ RSpec.describe Meibo::RosterInformation do
   after { File.unlink(oneroster_zip_file_path) }
 
   it "works" do
-    roster_information = Meibo::RosterInformation.from_file(oneroster_zip_file_path, profile: Meibo::JapanProfile)
+    roster = Meibo::Roster.from_file(oneroster_zip_file_path, profile: Meibo::JapanProfile)
 
-    academic_sessions = *roster_information.academic_sessions
+    academic_sessions = *roster.academic_sessions
     start_date = Date.new(2022, 4, 1)
     end_date = Date.new(2023, 3, 31)
     academic_sessions => [
@@ -66,7 +66,7 @@ RSpec.describe Meibo::RosterInformation do
         school_year: 2022
       }
     ]
-    organizations = *roster_information.organizations
+    organizations = *roster.organizations
     organizations => [
       {
         sourced_id: org_sourced_id,
@@ -76,7 +76,7 @@ RSpec.describe Meibo::RosterInformation do
         parent_sourced_id: NilClass
       }
     ]
-    courses = *roster_information.courses
+    courses = *roster.courses
     courses => [
       {
         sourced_id: course_sourced_id,
@@ -89,7 +89,7 @@ RSpec.describe Meibo::RosterInformation do
         subject_codes: []
       }
     ]
-    classes = *roster_information.classes
+    classes = *roster.classes
     classes => [
       {
         sourced_id: classroom_sourced_id,
@@ -107,7 +107,7 @@ RSpec.describe Meibo::RosterInformation do
         special_needs: NilClass
       }
     ]
-    users = *roster_information.users
+    users = *roster.users
     users => [
       {
         sourced_id: user_sourced_id,
@@ -136,7 +136,7 @@ RSpec.describe Meibo::RosterInformation do
         home_class: NilClass
       }
     ]
-    demographics = *roster_information.demographics
+    demographics = *roster.demographics
     demographics => [
       {
         sourced_id: ^user_sourced_id,
@@ -155,7 +155,7 @@ RSpec.describe Meibo::RosterInformation do
         public_school_residence_status: NilClass
       }
     ]
-    user_profiles = *roster_information.user_profiles
+    user_profiles = *roster.user_profiles
     user_profiles => [
       {
         sourced_id: user_profile_sourced_id,
@@ -169,7 +169,7 @@ RSpec.describe Meibo::RosterInformation do
         password: NilClass
       }
     ]
-    roles = *roster_information.roles
+    roles = *roster.roles
     roles => [
       {
         sourced_id: String,
@@ -182,7 +182,7 @@ RSpec.describe Meibo::RosterInformation do
         user_profile_sourced_id: ^user_profile_sourced_id
       }
     ]
-    enrollments = *roster_information.enrollments
+    enrollments = *roster.enrollments
     enrollments => [
       {
         sourced_id: String,
