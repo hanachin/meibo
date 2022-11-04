@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    meibo (0.2.0)
+    meibo (0.3.0)
       rubyzip
       zeitwerk
 
@@ -67,7 +67,7 @@ GEM
     tzinfo (2.0.5)
       concurrent-ruby (~> 1.0)
     unicode-display_width (2.3.0)
-    zeitwerk (2.6.1)
+    zeitwerk (2.6.4)
 
 PLATFORMS
   x86_64-linux
