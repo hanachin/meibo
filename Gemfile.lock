@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    meibo (0.1.0)
+    meibo (0.2.0)
       rubyzip
       zeitwerk
 
