@@ -1,8 +1,11 @@
 module Meibo
   class DataSet
-    def initialize(data)
+    attr_reader :roster
+
+    def initialize(data, roster:)
       @data = data
       @data_hash = data.to_h {|datum| [datum.sourced_id, datum] }
+      @roster = roster
     end
 
     def <<(new_data)

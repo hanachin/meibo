@@ -2,18 +2,19 @@
 
 RSpec.describe Meibo::UserSet do
   describe '#check_semantically_consistent' do
-    let(:primary_organization) { build(:meibo_organization, :elementary_school) }
-
     context 'When user has primary_organization' do
+      let(:primary_organization) { build(:meibo_organization, :elementary_school) }
       let(:user) { build(:meibo_user, primary_organization: primary_organization) }
 
       it "does not raise error if primary organization found" do
-        user_set = Meibo::UserSet.new([user], organization_set: Meibo::OrganizationSet.new([primary_organization]))
+        roster = build(:meibo_roster, organizations: [primary_organization])
+        user_set = Meibo::UserSet.new([user], roster: roster)
         expect { user_set.check_semantically_consistent }.not_to raise_error
       end
 
       it "raise error if primary organization not found" do
-        user_set = Meibo::UserSet.new([user], organization_set: Meibo::OrganizationSet.new([]))
+        roster = build(:meibo_roster)
+        user_set = Meibo::UserSet.new([user], roster: roster)
         expect { user_set.check_semantically_consistent }.to raise_error(Meibo::DataNotFoundError, /sourcedId: #{primary_organization.sourced_id} /)
       end
     end
@@ -22,7 +23,8 @@ RSpec.describe Meibo::UserSet do
       let(:user) { build(:meibo_user, primary_organization: nil) }
 
       it "does not raise error" do
-        user_set = Meibo::UserSet.new([user], organization_set: Meibo::OrganizationSet.new([]))
+        roster = build(:meibo_roster)
+        user_set = Meibo::UserSet.new([user], roster: roster)
         expect { user_set.check_semantically_consistent }.not_to raise_error
       end
     end

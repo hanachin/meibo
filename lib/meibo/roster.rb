@@ -69,15 +69,15 @@ module Meibo
     def initialize(profile: BaseProfile, manifest_properties: {}, academic_sessions: [], classes: [], courses: [], demographics: [], enrollments: [], organizations: [], roles: [], user_profiles: [], users: [])
       @profile = profile
       @manifest_properties = manifest_properties
-      @academic_sessions = AcademicSessionSet.new(academic_sessions)
-      @organizations = OrganizationSet.new(organizations)
-      @courses = CourseSet.new(courses, academic_session_set: @academic_sessions, organization_set: @organizations)
-      @classes = ClassroomSet.new(classes, academic_session_set: @academic_sessions, course_set: @courses, organization_set: @organizations)
-      @users = UserSet.new(users, organization_set: @organizations)
-      @demographics = DemographicSet.new(demographics, user_set: @users)
-      @user_profiles = UserProfileSet.new(user_profiles, user_set: @users)
-      @roles = RoleSet.new(roles, organization_set: @organizations, user_set: @users, user_profile_set: @user_profiles)
-      @enrollments = EnrollmentSet.new(enrollments, classroom_set: @classes, organization_set: @organizations, user_set: @users)
+      @academic_sessions = AcademicSessionSet.new(academic_sessions, roster: self)
+      @organizations = OrganizationSet.new(organizations, roster: self)
+      @courses = CourseSet.new(courses, roster: self)
+      @classes = ClassroomSet.new(classes, roster: self)
+      @users = UserSet.new(users, roster: self)
+      @demographics = DemographicSet.new(demographics, roster: self)
+      @user_profiles = UserProfileSet.new(user_profiles, roster: self)
+      @roles = RoleSet.new(roles, roster: self)
+      @enrollments = EnrollmentSet.new(enrollments, roster: self)
     end
 
     def check_semantically_consistent
