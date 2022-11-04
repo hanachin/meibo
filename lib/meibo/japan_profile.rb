@@ -28,12 +28,20 @@ module Meibo
       file_users: Meibo::JapanProfile::User
     }
 
+    DATA_SET = BaseProfile::DATA_SET.merge(
+      users: UserSet
+    )
+
     def self.builder_for(key)
       BUILDERS[key]
     end
 
     def self.data_model_for(file_attribute)
       DATA_MODELS[file_attribute]
+    end
+
+    def self.data_set_for(name)
+      DATA_SET[name]
     end
   end
 end

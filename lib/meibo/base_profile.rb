@@ -26,12 +26,28 @@ module Meibo
       file_users: Meibo::User
     }
 
+    DATA_SET = {
+      academic_sessions: Meibo::AcademicSessionSet,
+      classes: Meibo::ClassroomSet,
+      courses: Meibo::CourseSet,
+      demographics: Meibo::DemographicSet,
+      enrollments: Meibo::EnrollmentSet,
+      orgs: Meibo::OrganizationSet,
+      roles: Meibo::RoleSet,
+      user_profiles: Meibo::UserProfileSet,
+      users: Meibo::UserSet
+    }
+
     def self.builder_for(key)
       BUILDERS[key]
     end
 
     def self.data_model_for(file_attribute)
       DATA_MODELS[file_attribute]
+    end
+
+    def self.data_set_for(name)
+      DATA_SET[name]
     end
   end
 end
