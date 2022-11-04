@@ -34,7 +34,7 @@ module Meibo
       @data.empty?
     end
 
-    def find_by_sourced_id(sourced_id)
+    def find(sourced_id)
       @data_hash.fetch(sourced_id)
     rescue KeyError
       raise DataNotFoundError, "sourcedId: #{sourced_id} が見つかりません"

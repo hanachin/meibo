@@ -8,7 +8,7 @@ module Meibo
       each do |academic_session|
         next unless academic_session.parent_sourced_id
 
-        find_by_sourced_id(academic_session.parent_sourced_id)
+        find(academic_session.parent_sourced_id)
       end
     end
   end

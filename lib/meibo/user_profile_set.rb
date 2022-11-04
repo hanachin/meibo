@@ -6,7 +6,7 @@ module Meibo
       super
 
       each do |user_profile|
-        roster.users.find_by_sourced_id(user_profile.user_sourced_id)
+        roster.users.find(user_profile.user_sourced_id)
       end
     end
   end

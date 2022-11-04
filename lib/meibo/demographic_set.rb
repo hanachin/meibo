@@ -6,7 +6,7 @@ module Meibo
       super
 
       each do |demographic|
-        roster.users.find_by_sourced_id(demographic.sourced_id)
+        roster.users.find(demographic.sourced_id)
       end
     end
   end

@@ -7,11 +7,11 @@ module Meibo
 
       each do |user|
         if user.primary_org_sourced_id
-          roster.organizations.find_by_sourced_id(user.primary_org_sourced_id)
+          roster.organizations.find(user.primary_org_sourced_id)
         end
 
         user.agent_sourced_ids.each do |agent_sourced_id|
-          find_by_sourced_id(agent_sourced_id)
+          find(agent_sourced_id)
         end
       end
     end

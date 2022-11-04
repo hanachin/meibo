@@ -8,7 +8,7 @@ module Meibo
       each do |organization|
         next unless organization.parent_sourced_id
 
-        find_by_sourced_id(organization.parent_sourced_id)
+        find(organization.parent_sourced_id)
       end
     end
   end

@@ -6,9 +6,9 @@ module Meibo
       super
 
       each do |enrollment|
-        roster.classes.find_by_sourced_id(enrollment.class_sourced_id)
-        roster.organizations.find_by_sourced_id(enrollment.school_sourced_id)
-        roster.users.find_by_sourced_id(enrollment.user_sourced_id)
+        roster.classes.find(enrollment.class_sourced_id)
+        roster.organizations.find(enrollment.school_sourced_id)
+        roster.users.find(enrollment.user_sourced_id)
       end
     end
   end
