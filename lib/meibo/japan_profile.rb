@@ -2,8 +2,6 @@
 
 module Meibo
   module JapanProfile
-    include BaseProfile
-
     BUILDERS = {
       academic_session: Builder::AcademicSessionBuilder.create(AcademicSession),
       class: Builder::ClassroomBuilder.create(Classroom),
