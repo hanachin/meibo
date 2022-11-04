@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Meibo
-  module BaseProfile
+  class Profile
     BUILDERS = {
       academic_session: Builder::AcademicSessionBuilder.create(AcademicSession),
       class: Builder::ClassroomBuilder.create(Classroom),
@@ -38,16 +38,24 @@ module Meibo
       users: Meibo::UserSet
     }
 
-    def self.builder_for(key)
-      BUILDERS[key]
+    attr_reader :builders, :data_models, :data_set
+
+    def initialize(builders: BUILDERS, data_models: DATA_MODELS, data_set: DATA_SET)
+      @builders = builders
+      @data_models = data_models
+      @data_set = data_set
     end
 
-    def self.data_model_for(file_attribute)
-      DATA_MODELS[file_attribute]
+    def builder_for(key)
+      builders[key]
     end
 
-    def self.data_set_for(name)
-      DATA_SET[name]
+    def data_model_for(file_attribute)
+      data_models[file_attribute]
+    end
+
+    def data_set_for(name)
+      data_set[name]
     end
   end
 end

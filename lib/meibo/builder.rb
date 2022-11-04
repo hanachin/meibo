@@ -10,7 +10,7 @@ module Meibo
 
     def_delegators :@package, :academic_sessions, :classes, :courses, :demographics, :enrollments, :organizations, :roles, :users, :user_profiles
 
-    def initialize(package:, profile: BaseProfile)
+    def initialize(package:, profile: Profile.new)
       @package = package
       @profile = profile
     end

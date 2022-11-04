@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Meibo
-  module JapanProfile
+  class JapanProfile < ::Meibo::Profile
     BUILDERS = {
       academic_session: Builder::AcademicSessionBuilder.create(AcademicSession),
       class: Builder::ClassroomBuilder.create(Classroom),
@@ -15,31 +15,23 @@ module Meibo
     }
 
     DATA_MODELS = {
-      file_academic_sessions: Meibo::JapanProfile::AcademicSession,
-      file_classes: Meibo::JapanProfile::Classroom,
-      file_courses: Meibo::JapanProfile::Course,
-      file_demographics: Meibo::JapanProfile::Demographic,
-      file_enrollments: Meibo::JapanProfile::Enrollment,
-      file_orgs: Meibo::JapanProfile::Organization,
-      file_roles: Meibo::JapanProfile::Role,
-      file_user_profiles: Meibo::JapanProfile::UserProfile,
-      file_users: Meibo::JapanProfile::User
+      file_academic_sessions: AcademicSession,
+      file_classes: Classroom,
+      file_courses: Course,
+      file_demographics: Demographic,
+      file_enrollments: Enrollment,
+      file_orgs: Organization,
+      file_roles: Role,
+      file_user_profiles: UserProfile,
+      file_users: User
     }
 
-    DATA_SET = BaseProfile::DATA_SET.merge(
+    DATA_SET = ::Meibo::Profile::DATA_SET.merge(
       users: UserSet
     )
 
-    def self.builder_for(key)
-      BUILDERS[key]
-    end
-
-    def self.data_model_for(file_attribute)
-      DATA_MODELS[file_attribute]
-    end
-
-    def self.data_set_for(name)
-      DATA_SET[name]
+    def initialize(builders: BUILDERS, data_models: DATA_MODELS, data_set: DATA_SET)
+      super
     end
   end
 end

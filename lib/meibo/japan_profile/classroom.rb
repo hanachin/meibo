@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Meibo
-  module JapanProfile
+  class JapanProfile < ::Meibo::Profile
     class Classroom < ::Meibo::Classroom
       DataModel.define(
         self,

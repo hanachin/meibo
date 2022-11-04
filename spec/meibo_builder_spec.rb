@@ -3,7 +3,7 @@
 RSpec.describe Meibo::Builder do
   it "works" do
     package = Meibo::Roster.new
-    builder = Meibo::Builder.new(package: package, profile: Meibo::JapanProfile)
+    builder = Meibo::Builder.new(package: package, profile: Meibo::JapanProfile.new)
     school_year_academic_session = builder.build_academic_session(school_year: 2022)
     organization = builder.build_organization(
       name: '小学校',

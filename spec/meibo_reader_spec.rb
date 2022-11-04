@@ -6,8 +6,9 @@ RSpec.describe Meibo::Reader do
   let(:oneroster_zip_file_path) { Dir.mktmpdir + '/oneroster.zip' }
 
   before do
-    package = Meibo::Roster.new(profile: Meibo::JapanProfile)
-    builder = Meibo::Builder.new(package: package, profile: Meibo::JapanProfile)
+    profile = Meibo::JapanProfile.new
+    package = Meibo::Roster.new(profile: profile)
+    builder = Meibo::Builder.new(package: package, profile: profile)
     school_year_academic_session = builder.build_academic_session(school_year: 2022)
     organization = builder.build_organization(
       name: '小学校',
@@ -52,7 +53,7 @@ RSpec.describe Meibo::Reader do
   after { File.unlink(oneroster_zip_file_path) }
 
   it "works" do
-    Meibo::Reader.open(oneroster_zip_file_path, profile: Meibo::JapanProfile) do |reader|
+    Meibo::Reader.open(oneroster_zip_file_path, profile: Meibo::JapanProfile.new) do |reader|
       reader.manifest => {
         manifest_version: '1.0',
         oneroster_version: '1.2',

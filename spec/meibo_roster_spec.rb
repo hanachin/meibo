@@ -4,8 +4,9 @@ RSpec.describe Meibo::Roster do
   let(:oneroster_zip_file_path) { Dir.mktmpdir + '/oneroster.zip' }
 
   before do
-    package = Meibo::Roster.new(profile: Meibo::JapanProfile)
-    builder = Meibo::Builder.new(package: package, profile: Meibo::JapanProfile)
+    profile = Meibo::JapanProfile.new
+    package = Meibo::Roster.new(profile: profile)
+    builder = Meibo::Builder.new(package: package, profile: profile)
     school_year_academic_session = builder.build_academic_session(school_year: 2022)
     organization = builder.build_organization(
       name: '小学校',
@@ -50,7 +51,7 @@ RSpec.describe Meibo::Roster do
   after { File.unlink(oneroster_zip_file_path) }
 
   it "works" do
-    roster = Meibo::Roster.from_file(oneroster_zip_file_path, profile: Meibo::JapanProfile)
+    roster = Meibo::Roster.from_file(oneroster_zip_file_path, profile: Meibo::JapanProfile.new)
 
     academic_sessions = *roster.academic_sessions
     start_date = Date.new(2022, 4, 1)
