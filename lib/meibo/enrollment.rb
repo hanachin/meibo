@@ -33,7 +33,7 @@ module Meibo
       }
     )
 
-    def initialize(sourced_id:, status: nil, date_last_modified: nil, class_sourced_id:, school_sourced_id:, user_sourced_id:, role:, primary: nil, begin_date: nil, end_date: nil, shusseki_no: nil, public_flg: nil, **extension_fields)
+    def initialize(sourced_id:, status: nil, date_last_modified: nil, class_sourced_id:, school_sourced_id:, user_sourced_id:, role:, primary: nil, begin_date: nil, end_date: nil, **extension_fields)
       @sourced_id = sourced_id
       @status = status
       @date_last_modified = date_last_modified
@@ -43,8 +43,6 @@ module Meibo
       @role = role
       @begin_date = begin_date
       @end_date = end_date
-      @shusseki_no = shusseki_no
-      @public_flg = public_flg
       @extension_fields = extension_fields
     end
 
