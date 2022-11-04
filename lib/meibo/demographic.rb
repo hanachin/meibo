@@ -66,5 +66,21 @@ module Meibo
       @public_school_residence_status = public_school_residence_status
       @extension_fields = extension_fields
     end
+
+    def male?
+      sex == SEX[:male]
+    end
+
+    def female?
+      sex == SEX[:female]
+    end
+
+    def unspecified?
+      sex == SEX[:unspecified]
+    end
+
+    def other?
+      sex == SEX[:other]
+    end
   end
 end

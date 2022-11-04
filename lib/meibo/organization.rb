@@ -40,5 +40,29 @@ module Meibo
       @parent_sourced_id = parent_sourced_id
       @extension_fields = extension_fields
     end
+
+    def department?
+      type == TYPES[:department]
+    end
+
+    def school?
+      type == TYPES[:school]
+    end
+
+    def district?
+      type == TYPES[:district]
+    end
+
+    def local?
+      type == TYPES[:local]
+    end
+
+    def state?
+      type == TYPES[:state]
+    end
+
+    def national?
+      type == TYPES[:national]
+    end
   end
 end

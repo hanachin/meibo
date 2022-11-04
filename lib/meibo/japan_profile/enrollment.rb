@@ -30,6 +30,10 @@ module Meibo
         @shusseki_no = shusseki_no
         @public_flg = public_flg
       end
+
+      def guardian?
+        role == ROLES[:guardian]
+      end
     end
   end
 end

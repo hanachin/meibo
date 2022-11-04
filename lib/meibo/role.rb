@@ -69,5 +69,53 @@ module Meibo
     def secondary?
       @role_type == TYPES['secondary']
     end
+
+    def aide?
+      role == ROLES[:aide]
+    end
+
+    def counselor?
+      role == ROLES[:counselor]
+    end
+
+    def district_administrator?
+      role == ROLES[:district_administrator]
+    end
+
+    def guardian?
+      role == ROLES[:guardian]
+    end
+
+    def parent?
+      role == ROLES[:parent]
+    end
+
+    def principal?
+      role == ROLES[:principal]
+    end
+
+    def proctor?
+      role == ROLES[:proctor]
+    end
+
+    def relative?
+      role == ROLES[:relative]
+    end
+
+    def site_administrator?
+      role == ROLES[:site_administrator]
+    end
+
+    def student?
+      role == ROLES[:student]
+    end
+
+    def system_administrator?
+      role == ROLES[:system_administrator]
+    end
+
+    def teacher?
+      role == ROLES[:teacher]
+    end
   end
 end

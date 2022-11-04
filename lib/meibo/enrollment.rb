@@ -47,5 +47,21 @@ module Meibo
       @public_flg = public_flg
       @extension_fields = extension_fields
     end
+
+    def administrator?
+      role == ROLES[:administrator]
+    end
+
+    def proctor?
+      role == ROLES[:proctor]
+    end
+
+    def student?
+      role == ROLES[:student]
+    end
+
+    def teacher?
+      role == ROLES[:teacher]
+    end
   end
 end

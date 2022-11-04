@@ -63,5 +63,13 @@ module Meibo
       @periods = periods
       @extension_fields = extension_fields
     end
+
+    def homeroom?
+      class_type == TYPES[:homeroom]
+    end
+
+    def scheduled?
+      class_type == TYPES[:scheduled]
+    end
   end
 end

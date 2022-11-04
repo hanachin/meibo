@@ -44,5 +44,21 @@ module Meibo
       @school_year = school_year
       @extension_fields = extension_fields
     end
+
+    def grading_period?
+      type == TYPES[:grading_period]
+    end
+
+    def semester?
+      type == TYPES[:semester]
+    end
+
+    def school_year?
+      type == TYPES[:school_year]
+    end
+
+    def term?
+      type == TYPES[:term]
+    end
   end
 end
