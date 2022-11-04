@@ -61,5 +61,13 @@ module Meibo
       @user_profile_sourced_id = user_profile_sourced_id
       @extension_fields = extension_fields
     end
+
+    def primary?
+      @role_type == TYPES['primary']
+    end
+
+    def secondary?
+      @role_type == TYPES['secondary']
+    end
   end
 end
