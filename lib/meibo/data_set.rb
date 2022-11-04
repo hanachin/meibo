@@ -1,5 +1,7 @@
 module Meibo
   class DataSet
+    include Enumerable
+
     attr_reader :roster
 
     def initialize(data, roster:)
@@ -38,10 +40,6 @@ module Meibo
       @data_hash.fetch(sourced_id)
     rescue KeyError
       raise DataNotFoundError, "sourcedId: #{sourced_id} が見つかりません"
-    end
-
-    def to_a
-      @data
     end
   end
 end
