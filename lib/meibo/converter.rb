@@ -23,7 +23,7 @@ module Meibo
         header_field_to_attribute_name_map = attribute_name_to_header_field_map.to_h {|attribute, header_field|
           [header_field, attribute]
         }.freeze
-        lambda {|field| header_field_to_attribute_name_map.fetch(field) }
+        lambda {|field| header_field_to_attribute_name_map.fetch(field, field) }
       end
 
       def build_parser_converter(fields:, converters:)
