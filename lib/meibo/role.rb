@@ -63,11 +63,11 @@ module Meibo
     end
 
     def primary?
-      @role_type == TYPES['primary']
+      @role_type == TYPES[:primary]
     end
 
     def secondary?
-      @role_type == TYPES['secondary']
+      @role_type == TYPES[:secondary]
     end
 
     def aide?
