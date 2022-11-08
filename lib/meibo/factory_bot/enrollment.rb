@@ -18,6 +18,14 @@ FactoryBot.define do
     school_sourced_id { school&.sourced_id }
     user_sourced_id { user&.sourced_id }
 
+    trait :administrator do
+      role { Meibo::Enrollment::ROLES[:administrator] }
+    end
+
+    trait :proctor do
+      role { Meibo::Enrollment::ROLES[:proctor] }
+    end
+
     trait :student do
       role { Meibo::Enrollment::ROLES[:student] }
     end
@@ -26,16 +34,12 @@ FactoryBot.define do
       role { Meibo::Enrollment::ROLES[:teacher] }
     end
 
-    trait :administrator do
-      role { Meibo::Enrollment::ROLES[:administrator] }
+    trait :jp do
+      initialize_with { Meibo::JapanProfile::Enrollment.new(**attributes) }
     end
 
     trait :guardian do
       role { Meibo::Enrollment::ROLES[:guardian] }
-    end
-
-    trait :jp do
-      initialize_with { Meibo::JapanProfile::Enrollment.new(**attributes) }
     end
 
     trait :public do

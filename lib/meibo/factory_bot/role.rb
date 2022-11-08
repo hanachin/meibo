@@ -26,16 +26,52 @@ FactoryBot.define do
       role_type { Meibo::Role::TYPES[:secondary] }
     end
 
-    trait :teacher do
-      role { Meibo::Role::ROLES[:teacher] }
+    trait :aide do
+      role { Meibo::Role::ROLES[:aide] }
+    end
+
+    trait :counselor do
+      role { Meibo::Role::ROLES[:counselor] }
+    end
+
+    trait :district_administrator do
+      role { Meibo::Role::ROLES[:district_administrator] }
+    end
+
+    trait :guardian do
+      role { Meibo::Role::ROLES[:guardian] }
+    end
+
+    trait :parent do
+      role { Meibo::Role::ROLES[:parent] }
+    end
+
+    trait :principal do
+      role { Meibo::Role::ROLES[:principal] }
+    end
+
+    trait :proctor do
+      role { Meibo::Role::ROLES[:proctor] }
+    end
+
+    trait :relative do
+      role { Meibo::Role::ROLES[:relative] }
+    end
+
+    trait :site_administrator do
+      role { Meibo::Role::ROLES[:site_administrator] }
     end
 
     trait :student do
       role { Meibo::Role::ROLES[:student] }
     end
 
-    trait :guardian do
-      role { Meibo::Role::ROLES[:guardian] }
+    trait :system_administrator do
+      role { Meibo::Role::ROLES[:system_administrator] }
+    end
+
+    trait :teacher do
+      role { Meibo::Role::ROLES[:teacher] }
     end
 
     trait :jp do

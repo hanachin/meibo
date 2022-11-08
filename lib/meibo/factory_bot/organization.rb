@@ -30,12 +30,28 @@ FactoryBot.define do
       "#{school_type}#{prefecture_no}#{kubun}#{school_no}#{check_digit}"
     end
 
-    trait :district do
-      type { Meibo::Organization::TYPES[:district] }
+    trait :department do
+      type { Meibo::Organization::TYPES[:department] }
     end
 
     trait :school do
       type { Meibo::Organization::TYPES[:school] }
+    end
+
+    trait :district do
+      type { Meibo::Organization::TYPES[:district] }
+    end
+
+    trait :local do
+      type { Meibo::Organization::TYPES[:local] }
+    end
+
+    trait :state do
+      type { Meibo::Organization::TYPES[:state] }
+    end
+
+    trait :national do
+      type { Meibo::Organization::TYPES[:national] }
     end
 
     trait :elementary_school do |factory|

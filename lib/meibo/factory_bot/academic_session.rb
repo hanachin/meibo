@@ -20,6 +20,22 @@ FactoryBot.define do
     parent_sourced_id { parent&.sourced_id }
     school_year { today.year }
 
+    trait :grading_period do
+      type { Meibo::AcademicSession::TYPES[:grading_period] }
+    end
+
+    trait :semester do
+      type { Meibo::AcademicSession::TYPES[:semester] }
+    end
+
+    trait :school_year do
+      type { Meibo::AcademicSession::TYPES[:school_year] }
+    end
+
+    trait :term do
+      type { Meibo::AcademicSession::TYPES[:term] }
+    end
+
     trait :jp do
       initialize_with { Meibo::JapanProfile::AcademicSession.new(**attributes) }
     end
