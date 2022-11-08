@@ -35,7 +35,7 @@ FactoryBot.define do
     end
 
     trait :jp do
-      initialize_with { Meibo::JapanProfile::Classroom.new(**attributes) }
+      initialize_with { Meibo::JapanProfile::Enrollment.new(**attributes) }
     end
 
     trait :public do
