@@ -18,13 +18,15 @@ FactoryBot.define do
     sequence(:family_name) {|n| "Doe#{n}" }
     agent_sourced_ids { agents&.map(&:sourced_id) }
     primary_org_sourced_id { primary_organization&.sourced_id }
-  end
 
-  factory :meibo_jp_user, class: 'Meibo::JapanProfile::User', parent: :meibo_user do
-    transient do
-      homeroom { nil }
+    trait :jp do
+      initialize_with { Meibo::JapanProfile::User.new(**attributes) }
+
+      transient do
+        homeroom { nil }
+      end
+
+      home_class { homeroom&.sourced_id }
     end
-
-    home_class { homeroom&.sourced_id }
   end
 end

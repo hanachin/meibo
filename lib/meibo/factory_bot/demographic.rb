@@ -12,5 +12,9 @@ FactoryBot.define do
     end
 
     sourced_id { user&.sourced_id || SecureRandom.uuid }
+
+    trait :jp do
+      initialize_with { Meibo::JapanProfile::Demographic.new(**attributes) }
+    end
   end
 end

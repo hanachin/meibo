@@ -17,5 +17,9 @@ FactoryBot.define do
     vendor_id { 'meibo' }
     credential_type { 'plain' }
     sequence(:username) {|n| "user#{n}"}
+
+    trait :jp do
+      initialize_with { Meibo::JapanProfile::UserProfile.new(**attributes) }
+    end
   end
 end

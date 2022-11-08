@@ -17,5 +17,9 @@ FactoryBot.define do
     title { "#{school_year&.title}ホームルーム" }
     course_code { '' }
     org_sourced_id { organization&.sourced_id }
+
+    trait :jp do
+      initialize_with { Meibo::JapanProfile::Course.new(**attributes) }
+    end
   end
 end

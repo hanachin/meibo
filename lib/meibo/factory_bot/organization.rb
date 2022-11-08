@@ -43,5 +43,9 @@ FactoryBot.define do
       sequence(:name) {|n| "第#{n}小学校" }
       school_type { 'B1' }
     end
+
+    trait :jp do
+      initialize_with { Meibo::JapanProfile::Organization.new(**attributes) }
+    end
   end
 end

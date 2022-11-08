@@ -37,5 +37,9 @@ FactoryBot.define do
     trait :guardian do
       role { Meibo::Role::ROLES[:guardian] }
     end
+
+    trait :jp do
+      initialize_with { Meibo::JapanProfile::Role.new(**attributes) }
+    end
   end
 end

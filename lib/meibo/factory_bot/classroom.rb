@@ -19,10 +19,17 @@ FactoryBot.define do
     class_type { Meibo::Classroom::TYPES[:homeroom] }
     school_sourced_id { school&.sourced_id }
     term_sourced_ids { terms.map(&:sourced_id) }
-    special_needs { false }
+
+    trait :jp do
+      initialize_with { Meibo::JapanProfile::Classroom.new(**attributes) }
+    end
 
     trait :special_needs do
       special_needs { true }
+    end
+
+    trait :no_special_needs do
+      special_needs { false }
     end
   end
 end

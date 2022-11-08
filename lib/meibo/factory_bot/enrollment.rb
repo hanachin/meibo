@@ -33,5 +33,17 @@ FactoryBot.define do
     trait :guardian do
       role { Meibo::Enrollment::ROLES[:guardian] }
     end
+
+    trait :jp do
+      initialize_with { Meibo::JapanProfile::Classroom.new(**attributes) }
+    end
+
+    trait :public do
+      public_flg { true }
+    end
+
+    trait :private do
+      public_flg { false }
+    end
   end
 end

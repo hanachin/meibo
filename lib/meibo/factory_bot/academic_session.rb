@@ -19,5 +19,9 @@ FactoryBot.define do
     end_date { Date.new(school_year + 1, 3, 31).iso8601 }
     parent_sourced_id { parent&.sourced_id }
     school_year { today.year }
+
+    trait :jp do
+      initialize_with { Meibo::JapanProfile::AcademicSession.new(**attributes) }
+    end
   end
 end

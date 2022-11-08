@@ -8,7 +8,7 @@ RSpec.describe Meibo::JapanProfile::UserSet do
       let(:course) { build(:meibo_course, organization: school, school_year: school_year) }
       let(:home_class) { build(:meibo_classroom, course: course, school: school) }
       let(:school_year) { build(:meibo_academic_session) }
-      let(:user) { build(:meibo_jp_user, primary_organization: school, homeroom: home_class) }
+      let(:user) { build(:meibo_user, :jp, primary_organization: school, homeroom: home_class) }
 
       it "does not raise error if home_class found" do
         roster = build(:meibo_roster, organizations: [school], classes: [home_class])
@@ -24,7 +24,7 @@ RSpec.describe Meibo::JapanProfile::UserSet do
     end
 
     context 'When user has not home_class' do
-      let(:user) { build(:meibo_jp_user, primary_organization: school) }
+      let(:user) { build(:meibo_user, :jp, primary_organization: school) }
 
       it "does not raise error" do
         roster = build(:meibo_roster, organizations: [school], classes: [])
