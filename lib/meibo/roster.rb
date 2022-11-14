@@ -6,7 +6,7 @@ require 'csv'
 module Meibo
   class Roster
     class << self
-      def from_file(file_path, profile: Profile.new)
+      def from_file(file_path, profile: Meibo.default_profile)
         Reader.open(file_path, profile: profile) do |reader|
           begin
             manifest = reader.manifest
@@ -66,7 +66,7 @@ module Meibo
 
     attr_reader :profile, :manifest_properties, :academic_sessions, :classes, :courses, :demographics, :enrollments, :organizations, :roles, :user_profiles, :users
 
-    def initialize(profile: Profile.new, manifest_properties: {}, academic_sessions: [], classes: [], courses: [], demographics: [], enrollments: [], organizations: [], roles: [], user_profiles: [], users: [])
+    def initialize(profile: Meibo.default_profile, manifest_properties: {}, academic_sessions: [], classes: [], courses: [], demographics: [], enrollments: [], organizations: [], roles: [], user_profiles: [], users: [])
       @profile = profile
       @manifest_properties = manifest_properties
       @academic_sessions = AcademicSessionSet.new(academic_sessions, roster: self)
