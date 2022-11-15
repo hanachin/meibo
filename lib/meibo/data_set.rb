@@ -53,7 +53,7 @@ module Meibo
     private
 
     def data_by_org_sourced_id
-      @cache[:data_by_org_sourced_id] ||= @data.group_by(&:data_by_org_sourced_id).to_h do |org_sourced_id, data|
+      @cache[:data_by_org_sourced_id] ||= @data.group_by(&:org_sourced_id).to_h do |org_sourced_id, data|
         [org_sourced_id, new(data)]
       end
     end
