@@ -18,5 +18,13 @@ module Meibo
         end
       end
     end
+
+    def homeroom
+      @cache[:homeroom] ||= new(select(&:homeroom?))
+    end
+
+    def scheduled
+      @cache[:scheduled] ||= new(select(&:scheduled?))
+    end
   end
 end

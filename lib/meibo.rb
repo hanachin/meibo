@@ -15,6 +15,24 @@ module Meibo
 
   class << self
     attr_accessor :default_profile
+
+    def current_roster
+      thread_local_data[:roster]
+    end
+
+    def with_roster(roster)
+      orig_roster = thread_local_data[:roster]
+      thread_local_data[:roster] = roster
+      yield
+    ensure
+      thread_local_data[:roster] = orig_roster
+    end
+
+    private
+
+    def thread_local_data
+      Thread.current[:__meibo] ||= {}
+    end
   end
 end
 

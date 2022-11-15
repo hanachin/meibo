@@ -41,5 +41,13 @@ module Meibo
       @subject_codes = subject_codes
       @extension_fields = extension_fields
     end
+
+    def organization
+      Meibo.current_roster.organizations.find(org_sourced_id)
+    end
+
+    def school_year
+      Meibo.current_roster.academic_sessions.find(school_year_sourced_id)
+    end
   end
 end

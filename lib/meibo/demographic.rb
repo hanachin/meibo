@@ -82,5 +82,9 @@ module Meibo
     def other?
       sex == SEX[:other]
     end
+
+    def user
+      Meibo.current_roster.users.find(sourced_id)
+    end
   end
 end

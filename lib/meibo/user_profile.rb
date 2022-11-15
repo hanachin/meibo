@@ -38,5 +38,9 @@ module Meibo
       @password = password
       @extension_fields = extension_fields
     end
+
+    def user
+      Meibo.current_roster.users.find(user_sourced_id)
+    end
   end
 end

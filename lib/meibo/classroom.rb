@@ -71,5 +71,17 @@ module Meibo
     def scheduled?
       class_type == TYPES[:scheduled]
     end
+
+    def course
+      Meibo.current_roster.courses.find(course_sourced_id)
+    end
+
+    def school
+      Meibo.current_roster.organizations.find(school_sourced_id)
+    end
+
+    def terms
+      term_sourced_ids.map {|term_sourced_id| Meibo.current_roster.academic_sessions.find(term_sourced_id) }
+    end
   end
 end

@@ -60,5 +60,9 @@ module Meibo
     def term?
       type == TYPES[:term]
     end
+
+    def parent
+      Meibo.current_roster.academic_sessions.find(parent_sourced_id)
+    end
   end
 end

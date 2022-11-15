@@ -67,5 +67,37 @@ module Meibo
       @pronouns = pronouns
       @extension_fields = extension_fields
     end
+
+    def agents
+      agent_sourced_ids.map {|agent_sourced_id| Meibo.current_roster.users.find(agent_sourced_id) }
+    end
+
+    def demographic
+      Meibo.current_roster.demographics.find(sourced_id)
+    rescue DataNotFoundError
+      nil
+    end
+
+    def enrollments
+      Meibo.current_roster.enrollments.by_user(sourced_id)
+    end
+
+    def primary_organization
+      primary_org_sourced_id && Meibo.current_roster.organizations.find(primary_org_sourced_id)
+    end
+
+    def primary_role_in(org)
+      Meibo.current_roster.roles.by_user(sourced_id).detect do |role|
+        role.primary? && role.org_sourced_id == org.sourced_id
+      end
+    end
+
+    def roles
+      Meibo.current_roster.roles.by_user(sourced_id)
+    end
+
+    def user_profiles
+      Meibo.current_roster.user_profiles.by_user(sourced_id)
+    end
   end
 end

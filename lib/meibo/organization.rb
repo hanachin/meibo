@@ -64,5 +64,9 @@ module Meibo
     def national?
       type == TYPES[:national]
     end
+
+    def parent
+      parent_sourced_id && Meibo.current_roster.organizations.find(parent_sourced_id)
+    end
   end
 end

@@ -61,5 +61,17 @@ module Meibo
     def teacher?
       role == ROLES[:teacher]
     end
+
+    def classroom
+      Meibo.current_roster.classes.find(class_sourced_id)
+    end
+
+    def school
+      Meibo.current_roster.organizations.find(school_sourced_id)
+    end
+
+    def user
+      Meibo.current_roster.users.find(user_sourced_id)
+    end
   end
 end

@@ -22,6 +22,10 @@ module Meibo
         @kana_middle_name = kana_middle_name
         @home_class = home_class
       end
+
+      def home_classroom
+        home_class && Meibo.current_roster.classes.find(home_class)
+      end
     end
   end
 end
