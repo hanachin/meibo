@@ -62,7 +62,11 @@ module Meibo
     end
 
     def parent
-      Meibo.current_roster.academic_sessions.find(parent_sourced_id)
+      parent_sourced_id && Meibo.current_roster.academic_sessions.find(parent_sourced_id)
+    end
+
+    def children
+      Meibo.current_roster.academic_sessions.where(parent_sourced_id: sourced_id)
     end
   end
 end

@@ -197,5 +197,35 @@ RSpec.describe Meibo::Roster do
         public_flg: NilClass
       }
     ]
+
+    # relation methods works
+    Meibo.with_roster(roster) { academic_sessions[0].parent }
+    Meibo.with_roster(roster) { academic_sessions[0].children }
+    Meibo.with_roster(roster) { classes[0].course }
+    Meibo.with_roster(roster) { classes[0].school }
+    Meibo.with_roster(roster) { classes[0].terms }
+    Meibo.with_roster(roster) { classes[0].enrollments }
+    Meibo.with_roster(roster) { courses[0].classes }
+    Meibo.with_roster(roster) { courses[0].organization }
+    Meibo.with_roster(roster) { courses[0].school_year }
+    Meibo.with_roster(roster) { demographics[0].user }
+    Meibo.with_roster(roster) { enrollments[0].classroom }
+    Meibo.with_roster(roster) { enrollments[0].school }
+    Meibo.with_roster(roster) { enrollments[0].user }
+    Meibo.with_roster(roster) { organizations[0].enrollments }
+    Meibo.with_roster(roster) { organizations[0].classes }
+    Meibo.with_roster(roster) { organizations[0].courses }
+    Meibo.with_roster(roster) { organizations[0].roles }
+    Meibo.with_roster(roster) { roles[0].organization }
+    Meibo.with_roster(roster) { roles[0].user }
+    Meibo.with_roster(roster) { roles[0].user_profile }
+    Meibo.with_roster(roster) { user_profiles[0].user }
+    Meibo.with_roster(roster) { user_profiles[0].role }
+    Meibo.with_roster(roster) { users[0].agents }
+    Meibo.with_roster(roster) { users[0].demographic }
+    Meibo.with_roster(roster) { users[0].enrollments }
+    Meibo.with_roster(roster) { users[0].primary_organization }
+    Meibo.with_roster(roster) { users[0].roles }
+    Meibo.with_roster(roster) { users[0].user_profiles }
   end
 end

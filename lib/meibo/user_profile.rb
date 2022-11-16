@@ -42,5 +42,9 @@ module Meibo
     def user
       Meibo.current_roster.users.find(user_sourced_id)
     end
+
+    def role
+      Meibo.current_roster.roles.where(user_profile_sourced_id: sourced_id).first
+    end
   end
 end

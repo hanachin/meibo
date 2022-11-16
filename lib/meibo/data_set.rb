@@ -42,30 +42,22 @@ module Meibo
       raise DataNotFoundError, "sourcedId: #{sourced_id} が見つかりません"
     end
 
-    def by_organization(org_sourced_id)
-      data_by_org_sourced_id[org_sourced_id]
-    end
-
-    def by_user(user_sourced_id)
-      data_by_user_sourced_id[user_sourced_id]
+    def where(**conditions)
+      group_cache[conditions.keys.sort][conditions.values]
     end
 
     private
 
-    def data_by_org_sourced_id
-      @cache[:data_by_org_sourced_id] ||= @data.group_by(&:org_sourced_id).to_h do |org_sourced_id, data|
-        [org_sourced_id, new(data)]
+    def group_cache
+      @cache[:group_cache] ||= Hash.new do |hash, keys|
+        hash[keys] = @data.group_by {|datum| keys.map {|attribute| datum.public_send(attribute) } }.to_h do |values, data|
+          [values, new(data)]
+        end
       end
     end
 
     def data_by_sourced_id
       @cache[:data_by_sourced_id] ||= @data.to_h {|datum| [datum.sourced_id, datum] }
-    end
-
-    def data_by_user_sourced_id
-      @cache[:data_by_user_sourced_id] ||= @data.group_by(&:user_sourced_id).to_h do |user_sourced_id, data|
-        [user_sourced_id, new(data)]
-      end
     end
 
     def new(data)

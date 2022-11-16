@@ -49,5 +49,9 @@ module Meibo
     def school_year
       Meibo.current_roster.academic_sessions.find(school_year_sourced_id)
     end
+
+    def classes
+      Meibo.current_roster.classes.where(course_sourced_id: sourced_id)
+    end
   end
 end

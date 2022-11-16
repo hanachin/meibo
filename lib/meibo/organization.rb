@@ -68,5 +68,21 @@ module Meibo
     def parent
       parent_sourced_id && Meibo.current_roster.organizations.find(parent_sourced_id)
     end
+
+    def enrollments
+      Meibo.current_roster.enrollments.where(school_sourced_id: sourced_id)
+    end
+
+    def classes
+      Meibo.current_roster.classes.where(school_sourced_id: sourced_id)
+    end
+
+    def courses
+      Meibo.current_roster.courses.where(org_sourced_id: sourced_id)
+    end
+
+    def roles
+      Meibo.current_roster.roles.where(org_sourced_id: sourced_id)
+    end
   end
 end

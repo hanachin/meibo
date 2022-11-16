@@ -83,5 +83,9 @@ module Meibo
     def terms
       term_sourced_ids.map {|term_sourced_id| Meibo.current_roster.academic_sessions.find(term_sourced_id) }
     end
+
+    def enrollments
+      Meibo.current_roster.enrollments.where(class_sourced_id: sourced_id)
+    end
   end
 end

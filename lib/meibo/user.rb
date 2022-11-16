@@ -79,7 +79,7 @@ module Meibo
     end
 
     def enrollments
-      Meibo.current_roster.enrollments.by_user(sourced_id)
+      Meibo.current_roster.enrollments.where(user_sourced_id: sourced_id)
     end
 
     def primary_organization
@@ -87,17 +87,17 @@ module Meibo
     end
 
     def primary_role_in(org)
-      Meibo.current_roster.roles.by_user(sourced_id).detect do |role|
+      Meibo.current_roster.roles.where(user_sourced_id: sourced_id).detect do |role|
         role.primary? && role.org_sourced_id == org.sourced_id
       end
     end
 
     def roles
-      Meibo.current_roster.roles.by_user(sourced_id)
+      Meibo.current_roster.roles.where(user_sourced_id: sourced_id)
     end
 
     def user_profiles
-      Meibo.current_roster.user_profiles.by_user(sourced_id)
+      Meibo.current_roster.user_profiles.where(user_sourced_id: sourced_id)
     end
   end
 end
