@@ -220,6 +220,7 @@ RSpec.describe Meibo::Roster do
       enrollments[0].user
       organizations[0].collection
       organizations[0].parent
+      organizations[0].children
       organizations[0].enrollments
       organizations[0].classes
       organizations[0].courses

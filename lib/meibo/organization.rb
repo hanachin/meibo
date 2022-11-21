@@ -73,6 +73,10 @@ module Meibo
       parent_sourced_id && collection.find(parent_sourced_id)
     end
 
+    def children
+      collection.where(parent_sourced_id: sourced_id)
+    end
+
     def enrollments
       Meibo.current_roster.enrollments.where(school_sourced_id: sourced_id)
     end
