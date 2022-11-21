@@ -68,6 +68,10 @@ module Meibo
       @extension_fields = extension_fields
     end
 
+    def collection
+      Meibo.current_roster.users
+    end
+
     def agents
       agent_sourced_ids.map {|agent_sourced_id| Meibo.current_roster.users.find(agent_sourced_id) }
     end

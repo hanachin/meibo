@@ -39,6 +39,10 @@ module Meibo
       @extension_fields = extension_fields
     end
 
+    def collection
+      Meibo.current_roster.user_profiles
+    end
+
     def user
       Meibo.current_roster.users.find(user_sourced_id)
     end

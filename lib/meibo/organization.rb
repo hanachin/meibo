@@ -41,6 +41,10 @@ module Meibo
       @extension_fields = extension_fields
     end
 
+    def collection
+      Meibo.current_roster.organizations
+    end
+
     def department?
       type == TYPES[:department]
     end
@@ -66,7 +70,7 @@ module Meibo
     end
 
     def parent
-      parent_sourced_id && Meibo.current_roster.organizations.find(parent_sourced_id)
+      parent_sourced_id && collection.find(parent_sourced_id)
     end
 
     def enrollments

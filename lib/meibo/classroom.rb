@@ -64,6 +64,10 @@ module Meibo
       @extension_fields = extension_fields
     end
 
+    def collection
+      Meibo.current_roster.classes
+    end
+
     def homeroom?
       class_type == TYPES[:homeroom]
     end

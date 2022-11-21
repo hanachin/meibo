@@ -42,6 +42,10 @@ module Meibo
       @extension_fields = extension_fields
     end
 
+    def collection
+      Meibo.current_roster.courses
+    end
+
     def organization
       Meibo.current_roster.organizations.find(org_sourced_id)
     end

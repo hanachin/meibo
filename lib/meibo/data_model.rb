@@ -61,6 +61,10 @@ module Meibo
       klass.define_singleton_method(:write_converters) { write_converter }
     end
 
+    def lineno
+      collection.lineno(self)
+    end
+
     def to_csv(...)
       to_a.to_csv(...)
     end

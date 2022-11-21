@@ -198,34 +198,57 @@ RSpec.describe Meibo::Roster do
       }
     ]
 
-    # relation methods works
-    Meibo.with_roster(roster) { academic_sessions[0].parent }
-    Meibo.with_roster(roster) { academic_sessions[0].children }
-    Meibo.with_roster(roster) { classes[0].course }
-    Meibo.with_roster(roster) { classes[0].school }
-    Meibo.with_roster(roster) { classes[0].terms }
-    Meibo.with_roster(roster) { classes[0].enrollments }
-    Meibo.with_roster(roster) { courses[0].classes }
-    Meibo.with_roster(roster) { courses[0].organization }
-    Meibo.with_roster(roster) { courses[0].school_year }
-    Meibo.with_roster(roster) { demographics[0].user }
-    Meibo.with_roster(roster) { enrollments[0].classroom }
-    Meibo.with_roster(roster) { enrollments[0].school }
-    Meibo.with_roster(roster) { enrollments[0].user }
-    Meibo.with_roster(roster) { organizations[0].enrollments }
-    Meibo.with_roster(roster) { organizations[0].classes }
-    Meibo.with_roster(roster) { organizations[0].courses }
-    Meibo.with_roster(roster) { organizations[0].roles }
-    Meibo.with_roster(roster) { roles[0].organization }
-    Meibo.with_roster(roster) { roles[0].user }
-    Meibo.with_roster(roster) { roles[0].user_profile }
-    Meibo.with_roster(roster) { user_profiles[0].user }
-    Meibo.with_roster(roster) { user_profiles[0].role }
-    Meibo.with_roster(roster) { users[0].agents }
-    Meibo.with_roster(roster) { users[0].demographic }
-    Meibo.with_roster(roster) { users[0].enrollments }
-    Meibo.with_roster(roster) { users[0].primary_organization }
-    Meibo.with_roster(roster) { users[0].roles }
-    Meibo.with_roster(roster) { users[0].user_profiles }
+    Meibo.with_roster(roster) do
+      # make sure relation methods works
+      academic_sessions[0].collection
+      academic_sessions[0].parent
+      academic_sessions[0].children
+      classes[0].collection
+      classes[0].course
+      classes[0].school
+      classes[0].terms
+      classes[0].enrollments
+      courses[0].collection
+      courses[0].classes
+      courses[0].organization
+      courses[0].school_year
+      demographics[0].collection
+      demographics[0].user
+      enrollments[0].collection
+      enrollments[0].classroom
+      enrollments[0].school
+      enrollments[0].user
+      organizations[0].collection
+      organizations[0].parent
+      organizations[0].enrollments
+      organizations[0].classes
+      organizations[0].courses
+      organizations[0].roles
+      roles[0].collection
+      roles[0].organization
+      roles[0].user
+      roles[0].user_profile
+      user_profiles[0].collection
+      user_profiles[0].user
+      user_profiles[0].role
+      users[0].collection
+      users[0].agents
+      users[0].demographic
+      users[0].enrollments
+      users[0].primary_organization
+      users[0].roles
+      users[0].user_profiles
+
+      # lineno
+      expect(academic_sessions[0].lineno).to be_kind_of(Integer)
+      expect(classes[0].lineno).to be_kind_of(Integer)
+      expect(courses[0].lineno).to be_kind_of(Integer)
+      expect(demographics[0].lineno).to be_kind_of(Integer)
+      expect(enrollments[0].lineno).to be_kind_of(Integer)
+      expect(organizations[0].lineno).to be_kind_of(Integer)
+      expect(roles[0].lineno).to be_kind_of(Integer)
+      expect(user_profiles[0].lineno).to be_kind_of(Integer)
+      expect(users[0].lineno).to be_kind_of(Integer)
+    end
   end
 end

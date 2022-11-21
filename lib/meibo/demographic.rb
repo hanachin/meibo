@@ -67,6 +67,10 @@ module Meibo
       @extension_fields = extension_fields
     end
 
+    def collection
+      Meibo.current_roster.demographics
+    end
+
     def male?
       sex == SEX[:male]
     end

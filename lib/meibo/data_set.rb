@@ -42,6 +42,11 @@ module Meibo
       raise DataNotFoundError, "sourcedId: #{sourced_id} が見つかりません"
     end
 
+    def lineno(datum)
+      # NOTE: add one for one-based, and add one for header line
+      find_index(datum)&.+(2)
+    end
+
     def where(**conditions)
       group_cache[conditions.keys.sort][conditions.values]
     end

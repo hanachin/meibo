@@ -45,6 +45,10 @@ module Meibo
       @extension_fields = extension_fields
     end
 
+    def collection
+      Meibo.current_roster.academic_sessions
+    end
+
     def grading_period?
       type == TYPES[:grading_period]
     end
@@ -62,11 +66,11 @@ module Meibo
     end
 
     def parent
-      parent_sourced_id && Meibo.current_roster.academic_sessions.find(parent_sourced_id)
+      parent_sourced_id && collection.find(parent_sourced_id)
     end
 
     def children
-      Meibo.current_roster.academic_sessions.where(parent_sourced_id: sourced_id)
+      collection.where(parent_sourced_id: sourced_id)
     end
   end
 end

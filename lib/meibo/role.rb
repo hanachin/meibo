@@ -62,6 +62,10 @@ module Meibo
       @extension_fields = extension_fields
     end
 
+    def collection
+      Meibo.current_roster.roles
+    end
+
     def primary?
       @role_type == TYPES[:primary]
     end
