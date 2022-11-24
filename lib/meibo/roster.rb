@@ -69,15 +69,15 @@ module Meibo
     def initialize(profile: Meibo.default_profile, manifest_properties: {}, academic_sessions: [], classes: [], courses: [], demographics: [], enrollments: [], organizations: [], roles: [], user_profiles: [], users: [])
       @profile = profile
       @manifest_properties = manifest_properties
-      @academic_sessions = AcademicSessionSet.new(academic_sessions, roster: self)
-      @organizations = OrganizationSet.new(organizations, roster: self)
-      @courses = CourseSet.new(courses, roster: self)
-      @classes = ClassroomSet.new(classes, roster: self)
-      @users = UserSet.new(users, roster: self)
-      @demographics = DemographicSet.new(demographics, roster: self)
-      @user_profiles = UserProfileSet.new(user_profiles, roster: self)
-      @roles = RoleSet.new(roles, roster: self)
-      @enrollments = EnrollmentSet.new(enrollments, roster: self)
+      @academic_sessions = profile.data_set_for(:academic_sessions).new(academic_sessions, roster: self)
+      @classes = profile.data_set_for(:classes).new(classes, roster: self)
+      @courses = profile.data_set_for(:courses).new(courses, roster: self)
+      @demographics = profile.data_set_for(:demographics).new(demographics, roster: self)
+      @enrollments = profile.data_set_for(:enrollments).new(enrollments, roster: self)
+      @organizations = profile.data_set_for(:orgs).new(organizations, roster: self)
+      @roles = profile.data_set_for(:roles).new(roles, roster: self)
+      @user_profiles = profile.data_set_for(:user_profiles).new(user_profiles, roster: self)
+      @users = profile.data_set_for(:users).new(users, roster: self)
     end
 
     def builder
