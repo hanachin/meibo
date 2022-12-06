@@ -87,7 +87,7 @@ RSpec.describe Meibo::Reader do
           title: "2022\u5E74\u5EA6",
           type: "schoolYear",
           start_date: ^start_date,
-          end_date: end_date,
+          end_date: ^end_date,
           parent_sourced_id: NilClass,
           school_year: 2022
         }
