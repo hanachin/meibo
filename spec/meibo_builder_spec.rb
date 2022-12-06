@@ -32,7 +32,7 @@ RSpec.describe Meibo::Builder do
       credential_type: "example",
       username: "example"
     )
-    role = organization.build_role(
+    organization.build_role(
       user:,
       user_profile:,
       role: Meibo::JapanProfile::Role::ROLES[:student],
