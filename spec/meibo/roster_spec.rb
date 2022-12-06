@@ -239,15 +239,15 @@ RSpec.describe Meibo::Roster do
       users[0].user_profiles
 
       # lineno
-      expect(academic_sessions[0].lineno).to be_kind_of(Integer)
-      expect(classes[0].lineno).to be_kind_of(Integer)
-      expect(courses[0].lineno).to be_kind_of(Integer)
-      expect(demographics[0].lineno).to be_kind_of(Integer)
-      expect(enrollments[0].lineno).to be_kind_of(Integer)
-      expect(organizations[0].lineno).to be_kind_of(Integer)
-      expect(roles[0].lineno).to be_kind_of(Integer)
-      expect(user_profiles[0].lineno).to be_kind_of(Integer)
-      expect(users[0].lineno).to be_kind_of(Integer)
+      expect(academic_sessions[0].lineno).to be_a(Integer)
+      expect(classes[0].lineno).to be_a(Integer)
+      expect(courses[0].lineno).to be_a(Integer)
+      expect(demographics[0].lineno).to be_a(Integer)
+      expect(enrollments[0].lineno).to be_a(Integer)
+      expect(organizations[0].lineno).to be_a(Integer)
+      expect(roles[0].lineno).to be_a(Integer)
+      expect(user_profiles[0].lineno).to be_a(Integer)
+      expect(users[0].lineno).to be_a(Integer)
     end
   end
 end
