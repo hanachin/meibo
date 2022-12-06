@@ -44,9 +44,7 @@ module Meibo
 
     def initialize(sourced_id:, title:, course_sourced_id:, class_type:, school_sourced_id:, term_sourced_ids:, status: nil, date_last_modified: nil, grades: [],
                    class_code: nil, location: nil, subjects: [], subject_codes: [], periods: [], **extension_fields)
-      unless subjects.is_a?(Array) && subject_codes.is_a?(Array) && subjects.size == subject_codes.size
-        raise InvalidDataTypeError
-      end
+      raise InvalidDataTypeError unless subjects.is_a?(Array) && subject_codes.is_a?(Array) && subjects.size == subject_codes.size
 
       @sourced_id = sourced_id
       @status = status

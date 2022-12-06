@@ -26,9 +26,7 @@ module Meibo
 
     def initialize(sourced_id:, title:, org_sourced_id:, status: nil, date_last_modified: nil, school_year_sourced_id: nil,
                    course_code: nil, grades: [], subjects: [], subject_codes: [], **extension_fields)
-      unless subjects.is_a?(Array) && subject_codes.is_a?(Array) && subjects.size == subject_codes.size
-        raise InvalidDataTypeError
-      end
+      raise InvalidDataTypeError unless subjects.is_a?(Array) && subject_codes.is_a?(Array) && subjects.size == subject_codes.size
 
       @sourced_id = sourced_id
       @status = status
