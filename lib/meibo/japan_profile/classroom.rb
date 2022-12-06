@@ -6,7 +6,7 @@ module Meibo
       DataModel.define(
         self,
         attribute_name_to_header_field_map: superclass.attribute_name_to_header_field_map.merge(
-          special_needs: 'metadata.jp.specialNeeds'
+          special_needs: "metadata.jp.specialNeeds"
         ).freeze,
         converters: superclass.converters.merge(
           boolean: [:special_needs].freeze,

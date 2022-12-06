@@ -9,9 +9,9 @@ module Meibo
       #   - 保護者の場合guardian
       # MEMO: enrollments.csvの方ではadministratorとguardianも許可されているがズレてないか
       ROLES = {
-        teacher: 'teacher',
-        student: 'student',
-        guardian: 'guardian'
+        teacher: "teacher",
+        student: "student",
+        guardian: "guardian"
       }.freeze
 
       DataModel.define(

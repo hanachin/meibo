@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-require 'factory_bot'
-require 'securerandom'
+require "factory_bot"
+require "securerandom"
 
 FactoryBot.define do
-  factory :meibo_academic_session, class: 'Meibo::AcademicSession' do
+  factory :meibo_academic_session, class: "Meibo::AcademicSession" do
     initialize_with { new(**attributes) }
 
     transient do

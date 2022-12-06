@@ -6,9 +6,7 @@ module Meibo
       def check_semantically_consistent
         super
         each do |user|
-          if user.home_class
-            roster.classes.find(user.home_class)
-          end
+          roster.classes.find(user.home_class) if user.home_class
         end
       end
     end

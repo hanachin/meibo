@@ -10,8 +10,8 @@ require_relative "meibo/version"
 require_relative "meibo/errors"
 
 module Meibo
-  CSV_ENCODING = 'UTF-8'
-  ENUM_EXT_PATTERN = /\Aext:[a-zA-Z0-9\.\-_]+\z/
+  CSV_ENCODING = "UTF-8"
+  ENUM_EXT_PATTERN = /\Aext:[a-zA-Z0-9.\-_]+\z/
 
   class << self
     attr_accessor :default_profile

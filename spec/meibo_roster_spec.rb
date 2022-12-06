@@ -5,44 +5,44 @@ RSpec.describe Meibo::Roster do
 
   before do
     profile = Meibo::JapanProfile.new
-    roster = Meibo::Roster.new(profile: profile)
+    roster = Meibo::Roster.new(profile:)
     builder = roster.builder
     school_year_academic_session = builder.build_academic_session(school_year: 2022)
     organization = builder.build_organization(
-      name: '小学校',
+      name: "\u5C0F\u5B66\u6821",
       type: Meibo::JapanProfile::Organization::TYPES[:school],
-      identifier: 'B101200000019'
+      identifier: "B101200000019"
     )
     course = organization.build_course(
-      title: '2022年度',
+      title: "2022\u5E74\u5EA6",
       school_year: school_year_academic_session
     )
     classroom = course.build_classroom(
-      title: '1年1組',
-      grades: ['P1'], # TODO: 定数化
+      title: "1\u5E741\u7D44",
+      grades: ["P1"], # TODO: 定数化
       terms: [school_year_academic_session],
       class_type: Meibo::JapanProfile::Classroom::TYPES[:homeroom]
     )
     user = organization.build_user(
-      username: 'john.doe@example.com',
-      given_name: 'John',
-      family_name: 'Doe'
+      username: "john.doe@example.com",
+      given_name: "John",
+      family_name: "Doe"
     )
     user.build_demographic(sex: Meibo::JapanProfile::Demographic::SEX[:male])
     user_profile = user.build_profile(
-      profile_type: 'example',
-      vendor_id: 'example',
-      credential_type: 'example',
-      username: 'example'
+      profile_type: "example",
+      vendor_id: "example",
+      credential_type: "example",
+      username: "example"
     )
     role = organization.build_role(
-      user: user,
-      user_profile: user_profile,
+      user:,
+      user_profile:,
       role: Meibo::JapanProfile::Role::ROLES[:student],
       role_type: Meibo::JapanProfile::Role::TYPES[:primary]
     )
     classroom.build_enrollment(
-      user: user,
+      user:,
       role: Meibo::JapanProfile::Enrollment::ROLES[:student]
     )
     roster.write_to_buffer(roster_io)
@@ -57,8 +57,8 @@ RSpec.describe Meibo::Roster do
     academic_sessions => [
       {
         sourced_id: school_year_sourced_id,
-        title: '2022年度',
-        type: 'schoolYear',
+        title: "2022\u5E74\u5EA6",
+        type: "schoolYear",
         start_date: ^start_date,
         end_date: end_date,
         parent_sourced_id: NilClass,
@@ -69,9 +69,9 @@ RSpec.describe Meibo::Roster do
     organizations => [
       {
         sourced_id: org_sourced_id,
-        name: '小学校',
-        type: 'school',
-        identifier: 'B101200000019',
+        name: "\u5C0F\u5B66\u6821",
+        type: "school",
+        identifier: "B101200000019",
         parent_sourced_id: NilClass
       }
     ]
@@ -80,8 +80,8 @@ RSpec.describe Meibo::Roster do
       {
         sourced_id: course_sourced_id,
         school_year_sourced_id: ^school_year_sourced_id,
-        title: '2022年度',
-        course_code: '',
+        title: "2022\u5E74\u5EA6",
+        course_code: "",
         grades: [],
         org_sourced_id: ^org_sourced_id,
         subjects: [],
@@ -92,11 +92,11 @@ RSpec.describe Meibo::Roster do
     classes => [
       {
         sourced_id: classroom_sourced_id,
-        title: '1年1組',
-        grades: ['P1'],
+        title: "1\u5E741\u7D44",
+        grades: ["P1"],
         course_sourced_id: ^course_sourced_id,
         class_code: NilClass,
-        class_type: 'homeroom',
+        class_type: "homeroom",
         location: NilClass,
         school_sourced_id: ^org_sourced_id,
         term_sourced_ids: [^school_year_sourced_id],
@@ -111,10 +111,10 @@ RSpec.describe Meibo::Roster do
       {
         sourced_id: user_sourced_id,
         enabled_user: true,
-        username: 'john.doe@example.com',
+        username: "john.doe@example.com",
         user_ids: [],
-        given_name: 'John',
-        family_name: 'Doe',
+        given_name: "John",
+        family_name: "Doe",
         middle_name: NilClass,
         identifier: NilClass,
         email: NilClass,
@@ -140,7 +140,7 @@ RSpec.describe Meibo::Roster do
       {
         sourced_id: ^user_sourced_id,
         birth_date: NilClass,
-        sex: 'male',
+        sex: "male",
         american_indian_or_alaska_native: NilClass,
         asian: NilClass,
         black_or_african_american: NilClass,
@@ -159,12 +159,12 @@ RSpec.describe Meibo::Roster do
       {
         sourced_id: user_profile_sourced_id,
         user_sourced_id: ^user_sourced_id,
-        profile_type: 'example',
-        vendor_id: 'example',
+        profile_type: "example",
+        vendor_id: "example",
         application_id: nil,
         description: NilClass,
-        credential_type: 'example',
-        username: 'example',
+        credential_type: "example",
+        username: "example",
         password: NilClass
       }
     ]
@@ -173,8 +173,8 @@ RSpec.describe Meibo::Roster do
       {
         sourced_id: String,
         user_sourced_id: ^user_sourced_id,
-        role_type: 'primary',
-        role: 'student',
+        role_type: "primary",
+        role: "student",
         begin_date: NilClass,
         end_date: NilClass,
         org_sourced_id: ^org_sourced_id,
@@ -188,7 +188,7 @@ RSpec.describe Meibo::Roster do
         class_sourced_id: ^classroom_sourced_id,
         school_sourced_id: ^org_sourced_id,
         user_sourced_id: ^user_sourced_id,
-        role: 'student',
+        role: "student",
         begin_date: NilClass,
         end_date: NilClass,
         shusseki_no: NilClass,

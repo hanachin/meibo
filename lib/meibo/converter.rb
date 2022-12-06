@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-require 'date'
-require 'time'
+require "date"
+require "time"
 
 module Meibo
   module Converter
@@ -20,18 +20,18 @@ module Meibo
 
     class << self
       def build_header_field_to_attribute_converter(attribute_name_to_header_field_map)
-        header_field_to_attribute_name_map = attribute_name_to_header_field_map.to_h {|attribute, header_field|
+        header_field_to_attribute_name_map = attribute_name_to_header_field_map.to_h do |attribute, header_field|
           [header_field, attribute]
-        }.freeze
-        lambda {|field| header_field_to_attribute_name_map.fetch(field, field) }
+        end.freeze
+        ->(field) { header_field_to_attribute_name_map.fetch(field, field) }
       end
 
       def build_parser_converter(fields:, converters:)
-        build_converter(fields: fields, converters: converters, write_or_parser: 'parser')
+        build_converter(fields: fields, converters: converters, write_or_parser: "parser")
       end
 
       def build_write_converter(fields:, converters:)
-        build_converter(fields: fields, converters: converters, write_or_parser: 'write')
+        build_converter(fields: fields, converters: converters, write_or_parser: "write")
       end
 
       private
@@ -42,20 +42,18 @@ module Meibo
           method_name = "build_#{converter_type}_field_#{write_or_parser}_converter"
           if fields_to_be_converted && respond_to?(method_name, true)
             if converter_type == :enum
-              enum_definition = fields_to_be_converted.to_h {|field, enum| [fields.index(field), enum] }
+              enum_definition = fields_to_be_converted.to_h { |field, enum| [fields.index(field), enum] }
               send(method_name, enum_definition)
             else
-              indexes = fields_to_be_converted.map {|field| fields.index(field) }
+              indexes = fields_to_be_converted.map { |field| fields.index(field) }
               send(method_name, indexes)
             end
           end
         end
         lambda do |field, field_info|
           # NOTE: convert blank sourcedId to nil
-          if field_info.index.zero?
-            field = nil if field.empty?
-          end
-          converter_list.each {|converter| field = converter[field, field_info] }
+          field = nil if field_info.index.zero? && field.empty?
+          converter_list.each { |converter| field = converter[field, field_info] }
           field
         end
       end
@@ -65,9 +63,9 @@ module Meibo
         lambda do |field, field_info|
           if boolean_field_indexes.include?(field_info.index)
             case field
-            when 'true'
+            when "true"
               true
-            when 'false'
+            when "false"
               false
             when nil
               nil
@@ -96,8 +94,8 @@ module Meibo
         lambda do |field, field_info|
           if field && date_field_indexes.include?(field_info.index)
             begin
-              Date.strptime(field, '%Y-%m-%d')
-            rescue
+              Date.strptime(field, "%Y-%m-%d")
+            rescue StandardError
               raise InvalidDataTypeError
             end
           else
@@ -123,7 +121,7 @@ module Meibo
           if field && datetime_field_indexes.include?(field_info.index)
             begin
               Time.iso8601(field)
-            rescue
+            rescue StandardError
               raise InvalidDataTypeError
             end
           else
@@ -138,11 +136,8 @@ module Meibo
           return field unless field
 
           enum = enum_definition[field_info.index]
-          if enum
-            unless enum.any? {|e| e.match?(field) }
-              raise InvalidDataTypeError
-            end
-          end
+          raise InvalidDataTypeError if enum && !enum.any? { |e| e.match?(field) }
+
           field
         end
       end
@@ -153,7 +148,7 @@ module Meibo
           if field && integer_field_indexes.include?(field_info.index)
             begin
               Integer(field, 10)
-            rescue
+            rescue StandardError
               raise InvalidDataTypeError
             end
           else
@@ -170,7 +165,7 @@ module Meibo
               if field.empty?
                 nil
               else
-                field.join(',')
+                field.join(",")
               end
             end
           else
@@ -184,7 +179,7 @@ module Meibo
         lambda do |field, field_info|
           if list_field_indexes.include?(field_info.index)
             if field
-              field.split(',').map(&:strip)
+              field.split(",").map(&:strip)
             else
               []
             end
@@ -212,7 +207,7 @@ module Meibo
         status_field_indexes = status_field_indexes.dup.freeze
         lambda do |field, field_info|
           if field && status_field_indexes.include?(field_info.index)
-            raise InvalidDataTypeError, "invalid status: #{field}" unless field == 'active' || field == 'tobedeleted'
+            raise InvalidDataTypeError, "invalid status: #{field}" unless %w[active tobedeleted].include?(field)
           else
             field
           end
@@ -222,9 +217,12 @@ module Meibo
       def build_user_ids_field_parser_converter(user_ids_field_indexes)
         user_ids_field_indexes = user_ids_field_indexes.dup.freeze
         lambda do |field, field_info|
-          if user_ids_field_indexes.include?(field_info.index)
-            raise InvalidDataTypeError unless field.all? {|user_id| Meibo::User::USER_ID_FORMAT_REGEXP.match?(user_id) }
+          if user_ids_field_indexes.include?(field_info.index) && !field.all? do |user_id|
+               Meibo::User::USER_ID_FORMAT_REGEXP.match?(user_id)
+             end
+            raise InvalidDataTypeError
           end
+
           field
         end
       end
@@ -246,7 +244,7 @@ module Meibo
           if field && year_field_indexes.include?(field_info.index)
             begin
               Integer(field, 10)
-            rescue
+            rescue StandardError
               raise InvalidDataTypeError
             end
           else

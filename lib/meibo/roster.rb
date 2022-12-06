@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-require 'zip'
-require 'csv'
+require "zip"
+require "csv"
 
 module Meibo
   class Roster
@@ -24,8 +24,8 @@ module Meibo
         begin
           manifest = reader.manifest
         rescue CsvFileNotFoundError
-          raise NotSupportedError, 'OneRoster 1.0はサポートしていません'
-        rescue
+          raise NotSupportedError, "OneRoster 1.0\u306F\u30B5\u30DD\u30FC\u30C8\u3057\u3066\u3044\u307E\u305B\u3093"
+        rescue StandardError
           raise NotSupportedError, "#{Meibo::Manifest.filename}の読み込みに失敗しました"
         end
 
@@ -36,7 +36,8 @@ module Meibo
         validate_absent_files(reader, manifest.filenames(processing_mode: processing_modes[:absent]))
         validate_bulk_files(reader, manifest.filenames(processing_mode: processing_modes[:bulk]))
 
-        new(manifest_properties: manifest.to_h, profile: profile, **reader.load_bulk_files).tap(&:check_semantically_consistent)
+        new(manifest_properties: manifest.to_h, profile: profile,
+            **reader.load_bulk_files).tap(&:check_semantically_consistent)
       end
 
       def validate_absent_files(reader, absent_filenames)
@@ -70,13 +71,15 @@ module Meibo
       def validate_supported_processing_mode(manifest)
         return if manifest.file_attributes(processing_mode: Meibo::Manifest::PROCESSING_MODES[:delta]).empty?
 
-        raise NotSupportedError, 'DELTAはサポートしていません'
+        raise NotSupportedError, "DELTA\u306F\u30B5\u30DD\u30FC\u30C8\u3057\u3066\u3044\u307E\u305B\u3093"
       end
     end
 
-    attr_reader :profile, :manifest_properties, :academic_sessions, :classes, :courses, :demographics, :enrollments, :organizations, :roles, :user_profiles, :users
+    attr_reader :profile, :manifest_properties, :academic_sessions, :classes, :courses, :demographics, :enrollments,
+                :organizations, :roles, :user_profiles, :users
 
-    def initialize(profile: Meibo.default_profile, manifest_properties: {}, academic_sessions: [], classes: [], courses: [], demographics: [], enrollments: [], organizations: [], roles: [], user_profiles: [], users: [])
+    def initialize(profile: Meibo.default_profile, manifest_properties: {}, academic_sessions: [], classes: [],
+                   courses: [], demographics: [], enrollments: [], organizations: [], roles: [], user_profiles: [], users: [])
       @profile = profile
       @manifest_properties = manifest_properties
       @academic_sessions = profile.data_set_for(:academic_sessions).new(academic_sessions, roster: self)

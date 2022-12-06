@@ -11,15 +11,15 @@ module Meibo
       end
 
       def absent?
-        @mode == 'absent'
+        @mode == "absent"
       end
 
       def bulk?
-        @mode == 'bulk'
+        @mode == "bulk"
       end
 
       def delta?
-        @mode == 'delta'
+        @mode == "delta"
       end
 
       def ==(other)

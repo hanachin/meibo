@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'forwardable'
+require "forwardable"
 
 module Meibo
   class Builder
@@ -8,7 +8,8 @@ module Meibo
 
     attr_reader :roster, :profile
 
-    def_delegators :@roster, :academic_sessions, :classes, :courses, :demographics, :enrollments, :organizations, :roles, :users, :user_profiles
+    def_delegators :@roster, :academic_sessions, :classes, :courses, :demographics, :enrollments, :organizations,
+                   :roles, :users, :user_profiles
 
     def initialize(roster:, profile: Meibo.default_profile)
       @roster = roster

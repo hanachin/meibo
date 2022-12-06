@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-require 'csv'
-require 'zip'
+require "csv"
+require "zip"
 
 module Meibo
   class Reader
@@ -118,11 +118,9 @@ module Meibo
         file_roles: :roles,
         file_users: :users,
         file_user_profiles: :user_profiles
-      }.filter_map {|file_attribute, data_method|
-        if bulk_file_attributes.include?(file_attribute)
-          [data_method, public_send(data_method).to_a]
-        end
-      }.to_h
+      }.filter_map do |file_attribute, data_method|
+        [data_method, public_send(data_method).to_a] if bulk_file_attributes.include?(file_attribute)
+      end.to_h
     end
 
     def file_entry?(filename)

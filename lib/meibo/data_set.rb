@@ -12,7 +12,11 @@ module Meibo
 
     def <<(new_data)
       raise DataNotFoundError, "sourcedIdがありません" unless new_data.sourced_id
-      raise SourcedIdDuplicatedError, 'sourcedIdが重複しています' if data_by_sourced_id.key?(new_data.sourced_id)
+
+      if data_by_sourced_id.key?(new_data.sourced_id)
+        raise SourcedIdDuplicatedError,
+              "sourcedId\u304C\u91CD\u8907\u3057\u3066\u3044\u307E\u3059"
+      end
 
       @data << new_data
       @cache.clear
@@ -20,12 +24,11 @@ module Meibo
 
     def check_semantically_consistent
       unless @data.size == data_by_sourced_id.size
-        raise SourcedIdDuplicatedError, 'sourcedIdが重複しています'
+        raise SourcedIdDuplicatedError,
+              "sourcedId\u304C\u91CD\u8907\u3057\u3066\u3044\u307E\u3059"
       end
 
-      unless data_by_sourced_id[nil].nil?
-        raise DataNotFoundError, "sourcedIdがありません"
-      end
+      raise DataNotFoundError, "sourcedIdがありません" unless data_by_sourced_id[nil].nil?
     end
 
     def each(...)
@@ -55,14 +58,18 @@ module Meibo
 
     def group_cache
       @cache[:group_cache] ||= Hash.new do |hash, keys|
-        hash[keys] = @data.group_by {|datum| keys.map {|attribute| datum.public_send(attribute) } }.to_h do |values, data|
+        hash[keys] = @data.group_by do |datum|
+                       keys.map do |attribute|
+                         datum.public_send(attribute)
+                       end
+                     end.to_h do |values, data|
           [values, new(data)]
         end
       end
     end
 
     def data_by_sourced_id
-      @cache[:data_by_sourced_id] ||= @data.to_h {|datum| [datum.sourced_id, datum] }
+      @cache[:data_by_sourced_id] ||= @data.to_h { |datum| [datum.sourced_id, datum] }
     end
 
     def new(data)

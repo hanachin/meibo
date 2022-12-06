@@ -9,9 +9,7 @@ module Meibo
         roster.organizations.find(role.org_sourced_id)
         roster.users.find(role.user_sourced_id)
 
-        if role.user_profile_sourced_id
-          roster.user_profiles.find(role.user_profile_sourced_id)
-        end
+        roster.user_profiles.find(role.user_profile_sourced_id) if role.user_profile_sourced_id
       end
     end
 

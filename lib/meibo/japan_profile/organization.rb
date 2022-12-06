@@ -4,8 +4,8 @@ module Meibo
   class JapanProfile < ::Meibo::Profile
     class Organization < ::Meibo::Organization
       TYPES = {
-        district: 'district',
-        school: 'school'
+        district: "district",
+        school: "school"
       }.freeze
 
       DataModel.define(

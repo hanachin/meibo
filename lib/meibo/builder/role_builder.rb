@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'securerandom'
+require "securerandom"
 
 module Meibo
   class Builder
@@ -8,10 +8,10 @@ module Meibo
       extend BaseBuilder
 
       def self.builder_attribute_names
-        [:builder, :user, :organization, :user_profile]
+        %i[builder user organization user_profile]
       end
 
-      def initialize(builder:, sourced_id: SecureRandom.uuid, user:, organization:, user_profile: nil, **kw)
+      def initialize(builder:, user:, organization:, sourced_id: SecureRandom.uuid, user_profile: nil, **kw)
         super(
           sourced_id: sourced_id,
           user_sourced_id: user.sourced_id,

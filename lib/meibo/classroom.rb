@@ -3,46 +3,47 @@
 module Meibo
   class Classroom
     TYPES = {
-      homeroom: 'homeroom',
-      scheduled: 'scheduled'
+      homeroom: "homeroom",
+      scheduled: "scheduled"
     }.freeze
 
     DataModel.define(
       self,
       attribute_name_to_header_field_map: {
-        sourced_id: 'sourcedId',
-        status: 'status',
-        date_last_modified: 'dateLastModified',
-        title: 'title',
-        grades: 'grades',
-        course_sourced_id: 'courseSourcedId',
-        class_code: 'classCode',
-        class_type: 'classType',
-        location: 'location',
-        school_sourced_id: 'schoolSourcedId',
-        term_sourced_ids: 'termSourcedIds',
-        subjects: 'subjects',
-        subject_codes: 'subjectCodes',
-        periods: 'periods'
+        sourced_id: "sourcedId",
+        status: "status",
+        date_last_modified: "dateLastModified",
+        title: "title",
+        grades: "grades",
+        course_sourced_id: "courseSourcedId",
+        class_code: "classCode",
+        class_type: "classType",
+        location: "location",
+        school_sourced_id: "schoolSourcedId",
+        term_sourced_ids: "termSourcedIds",
+        subjects: "subjects",
+        subject_codes: "subjectCodes",
+        periods: "periods"
       }.freeze,
       converters: {
         datetime: [:date_last_modified].freeze,
         enum: {
           class_type: [*TYPES.values, ENUM_EXT_PATTERN].freeze
         }.freeze,
-        list: [
-          :grades,
-          :term_sourced_ids,
-          :subjects,
-          :subject_codes,
-          :periods
+        list: %i[
+          grades
+          term_sourced_ids
+          subjects
+          subject_codes
+          periods
         ].freeze,
-        required: [:sourced_id, :title, :class_type, :course_sourced_id, :term_sourced_ids, :school_sourced_id].freeze,
+        required: %i[sourced_id title class_type course_sourced_id term_sourced_ids school_sourced_id].freeze,
         status: [:status].freeze
       }
     )
 
-    def initialize(sourced_id:, status: nil, date_last_modified: nil, title:, grades: [], course_sourced_id:, class_code: nil, class_type:, location: nil, school_sourced_id:, term_sourced_ids:, subjects: [], subject_codes: [], periods: [], **extension_fields)
+    def initialize(sourced_id:, title:, course_sourced_id:, class_type:, school_sourced_id:, term_sourced_ids:, status: nil, date_last_modified: nil, grades: [],
+                   class_code: nil, location: nil, subjects: [], subject_codes: [], periods: [], **extension_fields)
       unless subjects.is_a?(Array) && subject_codes.is_a?(Array) && subjects.size == subject_codes.size
         raise InvalidDataTypeError
       end
@@ -85,7 +86,7 @@ module Meibo
     end
 
     def terms
-      term_sourced_ids.map {|term_sourced_id| Meibo.current_roster.academic_sessions.find(term_sourced_id) }
+      term_sourced_ids.map { |term_sourced_id| Meibo.current_roster.academic_sessions.find(term_sourced_id) }
     end
 
     def enrollments

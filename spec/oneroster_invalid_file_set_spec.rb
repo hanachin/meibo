@@ -1,19 +1,19 @@
 # frozen_string_literal: true
 
-RSpec.describe 'OneRoster v1p2 CSV Conformance TestSet 20220707v1', skip: !Dir.exist?('tmp/TestSet') do
-  Dir.glob('tmp/TestSet/InvalidFileSet/Rostering/IRb0*.zip') do |path|
-    test_case = File.basename(path, '.zip')
+RSpec.describe "OneRoster v1p2 CSV Conformance TestSet 20220707v1", skip: !Dir.exist?("tmp/TestSet") do
+  Dir.glob("tmp/TestSet/InvalidFileSet/Rostering/IRb0*.zip") do |path|
+    test_case = File.basename(path, ".zip")
     describe test_case do
-      it 'raise error' do
+      it "raise error" do
         expect { Meibo::Roster.from_file(path) }.to raise_error(Meibo::NotSupportedError)
       end
     end
   end
 
-  Dir.glob('tmp/TestSet/InvalidFileSet/Rostering/IRb1*.zip') do |path|
-    test_case = File.basename(path, '.zip')
+  Dir.glob("tmp/TestSet/InvalidFileSet/Rostering/IRb1*.zip") do |path|
+    test_case = File.basename(path, ".zip")
     describe test_case do
-      it 'raise error (Missing Data)' do
+      it "raise error (Missing Data)" do
         expect { Meibo::Roster.from_file(path) }.to raise_error(Meibo::MissingDataError)
       end
     end
@@ -39,46 +39,46 @@ RSpec.describe 'OneRoster v1p2 CSV Conformance TestSet 20220707v1', skip: !Dir.e
     IRb264
   ]
 
-  Dir.glob('tmp/TestSet/InvalidFileSet/Rostering/IRb2*.zip') do |path|
-    test_case = File.basename(path, '.zip')
+  Dir.glob("tmp/TestSet/InvalidFileSet/Rostering/IRb2*.zip") do |path|
+    test_case = File.basename(path, ".zip")
     if sourced_id_cases.include?(test_case)
       # NOTE: IRb247はリソースとの関連の検査
-      describe test_case, skip: test_case == 'IRb247' do
-        it 'raise error (Data Rules)' do
+      describe test_case, skip: test_case == "IRb247" do
+        it "raise error (Data Rules)" do
           expect { Meibo::Roster.from_file(path) }.to raise_error(Meibo::DataNotFoundError)
         end
       end
     else
       describe test_case do
-        it 'raise error (Data Rules)' do
+        it "raise error (Data Rules)" do
           expect { Meibo::Roster.from_file(path) }.to raise_error(Meibo::InvalidDataTypeError)
         end
       end
     end
   end
 
-  Dir.glob('tmp/TestSet/InvalidFileSet/Rostering/IRb{3*,4[0-4]*}.zip') do |path|
-    test_case = File.basename(path, '.zip')
+  Dir.glob("tmp/TestSet/InvalidFileSet/Rostering/IRb{3*,4[0-4]*}.zip") do |path|
+    test_case = File.basename(path, ".zip")
     describe test_case do
-      it 'raise error' do
+      it "raise error" do
         expect { Meibo::Roster.from_file(path) }.to raise_error(Meibo::MissingHeadersError)
       end
     end
   end
 
-  Dir.glob('tmp/TestSet/InvalidFileSet/Rostering/IRb4[5-9]*.zip') do |path|
-    test_case = File.basename(path, '.zip')
+  Dir.glob("tmp/TestSet/InvalidFileSet/Rostering/IRb4[5-9]*.zip") do |path|
+    test_case = File.basename(path, ".zip")
     describe test_case do
-      it 'raise error' do
+      it "raise error" do
         expect { Meibo::Roster.from_file(path) }.to raise_error(Meibo::ScrambledHeadersError)
       end
     end
   end
 
-  Dir.glob('tmp/TestSet/InvalidFileSet/Rostering/IRb5*.zip') do |path|
-    test_case = File.basename(path, '.zip')
+  Dir.glob("tmp/TestSet/InvalidFileSet/Rostering/IRb5*.zip") do |path|
+    test_case = File.basename(path, ".zip")
     describe test_case do
-      it 'raise error' do
+      it "raise error" do
         expect { Meibo::Roster.from_file(path) }.to raise_error(Meibo::InvalidDataTypeError)
       end
     end

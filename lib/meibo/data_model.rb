@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'csv'
+require "csv"
 
 module Meibo
   module DataModel
@@ -10,14 +10,11 @@ module Meibo
 
         actual_headers = CSV.parse_line(csv)
         missing_headers = header_fields - actual_headers
-        unless missing_headers.empty?
-          raise MissingHeadersError, "missing headers: #{missing_headers.join(',')}"
-        end
-        unless actual_headers.take(header_fields.size) == header_fields
-          raise ScrambledHeadersError
-        end
+        raise MissingHeadersError, "missing headers: #{missing_headers.join(",")}" unless missing_headers.empty?
+        raise ScrambledHeadersError unless actual_headers.take(header_fields.size) == header_fields
 
-        CSV.parse(csv, encoding: Meibo::CSV_ENCODING, headers: true, converters: parser_converters, header_converters: header_converters).each do |row|
+        CSV.parse(csv, encoding: Meibo::CSV_ENCODING, headers: true, converters: parser_converters,
+                       header_converters: header_converters).each do |row|
           yield new(**row.to_h)
         end
       end
@@ -78,7 +75,7 @@ module Meibo
     end
 
     def to_a
-      self.class.attribute_names.map {|attribute| public_send(attribute) }
+      self.class.attribute_names.map { |attribute| public_send(attribute) }
     end
 
     def to_h
