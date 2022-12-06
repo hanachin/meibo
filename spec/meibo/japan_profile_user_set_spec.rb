@@ -5,20 +5,20 @@ RSpec.describe Meibo::JapanProfile::UserSet do
     let(:school) { build(:meibo_organization, :elementary_school) }
 
     context "when user has home_class" do
-      let(:course) { build(:meibo_course, organization: school, school_year:) }
-      let(:home_class) { build(:meibo_classroom, course:, school:) }
+      let(:course) { build(:meibo_course, organization: school, school_year: school_year) }
+      let(:home_class) { build(:meibo_classroom, course: course, school: school) }
       let(:school_year) { build(:meibo_academic_session) }
       let(:user) { build(:meibo_user, :jp, primary_organization: school, homeroom: home_class) }
 
       it "does not raise error if home_class found" do
         roster = build(:meibo_roster, organizations: [school], classes: [home_class])
-        user_set = described_class.new([user], roster:)
+        user_set = described_class.new([user], roster: roster)
         expect { user_set.check_semantically_consistent }.not_to raise_error
       end
 
       it "raise error if primary organization not found" do
         roster = build(:meibo_roster, organizations: [school], classes: [])
-        user_set = described_class.new([user], roster:)
+        user_set = described_class.new([user], roster: roster)
         expect do
           user_set.check_semantically_consistent
         end.to raise_error(Meibo::DataNotFoundError, /sourcedId: #{home_class.sourced_id} /)
@@ -30,7 +30,7 @@ RSpec.describe Meibo::JapanProfile::UserSet do
 
       it "does not raise error" do
         roster = build(:meibo_roster, organizations: [school], classes: [])
-        user_set = described_class.new([user], roster:)
+        user_set = described_class.new([user], roster: roster)
         expect { user_set.check_semantically_consistent }.not_to raise_error
       end
     end

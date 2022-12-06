@@ -5,7 +5,7 @@ RSpec.describe Meibo::Roster do
 
   before do
     profile = Meibo::JapanProfile.new
-    roster = described_class.new(profile:)
+    roster = described_class.new(profile: profile)
     builder = roster.builder
     school_year_academic_session = builder.build_academic_session(school_year: 2022)
     organization = builder.build_organization(
@@ -36,13 +36,13 @@ RSpec.describe Meibo::Roster do
       username: "example"
     )
     organization.build_role(
-      user:,
-      user_profile:,
+      user: user,
+      user_profile: user_profile,
       role: Meibo::JapanProfile::Role::ROLES[:student],
       role_type: Meibo::JapanProfile::Role::TYPES[:primary]
     )
     classroom.build_enrollment(
-      user:,
+      user: user,
       role: Meibo::JapanProfile::Enrollment::ROLES[:student]
     )
     roster.write_to_buffer(roster_io)
@@ -54,7 +54,8 @@ RSpec.describe Meibo::Roster do
     academic_sessions = *roster.academic_sessions
     start_date = Date.new(2022, 4, 1)
     end_date = Date.new(2023, 3, 31)
-    academic_sessions => [
+    case academic_sessions
+    in [
       {
         sourced_id: school_year_sourced_id,
         title: "2022\u5E74\u5EA6",
@@ -65,8 +66,11 @@ RSpec.describe Meibo::Roster do
         school_year: 2022
       }
     ]
+  end
+
     organizations = *roster.organizations
-    organizations => [
+    case organizations
+    in [
       {
         sourced_id: org_sourced_id,
         name: "\u5C0F\u5B66\u6821",
@@ -75,8 +79,11 @@ RSpec.describe Meibo::Roster do
         parent_sourced_id: NilClass
       }
     ]
+  end
+
     courses = *roster.courses
-    courses => [
+    case courses
+    in [
       {
         sourced_id: course_sourced_id,
         school_year_sourced_id: ^school_year_sourced_id,
@@ -88,8 +95,11 @@ RSpec.describe Meibo::Roster do
         subject_codes: []
       }
     ]
+  end
+
     classes = *roster.classes
-    classes => [
+    case classes
+    in [
       {
         sourced_id: classroom_sourced_id,
         title: "1\u5E741\u7D44",
@@ -106,8 +116,11 @@ RSpec.describe Meibo::Roster do
         special_needs: NilClass
       }
     ]
+  end
+
     users = *roster.users
-    users => [
+    case users
+    in [
       {
         sourced_id: user_sourced_id,
         enabled_user: true,
@@ -135,8 +148,11 @@ RSpec.describe Meibo::Roster do
         home_class: NilClass
       }
     ]
+  end
+
     demographics = *roster.demographics
-    demographics => [
+    case demographics
+    in [
       {
         sourced_id: ^user_sourced_id,
         birth_date: NilClass,
@@ -154,8 +170,11 @@ RSpec.describe Meibo::Roster do
         public_school_residence_status: NilClass
       }
     ]
+  end
+
     user_profiles = *roster.user_profiles
-    user_profiles => [
+    case user_profiles
+    in [
       {
         sourced_id: user_profile_sourced_id,
         user_sourced_id: ^user_sourced_id,
@@ -168,8 +187,11 @@ RSpec.describe Meibo::Roster do
         password: NilClass
       }
     ]
+  end
+
     roles = *roster.roles
-    roles => [
+    case roles
+    in [
       {
         sourced_id: String,
         user_sourced_id: ^user_sourced_id,
@@ -181,8 +203,11 @@ RSpec.describe Meibo::Roster do
         user_profile_sourced_id: ^user_profile_sourced_id
       }
     ]
+  end
+
     enrollments = *roster.enrollments
-    enrollments => [
+    case enrollments
+    in [
       {
         sourced_id: String,
         class_sourced_id: ^classroom_sourced_id,
@@ -195,6 +220,7 @@ RSpec.describe Meibo::Roster do
         public_flg: NilClass
       }
     ]
+  end
 
     Meibo.with_roster(roster) do
       # make sure relation methods works

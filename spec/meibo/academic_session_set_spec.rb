@@ -7,12 +7,12 @@ RSpec.describe Meibo::AcademicSessionSet do
     let(:roster) { build(:meibo_roster) }
 
     it "does not raise error if parent not found" do
-      academic_session_set = described_class.new([academic_session, parent_academic_session], roster:)
+      academic_session_set = described_class.new([academic_session, parent_academic_session], roster: roster)
       expect { academic_session_set.check_semantically_consistent }.not_to raise_error
     end
 
     it "raise error if parent found" do
-      academic_session_set = described_class.new([academic_session], roster:)
+      academic_session_set = described_class.new([academic_session], roster: roster)
       expect do
         academic_session_set.check_semantically_consistent
       end.to raise_error(Meibo::DataNotFoundError, /sourcedId: #{parent_academic_session.sourced_id} /)

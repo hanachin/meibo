@@ -5,7 +5,7 @@ RSpec.describe Meibo::Reader do
 
   before do
     profile = Meibo::JapanProfile.new
-    roster = Meibo::Roster.new(profile:)
+    roster = Meibo::Roster.new(profile: profile)
     builder = roster.builder
     school_year_academic_session = builder.build_academic_session(school_year: 2022)
     organization = builder.build_organization(
@@ -36,13 +36,13 @@ RSpec.describe Meibo::Reader do
       username: "example"
     )
     organization.build_role(
-      user:,
-      user_profile:,
+      user: user,
+      user_profile: user_profile,
       role: Meibo::JapanProfile::Role::ROLES[:student],
       role_type: Meibo::JapanProfile::Role::TYPES[:primary]
     )
     classroom.build_enrollment(
-      user:,
+      user: user,
       role: Meibo::JapanProfile::Enrollment::ROLES[:student]
     )
     roster.write_to_buffer(roster_io)
@@ -51,7 +51,8 @@ RSpec.describe Meibo::Reader do
   it "works good" do
     expect do
       described_class.open_buffer(roster_io, profile: Meibo::JapanProfile.new) do |reader|
-        reader.manifest => {
+        case reader.manifest
+        in {
           manifest_version: "1.0",
           oneroster_version: "1.2",
           file_academic_sessions: "bulk",
@@ -78,11 +79,13 @@ RSpec.describe Meibo::Reader do
           source_system_name: nil,
           source_system_code: nil
         }
+      end
 
         academic_sessions = *reader.each_academic_session
         start_date = Date.new(2022, 4, 1)
         end_date = Date.new(2023, 3, 31)
-        academic_sessions => [
+        case academic_sessions
+        in [
           {
             sourced_id: school_year_sourced_id,
             title: "2022\u5E74\u5EA6",
@@ -93,8 +96,11 @@ RSpec.describe Meibo::Reader do
             school_year: 2022
           }
         ]
+      end
+
         organizations = *reader.each_organization
-        organizations => [
+        case organizations
+        in [
           {
             sourced_id: org_sourced_id,
             name: "\u5C0F\u5B66\u6821",
@@ -103,8 +109,11 @@ RSpec.describe Meibo::Reader do
             parent_sourced_id: NilClass
           }
         ]
+      end
+
         courses = *reader.each_course
-        courses => [
+        case courses
+        in [
           {
             sourced_id: course_sourced_id,
             school_year_sourced_id: ^school_year_sourced_id,
@@ -116,8 +125,11 @@ RSpec.describe Meibo::Reader do
             subject_codes: []
           }
         ]
+      end
+
         classes = *reader.each_class
-        classes => [
+        case classes
+        in [
           {
             sourced_id: classroom_sourced_id,
             title: "1\u5E741\u7D44",
@@ -134,8 +146,11 @@ RSpec.describe Meibo::Reader do
             special_needs: NilClass
           }
         ]
+      end
+
         users = *reader.each_user
-        users => [
+        case users
+        in [
           {
             sourced_id: user_sourced_id,
             enabled_user: true,
@@ -163,8 +178,11 @@ RSpec.describe Meibo::Reader do
             home_class: NilClass
           }
         ]
+      end
+
         demographics = *reader.each_demographic
-        demographics => [
+        case demographics
+        in [
           {
             sourced_id: ^user_sourced_id,
             birth_date: NilClass,
@@ -182,8 +200,11 @@ RSpec.describe Meibo::Reader do
             public_school_residence_status: NilClass
           }
         ]
+      end
+
         user_profiles = *reader.each_user_profile
-        user_profiles => [
+        case user_profiles
+        in [
           {
             sourced_id: user_profile_sourced_id,
             user_sourced_id: ^user_sourced_id,
@@ -196,8 +217,11 @@ RSpec.describe Meibo::Reader do
             password: NilClass
           }
         ]
+      end
+
         roles = *reader.each_role
-        roles => [
+        case roles
+        in [
           {
             sourced_id: String,
             user_sourced_id: ^user_sourced_id,
@@ -209,8 +233,11 @@ RSpec.describe Meibo::Reader do
             user_profile_sourced_id: ^user_profile_sourced_id
           }
         ]
+      end
+
         enrollments = *reader.each_enrollment
-        enrollments => [
+        case enrollments
+        in [
           {
             sourced_id: String,
             class_sourced_id: ^classroom_sourced_id,
@@ -223,6 +250,7 @@ RSpec.describe Meibo::Reader do
             public_flg: NilClass
           }
         ]
+      end
       end
     end.not_to raise_error
   end

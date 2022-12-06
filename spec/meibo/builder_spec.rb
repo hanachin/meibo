@@ -4,7 +4,7 @@ RSpec.describe Meibo::Builder do
   it "works good" do
     expect do
       roster = Meibo::Roster.new
-      builder = described_class.new(roster:, profile: Meibo::JapanProfile.new)
+      builder = described_class.new(roster: roster, profile: Meibo::JapanProfile.new)
       school_year_academic_session = builder.build_academic_session(school_year: 2022)
       organization = builder.build_organization(
         name: "\u5C0F\u5B66\u6821",
@@ -34,13 +34,13 @@ RSpec.describe Meibo::Builder do
         username: "example"
       )
       organization.build_role(
-        user:,
-        user_profile:,
+        user: user,
+        user_profile: user_profile,
         role: Meibo::JapanProfile::Role::ROLES[:student],
         role_type: Meibo::JapanProfile::Role::TYPES[:primary]
       )
       classroom.build_enrollment(
-        user:,
+        user: user,
         role: Meibo::JapanProfile::Enrollment::ROLES[:student]
       )
     end.not_to raise_error
