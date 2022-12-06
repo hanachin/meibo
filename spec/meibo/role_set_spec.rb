@@ -45,7 +45,7 @@ RSpec.describe Meibo::RoleSet do
       end
     end
 
-    context "When role has not user_profile" do
+    context "when role has not user_profile" do
       let(:role) { build(:meibo_role, :teacher, :primary, organization:, user:, user_profiles: nil) }
 
       it "does not raise error" do

@@ -4,7 +4,7 @@ RSpec.describe Meibo::JapanProfile::UserSet do
   describe "#check_semantically_consistent" do
     let(:school) { build(:meibo_organization, :elementary_school) }
 
-    context "When user has home_class" do
+    context "when user has home_class" do
       let(:course) { build(:meibo_course, organization: school, school_year:) }
       let(:home_class) { build(:meibo_classroom, course:, school:) }
       let(:school_year) { build(:meibo_academic_session) }
@@ -25,7 +25,7 @@ RSpec.describe Meibo::JapanProfile::UserSet do
       end
     end
 
-    context "When user has not home_class" do
+    context "when user has not home_class" do
       let(:user) { build(:meibo_user, :jp, primary_organization: school) }
 
       it "does not raise error" do

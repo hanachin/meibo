@@ -2,7 +2,7 @@
 
 RSpec.describe Meibo::UserSet do
   describe "#check_semantically_consistent" do
-    context "When user has primary_organization" do
+    context "when user has primary_organization" do
       let(:primary_organization) { build(:meibo_organization, :elementary_school) }
       let(:user) { build(:meibo_user, primary_organization:) }
 
@@ -21,7 +21,7 @@ RSpec.describe Meibo::UserSet do
       end
     end
 
-    context "When user has not primary_organization" do
+    context "when user has not primary_organization" do
       let(:user) { build(:meibo_user, primary_organization: nil) }
 
       it "does not raise error" do

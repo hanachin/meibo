@@ -42,7 +42,7 @@ RSpec.describe Meibo::ClassroomSet do
         end.to raise_error(Meibo::DataNotFoundError, /sourcedId: #{academic_session.sourced_id} /)
       end
 
-      context "empty terms" do
+      context "when empty terms" do
         let(:classroom) { build(:meibo_classroom, school:, course:, terms: []) }
 
         it "raise error" do
