@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 RSpec.describe Meibo::Roster do
-  let(:oneroster_zip_file_path) { Dir.mktmpdir + '/oneroster.zip' }
+  let(:roster_io) { StringIO.new }
 
   before do
     profile = Meibo::JapanProfile.new
@@ -45,13 +45,11 @@ RSpec.describe Meibo::Roster do
       user: user,
       role: Meibo::JapanProfile::Enrollment::ROLES[:student]
     )
-    roster.write(oneroster_zip_file_path)
+    roster.write_to_buffer(roster_io)
   end
 
-  after { File.unlink(oneroster_zip_file_path) }
-
   it "works" do
-    roster = Meibo::Roster.from_file(oneroster_zip_file_path, profile: Meibo::JapanProfile.new)
+    roster = Meibo::Roster.from_buffer(roster_io, profile: Meibo::JapanProfile.new)
 
     academic_sessions = *roster.academic_sessions
     start_date = Date.new(2022, 4, 1)

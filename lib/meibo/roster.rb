@@ -8,26 +8,36 @@ module Meibo
     class << self
       def from_file(file_path, profile: Meibo.default_profile)
         Reader.open(file_path, profile: profile) do |reader|
-          begin
-            manifest = reader.manifest
-          rescue CsvFileNotFoundError
-            raise NotSupportedError, 'OneRoster 1.0はサポートしていません'
-          rescue
-            raise NotSupportedError, "#{Meibo::Manifest.filename}の読み込みに失敗しました"
-          end
+          return read_data(reader, profile)
+        end
+      end
 
-          validate_manifest_version(manifest.manifest_version)
-          validate_oneroster_version(manifest.oneroster_version)
-          validate_supported_processing_mode(manifest)
-          processing_modes = Meibo::Manifest::PROCESSING_MODES
-          validate_absent_files(reader, manifest.filenames(processing_mode: processing_modes[:absent]))
-          validate_bulk_files(reader, manifest.filenames(processing_mode: processing_modes[:bulk]))
-
-          new(manifest_properties: manifest.to_h, profile: profile, **reader.load_bulk_files).tap(&:check_semantically_consistent)
+      def from_buffer(io, profile: Meibo.default_profile)
+        Reader.open_buffer(io, profile: profile) do |reader|
+          return read_data(reader, profile)
         end
       end
 
       private
+
+      def read_data(reader, profile)
+        begin
+          manifest = reader.manifest
+        rescue CsvFileNotFoundError
+          raise NotSupportedError, 'OneRoster 1.0はサポートしていません'
+        rescue
+          raise NotSupportedError, "#{Meibo::Manifest.filename}の読み込みに失敗しました"
+        end
+
+        validate_manifest_version(manifest.manifest_version)
+        validate_oneroster_version(manifest.oneroster_version)
+        validate_supported_processing_mode(manifest)
+        processing_modes = Meibo::Manifest::PROCESSING_MODES
+        validate_absent_files(reader, manifest.filenames(processing_mode: processing_modes[:absent]))
+        validate_bulk_files(reader, manifest.filenames(processing_mode: processing_modes[:bulk]))
+
+        new(manifest_properties: manifest.to_h, profile: profile, **reader.load_bulk_files).tap(&:check_semantically_consistent)
+      end
 
       def validate_absent_files(reader, absent_filenames)
         absent_filenames.each do |absent_filename|
@@ -98,32 +108,42 @@ module Meibo
       ].each(&:check_semantically_consistent)
     end
 
-    def write(path)
-      Zip::File.open(path, ::Zip::File::CREATE) do |zipfile|
-        manifest = build_manifest
-        zipfile.get_output_stream(::Meibo::Manifest.filename) do |f|
-          f.puts ::Meibo::Manifest.header_fields.to_csv
-          manifest.to_a.each do |row|
-            f.puts row.to_csv
-          end
-        end
-        file_properties.each do |file_attribute, processing_mode|
-          next if processing_mode.absent?
+    def write_to_buffer(io)
+      Zip::File.open_buffer(io) do |zipfile|
+        write(zipfile)
+      end
+    end
 
-          klass = profile.data_model_for(file_attribute)
-          filename = Manifest.filename_for(file_attribute)
-          data = data_for(file_attribute)
-          zipfile.get_output_stream(filename) do |f|
-            f.puts klass.header_fields.to_csv
-            data.each do |row|
-              f.puts row.to_csv(write_converters: klass.write_converters)
-            end
-          end
-        end
+    def write_to_file(path)
+      Zip::File.open(path) do |zipfile|
+        write(zipfile)
       end
     end
 
     private
+
+    def write(zipfile)
+      manifest = build_manifest
+      zipfile.get_output_stream(::Meibo::Manifest.filename) do |f|
+        f.puts ::Meibo::Manifest.header_fields.to_csv
+        manifest.to_a.each do |row|
+          f.puts row.to_csv
+        end
+      end
+      file_properties.each do |file_attribute, processing_mode|
+        next if processing_mode.absent?
+
+        klass = profile.data_model_for(file_attribute)
+        filename = Manifest.filename_for(file_attribute)
+        data = data_for(file_attribute)
+        zipfile.get_output_stream(filename) do |f|
+          f.puts klass.header_fields.to_csv
+          data.each do |row|
+            f.puts row.to_csv(write_converters: klass.write_converters)
+          end
+        end
+      end
+    end
 
     def build_manifest
       new_manifest_properties = file_properties.merge(manifest_properties)

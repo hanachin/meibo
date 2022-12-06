@@ -1,9 +1,7 @@
 # frozen_string_literal: true
 
-require 'tmpdir'
-
 RSpec.describe Meibo::Reader do
-  let(:oneroster_zip_file_path) { Dir.mktmpdir + '/oneroster.zip' }
+  let(:roster_io) { StringIO.new }
 
   before do
     profile = Meibo::JapanProfile.new
@@ -47,13 +45,11 @@ RSpec.describe Meibo::Reader do
       user: user,
       role: Meibo::JapanProfile::Enrollment::ROLES[:student]
     )
-    roster.write(oneroster_zip_file_path)
+    roster.write_to_buffer(roster_io)
   end
 
-  after { File.unlink(oneroster_zip_file_path) }
-
   it "works" do
-    Meibo::Reader.open(oneroster_zip_file_path, profile: Meibo::JapanProfile.new) do |reader|
+    Meibo::Reader.open_buffer(roster_io, profile: Meibo::JapanProfile.new) do |reader|
       reader.manifest => {
         manifest_version: '1.0',
         oneroster_version: '1.2',

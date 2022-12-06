@@ -11,6 +11,12 @@ module Meibo
       end
     end
 
+    def self.open_buffer(io, profile: Meibo.default_profile)
+      Zip::File.open_buffer(io) do |zipfile|
+        yield new(zipfile: zipfile, profile: profile)
+      end
+    end
+
     attr_reader :profile, :zipfile
 
     def initialize(zipfile:, profile:)
