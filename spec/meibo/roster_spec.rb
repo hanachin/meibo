@@ -48,7 +48,7 @@ RSpec.describe Meibo::Roster do
     roster.write_to_buffer(roster_io)
   end
 
-  it "works" do
+  it "works good" do
     roster = described_class.from_buffer(roster_io, profile: Meibo::JapanProfile.new)
 
     academic_sessions = *roster.academic_sessions

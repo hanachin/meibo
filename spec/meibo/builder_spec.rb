@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 RSpec.describe Meibo::Builder do
-  it "works" do
+  it "works good" do
     roster = Meibo::Roster.new
     builder = described_class.new(roster:, profile: Meibo::JapanProfile.new)
     school_year_academic_session = builder.build_academic_session(school_year: 2022)
