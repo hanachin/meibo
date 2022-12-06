@@ -2,7 +2,7 @@
 
 module Meibo
   class User
-    USER_ID_FORMAT_REGEXP = /\A\{[^:}]+:[^}]+\}\z/
+    USER_ID_FORMAT_REGEXP = /\A\{[^:}]+:[^}]+\}\z/.freeze
 
     DataModel.define(
       self,

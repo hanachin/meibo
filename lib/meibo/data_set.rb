@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Meibo
   class DataSet
     include Enumerable
@@ -62,8 +64,8 @@ module Meibo
                        keys.map do |attribute|
                          datum.public_send(attribute)
                        end
-                     end.to_h do |values, data|
-          [values, new(data)]
+                     end.transform_values do |data|
+          new(data)
         end
       end
     end

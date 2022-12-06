@@ -12,7 +12,7 @@ module Meibo
       role: Builder::RoleBuilder.create(Role),
       user: Builder::UserBuilder.create(User),
       user_profile: Builder::UserProfileBuilder.create(UserProfile)
-    }
+    }.freeze
 
     DATA_MODELS = {
       file_academic_sessions: Meibo::AcademicSession,
@@ -24,7 +24,7 @@ module Meibo
       file_roles: Meibo::Role,
       file_user_profiles: Meibo::UserProfile,
       file_users: Meibo::User
-    }
+    }.freeze
 
     DATA_SET = {
       academic_sessions: Meibo::AcademicSessionSet,
@@ -36,7 +36,7 @@ module Meibo
       roles: Meibo::RoleSet,
       user_profiles: Meibo::UserProfileSet,
       users: Meibo::UserSet
-    }
+    }.freeze
 
     attr_reader :builders, :data_models, :data_set
 

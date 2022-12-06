@@ -42,7 +42,7 @@ module Meibo
           method_name = "build_#{converter_type}_field_#{write_or_parser}_converter"
           if fields_to_be_converted && respond_to?(method_name, true)
             if converter_type == :enum
-              enum_definition = fields_to_be_converted.to_h { |field, enum| [fields.index(field), enum] }
+              enum_definition = fields_to_be_converted.transform_keys { |field| fields.index(field) }
               send(method_name, enum_definition)
             else
               indexes = fields_to_be_converted.map { |field| fields.index(field) }
@@ -136,7 +136,7 @@ module Meibo
           return field unless field
 
           enum = enum_definition[field_info.index]
-          raise InvalidDataTypeError if enum && !enum.any? { |e| e.match?(field) }
+          raise InvalidDataTypeError if enum&.none? { |e| e.match?(field) }
 
           field
         end

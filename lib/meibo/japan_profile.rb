@@ -12,7 +12,7 @@ module Meibo
       role: Builder::RoleBuilder.create(Role),
       user: Builder::UserBuilder.create(User),
       user_profile: Builder::UserProfileBuilder.create(UserProfile)
-    }
+    }.freeze
 
     DATA_MODELS = {
       file_academic_sessions: AcademicSession,
@@ -24,7 +24,7 @@ module Meibo
       file_roles: Role,
       file_user_profiles: UserProfile,
       file_users: User
-    }
+    }.freeze
 
     DATA_SET = ::Meibo::Profile::DATA_SET.merge(
       users: UserSet

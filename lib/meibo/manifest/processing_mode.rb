@@ -23,9 +23,10 @@ module Meibo
       end
 
       def ==(other)
-        if other.is_a?(ProcessingMode)
+        case other
+        when ProcessingMode
           @mode == other.mode
-        elsif other.is_a?(String)
+        when String
           to_s == other
         else
           false

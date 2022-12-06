@@ -97,7 +97,7 @@ module Meibo
 
       raise Meibo::Error, "#{property_name}はファイルのプロパティではありません" unless property_name.start_with?("file.")
 
-      property_name.split("file.", 2).last + ".csv"
+      "#{property_name.split("file.", 2).last}.csv"
     end
 
     def self.parse(csv)
