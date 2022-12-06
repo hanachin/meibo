@@ -1,4 +1,5 @@
 inherit_from: ../.rubocop.yml
 
 AllCops:
+  NewCops: enable
   TargetRubyVersion: 3.1
