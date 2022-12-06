@@ -27,8 +27,8 @@ FactoryBot.define do
 
       raise unless numerized_school_code.size == 13
 
-      check_digit = (10 - (numerized_school_code.chars.map(&:to_i).zip([1, 2].cycle).map do
-                             (_1 * _2).digits.sum
+      check_digit = (10 - (numerized_school_code.chars.map(&:to_i).zip([1, 2].cycle).map do |c, n|
+                             (c * n).digits.sum
                            end.sum % 10)) % 10
       "#{school_type}#{prefecture_no}#{kubun}#{school_no}#{check_digit}"
     end
