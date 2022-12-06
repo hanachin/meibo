@@ -3,7 +3,7 @@
 RSpec.describe Meibo::Manifest do
   describe "#file_attributes" do
     it "returns files filtered by file type" do
-      manifest = Meibo::Manifest.build_from_default(
+      manifest = described_class.build_from_default(
         file_academic_sessions: Meibo::Manifest::PROCESSING_MODES[:bulk],
         file_categories: Meibo::Manifest::PROCESSING_MODES[:absent],
         file_classes: Meibo::Manifest::PROCESSING_MODES[:bulk],

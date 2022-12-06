@@ -7,13 +7,13 @@ RSpec.describe Meibo::UserProfileSet do
 
     it "does not raise error if user found" do
       roster = build(:meibo_roster, users: [user])
-      demographic_set = Meibo::UserProfileSet.new([user_profile], roster:)
+      demographic_set = described_class.new([user_profile], roster:)
       expect { demographic_set.check_semantically_consistent }.not_to raise_error
     end
 
     it "raise error if user not found" do
       roster = build(:meibo_roster, users: [])
-      demographic_set = Meibo::UserProfileSet.new([user_profile], roster:)
+      demographic_set = described_class.new([user_profile], roster:)
       expect do
         demographic_set.check_semantically_consistent
       end.to raise_error(Meibo::DataNotFoundError, /sourcedId: #{user.sourced_id} /)

@@ -12,13 +12,13 @@ RSpec.describe Meibo::JapanProfile::UserSet do
 
       it "does not raise error if home_class found" do
         roster = build(:meibo_roster, organizations: [school], classes: [home_class])
-        user_set = Meibo::JapanProfile::UserSet.new([user], roster:)
+        user_set = described_class.new([user], roster:)
         expect { user_set.check_semantically_consistent }.not_to raise_error
       end
 
       it "raise error if primary organization not found" do
         roster = build(:meibo_roster, organizations: [school], classes: [])
-        user_set = Meibo::JapanProfile::UserSet.new([user], roster:)
+        user_set = described_class.new([user], roster:)
         expect do
           user_set.check_semantically_consistent
         end.to raise_error(Meibo::DataNotFoundError, /sourcedId: #{home_class.sourced_id} /)
@@ -30,7 +30,7 @@ RSpec.describe Meibo::JapanProfile::UserSet do
 
       it "does not raise error" do
         roster = build(:meibo_roster, organizations: [school], classes: [])
-        user_set = Meibo::JapanProfile::UserSet.new([user], roster:)
+        user_set = described_class.new([user], roster:)
         expect { user_set.check_semantically_consistent }.not_to raise_error
       end
     end

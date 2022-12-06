@@ -11,14 +11,14 @@ RSpec.describe Meibo::EnrollmentSet do
 
     it "does not raise error if classroom/school/user found" do
       roster = build(:meibo_roster, classes: [classroom], organizations: [school], users: [user])
-      enrollment_set = Meibo::EnrollmentSet.new([enrollment], roster:)
+      enrollment_set = described_class.new([enrollment], roster:)
       expect { enrollment_set.check_semantically_consistent }.not_to raise_error
     end
 
     describe "classroom" do
       it "raise error if classroom not found" do
         roster = build(:meibo_roster, classes: [], organizations: [school], users: [user])
-        enrollment_set = Meibo::EnrollmentSet.new([enrollment], roster:)
+        enrollment_set = described_class.new([enrollment], roster:)
         expect do
           enrollment_set.check_semantically_consistent
         end.to raise_error(Meibo::DataNotFoundError, /sourcedId: #{classroom.sourced_id} /)
@@ -28,7 +28,7 @@ RSpec.describe Meibo::EnrollmentSet do
     describe "school" do
       it "raise error if school not found" do
         roster = build(:meibo_roster, classes: [classroom], organizations: [], users: [user])
-        enrollment_set = Meibo::EnrollmentSet.new([enrollment], roster:)
+        enrollment_set = described_class.new([enrollment], roster:)
         expect do
           enrollment_set.check_semantically_consistent
         end.to raise_error(Meibo::DataNotFoundError, /sourcedId: #{school.sourced_id} /)
@@ -38,7 +38,7 @@ RSpec.describe Meibo::EnrollmentSet do
     describe "user" do
       it "raise error if user not found" do
         roster = build(:meibo_roster, classes: [classroom], organizations: [school], users: [])
-        enrollment_set = Meibo::EnrollmentSet.new([enrollment], roster:)
+        enrollment_set = described_class.new([enrollment], roster:)
         expect do
           enrollment_set.check_semantically_consistent
         end.to raise_error(Meibo::DataNotFoundError, /sourcedId: #{user.sourced_id} /)

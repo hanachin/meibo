@@ -49,7 +49,7 @@ RSpec.describe Meibo::Reader do
   end
 
   it "works" do
-    Meibo::Reader.open_buffer(roster_io, profile: Meibo::JapanProfile.new) do |reader|
+    described_class.open_buffer(roster_io, profile: Meibo::JapanProfile.new) do |reader|
       reader.manifest => {
         manifest_version: "1.0",
         oneroster_version: "1.2",

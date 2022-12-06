@@ -5,7 +5,7 @@ RSpec.describe Meibo::Roster do
 
   before do
     profile = Meibo::JapanProfile.new
-    roster = Meibo::Roster.new(profile:)
+    roster = described_class.new(profile:)
     builder = roster.builder
     school_year_academic_session = builder.build_academic_session(school_year: 2022)
     organization = builder.build_organization(
@@ -49,7 +49,7 @@ RSpec.describe Meibo::Roster do
   end
 
   it "works" do
-    roster = Meibo::Roster.from_buffer(roster_io, profile: Meibo::JapanProfile.new)
+    roster = described_class.from_buffer(roster_io, profile: Meibo::JapanProfile.new)
 
     academic_sessions = *roster.academic_sessions
     start_date = Date.new(2022, 4, 1)

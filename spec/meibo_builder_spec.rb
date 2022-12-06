@@ -3,7 +3,7 @@
 RSpec.describe Meibo::Builder do
   it "works" do
     roster = Meibo::Roster.new
-    builder = Meibo::Builder.new(roster:, profile: Meibo::JapanProfile.new)
+    builder = described_class.new(roster:, profile: Meibo::JapanProfile.new)
     school_year_academic_session = builder.build_academic_session(school_year: 2022)
     organization = builder.build_organization(
       name: "\u5C0F\u5B66\u6821",

@@ -11,14 +11,14 @@ RSpec.describe Meibo::RoleSet do
 
     it "does not raise error if user/organization/user_profile found" do
       roster = build(:meibo_roster, organizations: [organization], users: [user], user_profiles: [user_profile])
-      role_set = Meibo::RoleSet.new([role], roster:)
+      role_set = described_class.new([role], roster:)
       expect { role_set.check_semantically_consistent }.not_to raise_error
     end
 
     describe "organization" do
       it "raise error if organization not found" do
         roster = build(:meibo_roster, organizations: [], users: [user], user_profiles: [user_profile])
-        role_set = Meibo::RoleSet.new([role], roster:)
+        role_set = described_class.new([role], roster:)
         expect do
           role_set.check_semantically_consistent
         end.to raise_error(Meibo::DataNotFoundError, /sourcedId: #{organization.sourced_id} /)
@@ -28,7 +28,7 @@ RSpec.describe Meibo::RoleSet do
     describe "user" do
       it "raise error if user not found" do
         roster = build(:meibo_roster, organizations: [organization], users: [], user_profiles: [user_profile])
-        role_set = Meibo::RoleSet.new([role], roster:)
+        role_set = described_class.new([role], roster:)
         expect do
           role_set.check_semantically_consistent
         end.to raise_error(Meibo::DataNotFoundError, /sourcedId: #{user.sourced_id} /)
@@ -38,7 +38,7 @@ RSpec.describe Meibo::RoleSet do
     describe "user profile" do
       it "raise error if user profile not found" do
         roster = build(:meibo_roster, organizations: [organization], users: [user], user_profiles: [])
-        role_set = Meibo::RoleSet.new([role], roster:)
+        role_set = described_class.new([role], roster:)
         expect do
           role_set.check_semantically_consistent
         end.to raise_error(Meibo::DataNotFoundError, /sourcedId: #{user_profile.sourced_id} /)
@@ -50,7 +50,7 @@ RSpec.describe Meibo::RoleSet do
 
       it "does not raise error" do
         roster = build(:meibo_roster, organizations: [organization], users: [user], user_profiles: [])
-        role_set = Meibo::RoleSet.new([role], roster:)
+        role_set = described_class.new([role], roster:)
         expect { role_set.check_semantically_consistent }.not_to raise_error
       end
     end
