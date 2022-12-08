@@ -118,7 +118,7 @@ module Meibo
     end
 
     def write_to_file(path)
-      Zip::File.open(path) do |zipfile|
+      Zip::File.open(path, Zip::File::CREATE) do |zipfile|
         write(zipfile)
       end
     end
