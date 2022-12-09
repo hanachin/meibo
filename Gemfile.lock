@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    meibo (0.17.0)
+    meibo (0.18.0)
       csv (>= 3.1.4)
       rubyzip
       zeitwerk
@@ -16,7 +16,7 @@ GEM
       tzinfo (~> 2.0)
     ast (2.4.2)
     concurrent-ruby (1.1.10)
-    csv (3.2.5)
+    csv (3.2.6)
     debug (1.6.3)
       irb (>= 1.3.6)
       reline (>= 0.3.1)
