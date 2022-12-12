@@ -18,6 +18,14 @@ module Meibo
         end
       end
 
+      def open(io_or_path, **opts)
+        m = io_or_path.kind_of?(IO) ? :from_buffer : :from_file
+        roster = public_send(m, io_or_path, **opts)
+        return roster unless block_given?
+
+        Meibo.with_roster(roster) { yield roster }
+      end
+
       private
 
       def read_data(reader, profile)
