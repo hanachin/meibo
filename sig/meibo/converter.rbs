@@ -1,0 +1,45 @@
+module Meibo
+  module Converter
+    type converter_types = ::Array[:list | :required | :boolean | :date | :datetime | :enum | :integer | :status | :user_ids | :year]
+
+    TYPES: converter_types
+
+    def self.build_header_field_to_attribute_converter: (untyped attribute_name_to_header_field_map) -> untyped
+
+    def self.build_parser_converter: (fields: untyped, converters: untyped) -> untyped
+
+    def self.build_write_converter: (fields: untyped, converters: untyped) -> untyped
+
+    private
+
+    def self.build_converter: (fields: untyped, converters: untyped, write_or_parser: untyped) -> untyped
+
+    def self.build_boolean_field_parser_converter: (untyped boolean_field_indexes) -> untyped
+
+    def self.build_date_field_write_converter: (untyped date_field_indexes) -> untyped
+
+    def self.build_date_field_parser_converter: (untyped date_field_indexes) -> untyped
+
+    def self.build_datetime_field_write_converter: (untyped datetime_field_indexes) -> untyped
+
+    def self.build_datetime_field_parser_converter: (untyped datetime_field_indexes) -> untyped
+
+    def self.build_enum_field_parser_converter: (untyped enum_definition) -> untyped
+
+    def self.build_integer_field_parser_converter: (untyped integer_field_indexes) -> untyped
+
+    def self.build_list_field_write_converter: (untyped list_field_indexes) -> untyped
+
+    def self.build_list_field_parser_converter: (untyped list_field_indexes) -> untyped
+
+    def self.build_required_field_parser_converter: (untyped required_field_indexes) -> untyped
+
+    def self.build_status_field_parser_converter: (untyped status_field_indexes) -> untyped
+
+    def self.build_user_ids_field_parser_converter: (untyped user_ids_field_indexes) -> untyped
+
+    def self.build_year_field_write_converter: (untyped year_field_indexes) -> untyped
+
+    def self.build_year_field_parser_converter: (untyped year_field_indexes) -> untyped
+  end
+end

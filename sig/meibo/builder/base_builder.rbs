@@ -1,0 +1,7 @@
+module Meibo
+  class Builder
+    module BaseBuilder
+      def create: (untyped klass) -> untyped
+    end
+  end
+end

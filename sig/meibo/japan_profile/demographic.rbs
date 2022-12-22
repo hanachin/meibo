@@ -1,0 +1,6 @@
+module Meibo
+  class JapanProfile < ::Meibo::Profile
+    class Demographic < ::Meibo::Demographic
+    end
+  end
+end

@@ -2,10 +2,13 @@
 
 module Meibo
   class Classroom
-    TYPES = {
+    # @type var types: ::Meibo::Classroom::classroom_types
+    types = {
       homeroom: "homeroom",
       scheduled: "scheduled"
-    }.freeze
+    }
+    types.freeze
+    TYPES = types
 
     DataModel.define(
       self,

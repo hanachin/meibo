@@ -1,0 +1,54 @@
+module Meibo
+  class Organization
+    type organization_type = "department" | "school" | "district" | "local" | "state" | "national"
+    type organization_types = { department: "department", school: "school", district: "district", local: "local", state: "state", national: "national" }
+
+    TYPES: organization_types
+
+    attr_reader sourced_id: sourced_id
+    attr_reader name: String
+    attr_reader type: organization_type
+    attr_reader status: status?
+    attr_reader date_last_modified: DateTime?
+    attr_reader identifier: String?
+    attr_reader parent_sourced_id: sourced_id?
+    attr_reader extension_fields: Hash[Symbol, untyped]
+
+    def initialize: (
+      sourced_id: sourced_id,
+      name: String,
+      type: organization_type,
+      ?status: status?,
+      ?date_last_modified: DateTime?,
+      ?identifier: String?,
+      ?parent_sourced_id: sourced_id?,
+      **Hash[Symbol, untyped] extension_fields
+    ) -> void
+
+    def collection: () -> untyped
+
+    def department?: () -> bool
+
+    def school?: () -> bool
+
+    def district?: () -> bool
+
+    def local?: () -> bool
+
+    def state?: () -> bool
+
+    def national?: () -> bool
+
+    def parent: () -> untyped
+
+    def children: () -> untyped
+
+    def enrollments: () -> untyped
+
+    def classes: () -> untyped
+
+    def courses: () -> untyped
+
+    def roles: () -> untyped
+  end
+end

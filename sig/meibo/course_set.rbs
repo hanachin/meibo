@@ -1,0 +1,5 @@
+module Meibo
+  class CourseSet < DataSet
+    def check_semantically_consistent: () -> void
+  end
+end

@@ -1,0 +1,9 @@
+module Meibo
+  class ClassroomSet < DataSet
+    def check_semantically_consistent: () -> void
+
+    def homeroom: () -> untyped
+
+    def scheduled: () -> untyped
+  end
+end

@@ -1,0 +1,58 @@
+module Meibo
+  class Demographic
+    type sex_type = "male" | "female" | "unspecified" | "other"
+    type sex_types = { male: "male", female: "female", unspecified: "unspecified", other: "other" }
+
+    SEX: sex_types
+
+    attr_reader sourced_id: sourced_id
+    attr_reader status: status?
+    attr_reader date_last_modified: DateTime?
+    attr_reader birth_date: Date?
+    attr_reader sex: sex_type?
+    attr_reader american_indian_or_alaska_native: bool?
+    attr_reader asian: bool?
+    attr_reader black_or_african_american: bool?
+    attr_reader native_hawaiian_or_other_pacific_islander: bool?
+    attr_reader white: bool?
+    attr_reader demographic_race_two_or_more_races: bool?
+    attr_reader hispanic_or_latino_ethnicity: bool?
+    attr_reader country_of_birth_code: String?
+    attr_reader state_of_birth_abbreviation: String?
+    attr_reader city_of_birth: String?
+    attr_reader public_school_residence_status: String?
+    attr_reader extension_fields: Hash[Symbol, untyped]
+
+    def initialize: (
+      sourced_id: sourced_id,
+      ?status: status?,
+      ?date_last_modified: DateTime?,
+      ?birth_date: Date?,
+      ?sex: sex_type?,
+      ?american_indian_or_alaska_native: bool?,
+      ?asian: bool?,
+      ?black_or_african_american: bool?,
+      ?native_hawaiian_or_other_pacific_islander: bool?,
+      ?white: bool?,
+      ?demographic_race_two_or_more_races: bool?,
+      ?hispanic_or_latino_ethnicity: bool?,
+      ?country_of_birth_code: String?,
+      ?state_of_birth_abbreviation: String?,
+      ?city_of_birth: String?,
+      ?public_school_residence_status: String?,
+      **Hash[Symbol, untyped] extension_fields
+    ) -> void
+
+    def collection: () -> untyped
+
+    def male?: () -> bool
+
+    def female?: () -> bool
+
+    def unspecified?: () -> bool
+
+    def other?: () -> bool
+
+    def user: () -> untyped
+  end
+end

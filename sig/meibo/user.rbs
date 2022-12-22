@@ -1,0 +1,73 @@
+module Meibo
+  class User
+    USER_ID_FORMAT_REGEXP: ::Regexp
+
+    attr_reader sourced_id: sourced_id
+    attr_reader username: String
+    attr_reader given_name: String
+    attr_reader family_name: String
+    attr_reader status: status?
+    attr_reader date_last_modified: DateTime?
+    attr_reader enabled_user: bool?
+    attr_reader user_ids: Array[String]?
+    attr_reader middle_name: String?
+    attr_reader identifier: String?
+    attr_reader email: String?
+    attr_reader sms: String?
+    attr_reader phone: String?
+    attr_reader agent_sourced_ids: Array[sourced_id]
+    attr_reader grades: Array[grade]?
+    attr_reader password: String?
+    attr_reader user_master_identifier: String?
+    attr_reader resource_sourced_ids: Array[sourced_id]?
+    attr_reader preferred_given_name: String?
+    attr_reader preferred_middle_name: String?
+    attr_reader preferred_family_name: String?
+    attr_reader primary_org_sourced_id: sourced_id?
+    attr_reader pronouns: String?
+    attr_reader extension_fields: Hash[Symbol, untyped]
+
+    def initialize: (
+      sourced_id: sourced_id,
+      username: String,
+      given_name: String,
+      family_name: String,
+      ?status: status?,
+      ?date_last_modified: DateTime?,
+      ?enabled_user: bool?,
+      ?user_ids: Array[String]?,
+      ?middle_name: String?,
+      ?identifier: String?,
+      ?email: String?,
+      ?sms: String?,
+      ?phone: String?,
+      ?agent_sourced_ids: Array[sourced_id],
+      ?grades: Array[grade]?,
+      ?password: String?,
+      ?user_master_identifier: String?,
+      ?resource_sourced_ids: Array[sourced_id]?,
+      ?preferred_given_name: String?,
+      ?preferred_middle_name: String?,
+      ?preferred_family_name: String?,
+      ?primary_org_sourced_id: sourced_id?,
+      ?pronouns: String?,
+      **Hash[Symbol, untyped] extension_fields
+    ) -> void
+
+    def collection: () -> untyped
+
+    def agents: () -> untyped
+
+    def demographic: () -> untyped
+
+    def enrollments: () -> untyped
+
+    def primary_organization: () -> untyped
+
+    def primary_role_in: (untyped org) -> untyped
+
+    def roles: () -> untyped
+
+    def user_profiles: () -> untyped
+  end
+end

@@ -2,12 +2,15 @@
 
 module Meibo
   class Demographic
-    SEX = {
+    # @type var sex: ::Meibo::Demographic::sex_types
+    sex = {
       male: "male",
       female: "female",
       unspecified: "unspecified",
       other: "other"
-    }.freeze
+    }
+    sex.freeze
+    SEX = sex.freeze
 
     DataModel.define(
       self,

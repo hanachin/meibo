@@ -1,0 +1,59 @@
+module Meibo
+  class Reader
+    def self.open: (untyped file_path, ?profile: untyped) { (untyped) -> untyped } -> untyped
+
+    def self.open_buffer: (untyped io, ?profile: untyped) { (untyped) -> untyped } -> untyped
+
+    attr_reader profile: untyped
+
+    attr_reader zipfile: untyped
+
+    def initialize: (zipfile: untyped, profile: untyped) -> void
+
+    def academic_sessions: () -> untyped
+
+    def classes: () -> untyped
+
+    def courses: () -> untyped
+
+    def demographics: () -> untyped
+
+    def enrollments: () -> untyped
+
+    def organizations: () -> untyped
+
+    def roles: () -> untyped
+
+    def users: () -> untyped
+
+    def user_profiles: () -> untyped
+
+    def each_academic_session: () ?{ () -> untyped } -> untyped
+
+    def each_class: () ?{ () -> untyped } -> untyped
+
+    def each_course: () ?{ () -> untyped } -> untyped
+
+    def each_demographic: () ?{ () -> untyped } -> untyped
+
+    def each_enrollment: () ?{ () -> untyped } -> untyped
+
+    def each_organization: () ?{ () -> untyped } -> untyped
+
+    def each_role: () ?{ () -> untyped } -> untyped
+
+    def each_user_profile: () ?{ () -> untyped } -> untyped
+
+    def each_user: () ?{ () -> untyped } -> untyped
+
+    def manifest: () -> untyped
+
+    def load_bulk_files: () -> untyped
+
+    def file_entry?: (untyped filename) -> untyped
+
+    private
+
+    def read_data: (untyped file_attribute) ?{ () -> untyped } -> untyped
+  end
+end

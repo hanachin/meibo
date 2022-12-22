@@ -1,0 +1,12 @@
+module Meibo
+  class JapanProfile < ::Meibo::Profile
+    class Role < ::Meibo::Role
+      # NOTE: roleは固定
+      #   - 児童生徒の場合student
+      #   - 教職員の場合teacher
+      #   - 保護者の場合guardian
+      # MEMO: enrollments.csvの方ではadministratorとguardianも許可されているがズレてないか
+      ROLES: { teacher: "teacher", student: "student", guardian: "guardian" }
+    end
+  end
+end

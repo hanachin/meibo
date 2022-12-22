@@ -1,0 +1,10 @@
+module Meibo
+  class JapanProfile < ::Meibo::Profile
+    class User < ::Meibo::User
+      # NOTE: enabled_userは必須ではないが固定
+      def initialize: (?enabled_user: bool, ?kana_given_name: untyped?, ?kana_family_name: untyped?, ?kana_middle_name: untyped?, ?home_class: untyped?, **untyped other_fields) -> void
+
+      def home_classroom: () -> untyped
+    end
+  end
+end

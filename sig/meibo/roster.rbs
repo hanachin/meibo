@@ -1,0 +1,69 @@
+module Meibo
+  class Roster
+    def self.from_file: (untyped file_path, ?profile: untyped) -> untyped
+
+    def self.from_buffer: (untyped io, ?profile: untyped) -> untyped
+
+    def self.open: (untyped io_or_path, **untyped opts) { (untyped) -> untyped } -> untyped
+
+    private
+
+    def self.read_data: (untyped reader, untyped profile) -> untyped
+
+    def self.validate_absent_files: (untyped reader, untyped absent_filenames) -> untyped
+
+    def self.validate_bulk_files: (untyped reader, untyped bulk_filenames) -> untyped
+
+    def self.validate_manifest_version: (untyped manifest_version) -> (nil | untyped)
+
+    def self.validate_oneroster_version: (untyped oneroster_version) -> (nil | untyped)
+
+    def self.validate_supported_processing_mode: (untyped manifest) -> (nil | untyped)
+
+    public
+
+    attr_reader profile: untyped
+
+    attr_reader manifest_properties: untyped
+
+    attr_reader academic_sessions: untyped
+
+    attr_reader classes: untyped
+
+    attr_reader courses: untyped
+
+    attr_reader demographics: untyped
+
+    attr_reader enrollments: untyped
+
+    attr_reader organizations: untyped
+
+    attr_reader roles: untyped
+
+    attr_reader user_profiles: untyped
+
+    attr_reader users: untyped
+
+    def initialize: (?profile: untyped, ?manifest_properties: ::Hash[untyped, untyped], ?academic_sessions: untyped, ?classes: untyped, ?courses: untyped, ?demographics: untyped, ?enrollments: untyped, ?organizations: untyped, ?roles: untyped, ?user_profiles: untyped, ?users: untyped) -> void
+
+    def builder: () -> untyped
+
+    def check_semantically_consistent: () -> void
+
+    def write_to_buffer: (untyped io) -> untyped
+
+    def write_to_file: (untyped path) -> untyped
+
+    private
+
+    def write: (untyped zipfile) -> untyped
+
+    def build_manifest: () -> untyped
+
+    def data_for: (untyped file_attribute) -> untyped
+
+    def file_properties: () -> { file_academic_sessions: untyped, file_classes: untyped, file_courses: untyped, file_demographics: untyped, file_enrollments: untyped, file_orgs: untyped, file_roles: untyped, file_user_profiles: untyped, file_users: untyped }
+
+    def procesing_mode: (untyped data) -> untyped
+  end
+end

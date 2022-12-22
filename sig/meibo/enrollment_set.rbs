@@ -1,0 +1,13 @@
+module Meibo
+  class EnrollmentSet < DataSet
+    def check_semantically_consistent: () -> void
+
+    def administrator: () -> untyped
+
+    def proctor: () -> untyped
+
+    def student: () -> untyped
+
+    def teacher: () -> untyped
+  end
+end

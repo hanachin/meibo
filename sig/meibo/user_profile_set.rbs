@@ -1,0 +1,5 @@
+module Meibo
+  class UserProfileSet < DataSet
+    def check_semantically_consistent: () -> void
+  end
+end

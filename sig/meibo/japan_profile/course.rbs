@@ -1,0 +1,8 @@
+module Meibo
+  class JapanProfile < ::Meibo::Profile
+    class Course < ::Meibo::Course
+      # NOTE: courseCodeは空文字固定
+      def initialize: (?course_code: ::String, **untyped other_fields) -> void
+    end
+  end
+end

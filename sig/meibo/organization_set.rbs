@@ -1,0 +1,17 @@
+module Meibo
+  class OrganizationSet < DataSet
+    def check_semantically_consistent: () -> void
+
+    def department: () -> untyped
+
+    def school: () -> untyped
+
+    def district: () -> untyped
+
+    def local: () -> untyped
+
+    def state: () -> untyped
+
+    def national: () -> untyped
+  end
+end

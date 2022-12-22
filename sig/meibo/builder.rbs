@@ -1,0 +1,33 @@
+module Meibo
+  class Builder
+    extend Forwardable
+
+    attr_reader roster: untyped
+
+    attr_reader profile: untyped
+
+    def initialize: (roster: untyped, ?profile: untyped) -> void
+
+    def build_academic_session: (**untyped kw) -> untyped
+
+    def build_classroom: (**untyped kw) -> untyped
+
+    def build_course: (**untyped kw) -> untyped
+
+    def build_demographic: (**untyped kw) -> untyped
+
+    def build_enrollment: (**untyped kw) -> untyped
+
+    def build_organization: (**untyped kw) -> untyped
+
+    def build_role: (**untyped kw) -> untyped
+
+    def build_user: (**untyped kw) -> untyped
+
+    def build_user_profile: (**untyped kw) -> untyped
+
+    private
+
+    def builder_for: (untyped key) -> untyped
+  end
+end

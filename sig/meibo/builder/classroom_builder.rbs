@@ -1,0 +1,13 @@
+module Meibo
+  class Builder
+    module ClassroomBuilder
+      extend BaseBuilder
+
+      def self.builder_attribute_names: () -> ::Array[:builder | :course | :school | :terms]
+
+      def initialize: (builder: untyped, course: untyped, school: untyped, terms: untyped, ?sourced_id: untyped, **untyped kw) -> void
+
+      def build_enrollment: (**untyped kw) -> untyped
+    end
+  end
+end

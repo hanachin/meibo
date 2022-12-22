@@ -2,14 +2,17 @@
 
 module Meibo
   class Organization
-    TYPES = {
+    # @type var types: ::Meibo::Organization::organization_types
+    types = {
       department: "department",
       school: "school",
       district: "district",
       local: "local",
       state: "state",
       national: "national"
-    }.freeze
+    }
+    types.freeze
+    TYPES = types
 
     DataModel.define(
       self,

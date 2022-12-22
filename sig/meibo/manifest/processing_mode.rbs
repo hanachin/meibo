@@ -1,0 +1,19 @@
+module Meibo
+  class Manifest
+    class ProcessingMode
+      attr_reader mode: untyped
+
+      def initialize: (untyped mode) -> void
+
+      def absent?: () -> untyped
+
+      def bulk?: () -> untyped
+
+      def delta?: () -> untyped
+
+      def ==: (untyped other) -> untyped
+
+      def to_s: () -> untyped
+    end
+  end
+end

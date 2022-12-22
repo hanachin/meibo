@@ -1,0 +1,13 @@
+module Meibo
+  class AcademicSessionSet < DataSet
+    def check_semantically_consistent: () -> void
+
+    def grading_period: () -> untyped
+
+    def semester: () -> untyped
+
+    def school_year: () -> untyped
+
+    def term: () -> untyped
+  end
+end

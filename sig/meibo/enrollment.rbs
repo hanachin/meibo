@@ -1,0 +1,50 @@
+module Meibo
+  class Enrollment
+    type role_type =  "administrator" | "proctor" | "student" | "teacher"
+    type role_types = { administrator: "administrator", proctor: "proctor", student: "student", teacher: "teacher" }
+
+    ROLES: role_types
+
+    attr_reader sourced_id: sourced_id
+    attr_reader class_sourced_id: sourced_id
+    attr_reader school_sourced_id: sourced_id
+    attr_reader user_sourced_id: sourced_id
+    attr_reader role: role_type
+    attr_reader status: status?
+    attr_reader date_last_modified: DateTime?
+    attr_reader primary: bool?
+    attr_reader begin_date: Date?
+    attr_reader end_date: Date?
+    attr_reader extension_fields: Hash[Symbol, untyped]
+
+    def initialize: (
+      sourced_id: sourced_id,
+      class_sourced_id: sourced_id,
+      school_sourced_id: sourced_id,
+      user_sourced_id: sourced_id,
+      role: role_type,
+      ?status: status?,
+      ?date_last_modified: DateTime?,
+      ?primary: bool?,
+      ?begin_date: Date?,
+      ?end_date: Date?,
+      **Hash[Symbol, untyped] extension_fields
+    ) -> void
+
+    def collection: () -> untyped
+
+    def administrator?: () -> bool
+
+    def proctor?: () -> bool
+
+    def student?: () -> bool
+
+    def teacher?: () -> bool
+
+    def classroom: () -> untyped
+
+    def school: () -> untyped
+
+    def user: () -> untyped
+  end
+end

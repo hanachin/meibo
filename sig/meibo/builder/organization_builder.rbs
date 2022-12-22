@@ -1,0 +1,17 @@
+module Meibo
+  class Builder
+    module OrganizationBuilder
+      extend BaseBuilder
+
+      def self.builder_attribute_names: () -> ::Array[:builder | :parent]
+
+      def initialize: (builder: untyped, ?sourced_id: untyped, ?parent: untyped?, **untyped kw) -> void
+
+      def build_course: (**untyped kw) -> untyped
+
+      def build_user: (**untyped kw) -> untyped
+
+      def build_role: (**untyped kw) -> untyped
+    end
+  end
+end

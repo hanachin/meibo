@@ -5,7 +5,8 @@ require "time"
 
 module Meibo
   module Converter
-    TYPES = %i[
+    # @type var types: ::Meibo::Converter::converter_types
+    types = %i[
       list
       required
       boolean
@@ -16,7 +17,9 @@ module Meibo
       status
       user_ids
       year
-    ].freeze
+    ]
+    types.freeze
+    TYPES = types
 
     class << self
       def build_header_field_to_attribute_converter(attribute_name_to_header_field_map)
@@ -94,7 +97,7 @@ module Meibo
         lambda do |field, field_info|
           if field && date_field_indexes.include?(field_info.index)
             begin
-              Date.strptime(field, "%Y-%m-%d")
+              Date.strptime(field.to_s, "%Y-%m-%d")
             rescue StandardError
               raise InvalidDataTypeError
             end
@@ -120,7 +123,7 @@ module Meibo
         lambda do |field, field_info|
           if field && datetime_field_indexes.include?(field_info.index)
             begin
-              Time.iso8601(field)
+              Time.iso8601(field.to_s)
             rescue StandardError
               raise InvalidDataTypeError
             end
@@ -147,7 +150,7 @@ module Meibo
         lambda do |field, field_info|
           if field && integer_field_indexes.include?(field_info.index)
             begin
-              Integer(field, 10)
+              Integer(field.to_s, 10)
             rescue StandardError
               raise InvalidDataTypeError
             end
@@ -207,7 +210,7 @@ module Meibo
         status_field_indexes = status_field_indexes.dup.freeze
         lambda do |field, field_info|
           if field && status_field_indexes.include?(field_info.index)
-            raise InvalidDataTypeError, "invalid status: #{field}" unless %w[active tobedeleted].include?(field)
+            raise InvalidDataTypeError, "invalid status: #{field}" unless %w[active tobedeleted].include?(field.to_s)
           else
             field
           end
@@ -243,7 +246,7 @@ module Meibo
         lambda do |field, field_info|
           if field && year_field_indexes.include?(field_info.index)
             begin
-              Integer(field, 10)
+              Integer(field.to_s, 10)
             rescue StandardError
               raise InvalidDataTypeError
             end

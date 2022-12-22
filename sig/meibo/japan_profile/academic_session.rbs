@@ -1,0 +1,27 @@
+module Meibo
+  class JapanProfile < ::Meibo::Profile
+    class AcademicSession < ::Meibo::AcademicSession
+      type academic_session_type = "schoolYear"
+      
+      TYPES: { school_year: "schoolYear" }
+
+      # NOTE: 以下固定
+      #   - titleは連携処理実行時の対象年度西暦 + 「年度」を設定
+      #   - typeはschoolYear固定
+      #   - start_dateは対象年度の開始日固定
+      #   - end_dateは対象年度の終了日固定
+      def initialize: (
+        school_year: ::Meibo::AcademicSession::school_year,
+        ?title: ::String,
+        ?type: academic_session_type,
+        ?start_date: Date,
+        ?end_date: Date,
+        sourced_id: sourced_id,
+        ?status: status?,
+        ?date_last_modified: DateTime?,
+        ?parent_sourced_id: sourced_id?,
+        **Hash[Symbol, untyped] extension_fields
+      ) -> void
+    end
+  end
+end

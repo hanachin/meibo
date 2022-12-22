@@ -1,0 +1,7 @@
+module Meibo
+  class JapanProfile < ::Meibo::Profile
+    class Classroom < ::Meibo::Classroom
+      def initialize: (?special_needs: untyped?, **untyped other_fields) -> void
+    end
+  end
+end

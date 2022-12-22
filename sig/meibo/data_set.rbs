@@ -1,0 +1,31 @@
+module Meibo
+  class DataSet
+    include Enumerable[untyped]
+
+    attr_reader roster: untyped
+
+    def initialize: (untyped data, roster: untyped) -> void
+
+    def <<: (untyped new_data) -> untyped
+
+    def check_semantically_consistent: () -> void
+
+    def each: (*untyped) ?{ () -> untyped } -> untyped
+
+    def empty?: () -> untyped
+
+    def find: (untyped sourced_id) -> untyped
+
+    def lineno: (untyped datum) -> untyped
+
+    def where: (**untyped conditions) -> untyped
+
+    private
+
+    def group_cache: () -> untyped
+
+    def data_by_sourced_id: () -> untyped
+
+    def new: (untyped data) -> untyped
+  end
+end

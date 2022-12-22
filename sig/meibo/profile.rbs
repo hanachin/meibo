@@ -1,0 +1,23 @@
+module Meibo
+  class Profile
+    BUILDERS: { academic_session: untyped, class: untyped, course: untyped, demographic: untyped, enrollment: untyped, org: untyped, role: untyped, user: untyped, user_profile: untyped }
+
+    DATA_MODELS: { file_academic_sessions: untyped, file_classes: untyped, file_courses: untyped, file_demographics: untyped, file_enrollments: untyped, file_orgs: untyped, file_roles: untyped, file_user_profiles: untyped, file_users: untyped }
+
+    DATA_SET: { academic_sessions: untyped, classes: untyped, courses: untyped, demographics: untyped, enrollments: untyped, orgs: untyped, roles: untyped, user_profiles: untyped, users: untyped }
+
+    attr_reader builders: untyped
+
+    attr_reader data_models: untyped
+
+    attr_reader data_set: untyped
+
+    def initialize: (?builders: untyped, ?data_models: untyped, ?data_set: untyped) -> void
+
+    def builder_for: (untyped key) -> untyped
+
+    def data_model_for: (untyped file_attribute) -> untyped
+
+    def data_set_for: (untyped name) -> untyped
+  end
+end

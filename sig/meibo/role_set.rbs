@@ -1,0 +1,33 @@
+module Meibo
+  class RoleSet < DataSet
+    def check_semantically_consistent: () -> void
+
+    def primary: () -> untyped
+
+    def secondary: () -> untyped
+
+    def aide: () -> untyped
+
+    def counselor: () -> untyped
+
+    def district_administrator: () -> untyped
+
+    def guardian: () -> untyped
+
+    def parent: () -> untyped
+
+    def principal: () -> untyped
+
+    def proctor: () -> untyped
+
+    def relative: () -> untyped
+
+    def site_administrator: () -> untyped
+
+    def student: () -> untyped
+
+    def system_administrator: () -> untyped
+
+    def teacher: () -> untyped
+  end
+end

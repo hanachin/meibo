@@ -1,0 +1,11 @@
+module Meibo
+  class Builder
+    module AcademicSessionBuilder
+      extend BaseBuilder
+
+      def self.builder_attribute_names: () -> ::Array[:builder | :parent]
+
+      def initialize: (builder: untyped, ?sourced_id: untyped, ?parent: untyped?, **untyped kw) -> void
+    end
+  end
+end

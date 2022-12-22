@@ -2,12 +2,15 @@
 
 module Meibo
   class AcademicSession
-    TYPES = {
+    # @type var types: ::Meibo::AcademicSession::academic_session_types
+    types = {
       grading_period: "gradingPeriod",
       semester: "semester",
       school_year: "schoolYear",
       term: "term"
-    }.freeze
+    }
+    types.freeze
+    TYPES = types
 
     DataModel.define(
       self,

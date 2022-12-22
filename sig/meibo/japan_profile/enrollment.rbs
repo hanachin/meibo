@@ -1,0 +1,13 @@
+module Meibo
+  class JapanProfile < ::Meibo::Profile
+    class Enrollment < ::Meibo::Enrollment
+      ROLES: { student: "student", teacher: "teacher", administrator: "administrator", guardian: "guardian" }
+
+      # NOTE: 児童生徒の場合primaryはfalse固定
+      # MEMO: 保護者の場合もそうでは?
+      def initialize: (role: untyped, ?shusseki_no: untyped?, ?public_flg: untyped?, ?primary: untyped, **untyped other_fields) -> void
+
+      def guardian?: () -> untyped
+    end
+  end
+end

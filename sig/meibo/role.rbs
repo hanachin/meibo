@@ -1,0 +1,73 @@
+module Meibo
+  class Role
+    type role_type = "primary" | "secondary"
+    type role_types = { primary: "primary", secondary: "secondary" }
+    type role = "aide" | "counselor" | "districtAdministrator" | "guardian" | "parent" | "principal" | "proctor" | "relative" | "siteAdministrator" | "student" | "systemAdministrator" | "teacher"
+    type roles = { aide: "aide", counselor: "counselor", district_administrator: "districtAdministrator", guardian: "guardian", parent: "parent", principal: "principal", proctor: "proctor", relative: "relative", site_administrator: "siteAdministrator", student: "student", system_administrator: "systemAdministrator", teacher: "teacher" }
+
+    TYPES: role_types
+    ROLES: roles
+
+    attr_reader sourced_id: sourced_id
+    attr_reader user_sourced_id: sourced_id
+    attr_reader role_type: role_type
+    attr_reader role: role
+    attr_reader org_sourced_id: sourced_id
+    attr_reader status: status?
+    attr_reader date_last_modified: DateTime?
+    attr_reader begin_date: Date?
+    attr_reader end_date: Date?
+    attr_reader user_profile_sourced_id: sourced_id?
+    attr_reader extension_fields: Hash[Symbol, untyped]
+
+    def initialize: (
+      sourced_id: sourced_id,
+      user_sourced_id: sourced_id,
+      role_type: role_type,
+      role: role,
+      org_sourced_id: sourced_id,
+      ?status: status?,
+      ?date_last_modified: DateTime?,
+      ?begin_date: Date?,
+      ?end_date: Date?,
+      ?user_profile_sourced_id: sourced_id?,
+      **Hash[Symbol, untyped] extension_fields
+    ) -> void
+
+    def collection: () -> untyped
+
+    def primary?: () -> bool
+
+    def secondary?: () -> bool
+
+    def aide?: () -> bool
+
+    def counselor?: () -> bool
+
+    def district_administrator?: () -> bool
+
+    def guardian?: () -> bool
+
+    def parent?: () -> bool
+
+    def principal?: () -> bool
+
+    def proctor?: () -> bool
+
+    def relative?: () -> bool
+
+    def site_administrator?: () -> bool
+
+    def student?: () -> bool
+
+    def system_administrator?: () -> bool
+
+    def teacher?: () -> bool
+
+    def organization: () -> untyped
+
+    def user: () -> untyped
+
+    def user_profile: () -> untyped
+  end
+end

@@ -2,12 +2,16 @@
 
 module Meibo
   class Role
-    TYPES = {
+    # @type var types: ::Meibo::Role::role_types
+    types = {
       primary: "primary",
       secondary: "secondary"
-    }.freeze
+    }
+    types.freeze
+    TYPES = types
 
-    ROLES = {
+    # @type var roles: ::Meibo::Role::roles
+    roles = {
       aide: "aide",
       counselor: "counselor",
       district_administrator: "districtAdministrator",
@@ -20,7 +24,9 @@ module Meibo
       student: "student",
       system_administrator: "systemAdministrator",
       teacher: "teacher"
-    }.freeze
+    }
+    roles.freeze
+    ROLES = roles
 
     DataModel.define(
       self,

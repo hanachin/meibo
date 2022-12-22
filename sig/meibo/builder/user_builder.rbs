@@ -1,0 +1,15 @@
+module Meibo
+  class Builder
+    module UserBuilder
+      extend BaseBuilder
+
+      def self.builder_attribute_names: () -> ::Array[:builder | :agents | :primary_organization]
+
+      def initialize: (builder: untyped, ?sourced_id: untyped, ?agents: untyped?, ?primary_organization: untyped?, **untyped kw) -> void
+
+      def build_demographic: (**untyped kw) -> untyped
+
+      def build_profile: (**untyped kw) -> untyped
+    end
+  end
+end

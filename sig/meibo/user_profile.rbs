@@ -1,0 +1,37 @@
+module Meibo
+  class UserProfile
+    attr_reader sourced_id: sourced_id
+    attr_reader user_sourced_id: sourced_id
+    attr_reader profile_type: String
+    attr_reader vendor_id: String
+    attr_reader credential_type: String
+    attr_reader username: String
+    attr_reader status: status?
+    attr_reader date_last_modified: DateTime?
+    attr_reader application_id: String?
+    attr_reader description: String?
+    attr_reader password: String?
+    attr_reader extension_fields: Hash[Symbol, untyped]
+
+    def initialize: (
+      sourced_id: sourced_id,
+      user_sourced_id: sourced_id,
+      profile_type: String,
+      vendor_id: String,
+      credential_type: String,
+      username: String,
+      ?status: status?,
+      ?date_last_modified: DateTime?,
+      ?application_id: String?,
+      ?description: String?,
+      ?password: String?,
+      **Hash[Symbol, untyped] extension_fields
+    ) -> void
+
+    def collection: () -> untyped
+
+    def user: () -> untyped
+
+    def role: () -> untyped
+  end
+end

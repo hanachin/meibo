@@ -2,12 +2,15 @@
 
 module Meibo
   class Enrollment
-    ROLES = {
+    # @type var roles: ::Meibo::Enrollment::role_types
+    roles = {
       administrator: "administrator",
       proctor: "proctor",
       student: "student",
       teacher: "teacher"
-    }.freeze
+    }
+    roles.freeze
+    ROLES = roles
 
     DataModel.define(
       self,

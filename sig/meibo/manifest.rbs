@@ -1,0 +1,90 @@
+module Meibo
+  class Manifest
+    MANIFEST_VERSION: "1.0"
+
+    ONEROSTER_VERSION: "1.2"
+
+    PROCESSING_MODES: { absent: untyped, bulk: untyped, delta: untyped }
+
+    PROPERTY_NAME_TO_ATTRIBUTE_MAP: ::Hash[::String, :manifest_version | :oneroster_version | :file_academic_sessions | :file_categories | :file_classes | :file_class_resources | :file_courses | :file_course_resources | :file_demographics | :file_enrollments | :file_line_item_learning_objective_ids | :file_line_items | :file_line_item_score_scales | :file_orgs | :file_resources | :file_result_learning_objective_ids | :file_results | :file_result_score_scales | :file_roles | :file_score_scales | :file_user_profiles | :file_user_resources | :file_users | :source_system_name | :source_system_code]
+
+    ATTRIBUTE_TO_PROPERTY_NAME_MAP: untyped
+
+    # NOTE: 想定値
+    DEFAULT_VALUES: { manifest_version: untyped, oneroster_version: untyped, file_academic_sessions: untyped, file_categories: untyped, file_classes: untyped, file_class_resources: untyped, file_courses: untyped, file_course_resources: untyped, file_demographics: untyped, file_enrollments: untyped, file_line_item_learning_objective_ids: untyped, file_line_items: untyped, file_line_item_score_scales: untyped, file_orgs: untyped, file_resources: untyped, file_result_learning_objective_ids: untyped, file_results: untyped, file_result_score_scales: untyped, file_roles: untyped, file_score_scales: untyped, file_user_profiles: untyped, file_user_resources: untyped, file_users: untyped }
+
+    attr_reader manifest_version: untyped
+
+    attr_reader oneroster_version: untyped
+
+    attr_reader file_academic_sessions: untyped
+
+    attr_reader file_categories: untyped
+
+    attr_reader file_classes: untyped
+
+    attr_reader file_class_resources: untyped
+
+    attr_reader file_courses: untyped
+
+    attr_reader file_course_resources: untyped
+
+    attr_reader file_demographics: untyped
+
+    attr_reader file_enrollments: untyped
+
+    attr_reader file_line_item_learning_objective_ids: untyped
+
+    attr_reader file_line_items: untyped
+
+    attr_reader file_line_item_score_scales: untyped
+
+    attr_reader file_orgs: untyped
+
+    attr_reader file_resources: untyped
+
+    attr_reader file_result_learning_objective_ids: untyped
+
+    attr_reader file_results: untyped
+
+    attr_reader file_result_score_scales: untyped
+
+    attr_reader file_roles: untyped
+
+    attr_reader file_score_scales: untyped
+
+    attr_reader file_user_profiles: untyped
+
+    attr_reader file_user_resources: untyped
+
+    attr_reader file_users: untyped
+
+    attr_reader source_system_name: untyped
+
+    attr_reader source_system_code: untyped
+
+    def self.build_from_default: (**untyped custom_properties) -> untyped
+
+    def self.filename: () -> "manifest.csv"
+
+    def self.attribute_to_property_name: (untyped attribute) -> untyped
+
+    def self.filename_for: (untyped attribute) -> ::String
+
+    def self.parse: (untyped csv) -> untyped
+
+    def initialize: (manifest_version: untyped, oneroster_version: untyped, file_academic_sessions: untyped, file_categories: untyped, file_classes: untyped, file_class_resources: untyped, file_courses: untyped, file_course_resources: untyped, file_demographics: untyped, file_enrollments: untyped, file_line_item_learning_objective_ids: untyped, file_line_items: untyped, file_line_item_score_scales: untyped, file_orgs: untyped, file_resources: untyped, file_result_learning_objective_ids: untyped, file_results: untyped, file_result_score_scales: untyped, file_roles: untyped, file_score_scales: untyped, file_user_profiles: untyped, file_user_resources: untyped, file_users: untyped, ?source_system_name: untyped?, ?source_system_code: untyped?) -> void
+
+    def filenames: (processing_mode: untyped) -> untyped
+
+    def file_attributes: (processing_mode: untyped) -> untyped
+
+    def deconstruct: () -> untyped
+
+    def deconstruct_keys: (untyped _keys) -> untyped
+
+    def to_a: () -> untyped
+
+    def to_h: () -> untyped
+  end
+end

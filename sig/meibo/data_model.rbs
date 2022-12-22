@@ -1,0 +1,29 @@
+module Meibo
+  module DataModel
+    module ClassMethods
+      def parse: (untyped csv) { (untyped) -> untyped } -> untyped
+    end
+
+    def self.define: (untyped klass, attribute_name_to_header_field_map: untyped, ?converters: ::Hash[untyped, untyped]) -> untyped
+
+    def self.define_class_attribute: (untyped klass, untyped attribute, untyped value) -> untyped
+
+    def self.define_header_converters: (untyped klass, untyped attribute_name_to_header_field_map) -> untyped
+
+    def self.define_parser_converters: (untyped klass, attribute_names: untyped, converters: untyped) -> untyped
+
+    def self.define_write_converters: (untyped klass, attribute_names: untyped, converters: untyped) -> untyped
+
+    def lineno: () -> untyped
+
+    def to_csv: (*untyped) ?{ () -> untyped } -> untyped
+
+    def deconstruct: () -> untyped
+
+    def deconstruct_keys: (untyped _keys) -> untyped
+
+    def to_a: () -> untyped
+
+    def to_h: () -> untyped
+  end
+end

@@ -1,0 +1,13 @@
+module Meibo
+  class DemographicSet < DataSet
+    def check_semantically_consistent: () -> void
+
+    def male: () -> untyped
+
+    def female: () -> untyped
+
+    def unspecified: () -> untyped
+
+    def other: () -> untyped
+  end
+end

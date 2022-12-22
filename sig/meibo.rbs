@@ -1,4 +1,17 @@
 module Meibo
-  VERSION: String
-  # See the writing guide of rbs: https://github.com/ruby/rbs#guides
+  type grade = "P1" | "P2" | "P3" | "P4" | "P5" | "P6" | "J1" | "J2" | "J3" | "H1" | "H2" | "H3"
+  type sourced_id = String
+  type status = 'active' | 'tobedeleted'
+
+  CSV_ENCODING: "UTF-8"
+  ENUM_EXT_PATTERN: Regexp
+
+  attr_accessor self.default_profile: untyped
+
+  def self.current_roster: () -> ::Meibo::Roster?
+  def self.with_roster: (::Meibo::Roster roster) { () -> void } -> void
+
+  private
+
+  def self.thread_local_data: () -> untyped
 end

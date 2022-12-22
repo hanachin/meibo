@@ -1,0 +1,7 @@
+module Meibo
+  class JapanProfile < ::Meibo::Profile
+    class Organization < ::Meibo::Organization
+      TYPES: { district: "district", school: "school" }
+    end
+  end
+end

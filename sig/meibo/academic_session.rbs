@@ -1,0 +1,44 @@
+module Meibo
+  class AcademicSession
+    type academic_session_type = "gradingPeriod" | "semester" | "schoolYear" | "term"
+    type academic_session_types = {
+      grading_period: "gradingPeriod",
+      semester: "semester",
+      school_year: "schoolYear",
+      term: "term"
+    }
+    type school_year = Integer
+
+    TYPES: academic_session_types
+    attr_reader sourced_id: sourced_id
+    attr_reader status: status?
+    attr_reader date_last_modified: DateTime?
+    attr_reader title: String?
+    attr_reader type: academic_session_type
+    attr_reader start_date: Date
+    attr_reader end_date: Date
+    attr_reader parent_sourced_id: sourced_id?
+    attr_reader school_year: school_year
+    attr_reader extension_fields: Hash[Symbol, untyped]
+
+    def initialize: (
+      sourced_id: sourced_id,
+      school_year: school_year,
+      type: academic_session_type,
+      start_date: Date,
+      end_date: Date,
+      ?status: status?,
+      ?date_last_modified: DateTime?,
+      ?title: String?,
+      ?parent_sourced_id: sourced_id?,
+      **Hash[Symbol, untyped] extension_fields
+    ) -> void
+    def collection: () -> untyped
+    def grading_period?: () -> bool
+    def semester?: () -> bool
+    def school_year?: () -> bool
+    def term?: () -> bool
+    def parent: () -> AcademicSession?
+    def children: () -> untyped
+  end
+end
