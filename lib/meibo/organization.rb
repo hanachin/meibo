@@ -31,7 +31,7 @@ module Meibo
     )
 
     def initialize(sourced_id:, name:, type:, status: nil, date_last_modified: nil, identifier: nil,
-                   parent_sourced_id: (type == TYPES[:district] ? "NULL" : nil), **extension_fields)
+                   parent_sourced_id: nil, **extension_fields)
       @sourced_id = sourced_id
       @status = status
       @date_last_modified = date_last_modified
