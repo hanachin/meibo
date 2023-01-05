@@ -53,7 +53,7 @@ module Meibo
     end
 
     def where(**conditions)
-      group_cache[conditions.keys.sort][conditions.values]
+      group_cache[conditions.keys.sort][conditions.values] || empty_set
     end
 
     private
@@ -76,6 +76,10 @@ module Meibo
 
     def new(data)
       self.class.new(data, roster: roster)
+    end
+
+    def empty_set
+      @empty_set ||= new([])
     end
   end
 end
