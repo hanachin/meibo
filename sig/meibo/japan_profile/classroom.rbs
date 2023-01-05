@@ -1,7 +1,24 @@
 module Meibo
   class JapanProfile < ::Meibo::Profile
-    class Classroom < ::Meibo::Classroom
-      def initialize: (?special_needs: untyped?, **untyped other_fields) -> void
+    class Classroom < ::Meibo::Classroom[grade]
+      def initialize: (
+        sourced_id: sourced_id,
+        title: String,
+        course_sourced_id: sourced_id,
+        class_type: ::Meibo::Classroom::classroom_type,
+        school_sourced_id: sourced_id,
+        term_sourced_ids: Array[sourced_id],
+        ?status: status?,
+        ?date_last_modified: DateTime?,
+        ?grades: Array[grade],
+        ?class_code: String?,
+        ?location: String?,
+        ?subjects: Array[String],
+        ?subject_codes: Array[String],
+        ?periods: Array[String],
+        ?special_needs: bool?,
+        **Hash[Symbol, untyped] extension_fields
+      ) -> void
     end
   end
 end

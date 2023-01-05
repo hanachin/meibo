@@ -1,11 +1,15 @@
 module Meibo
   class JapanProfile < ::Meibo::Profile
-    BUILDERS: { academic_session: untyped, class: untyped, course: untyped, demographic: untyped, enrollment: untyped, org: untyped, role: untyped, user: untyped, user_profile: untyped }
+    type grade = "P1" | "P2" | "P3" | "P4" | "P5" | "P6" | "J1" | "J2" | "J3" | "H1" | "H2" | "H3"
 
-    DATA_MODELS: { file_academic_sessions: untyped, file_classes: untyped, file_courses: untyped, file_demographics: untyped, file_enrollments: untyped, file_orgs: untyped, file_roles: untyped, file_user_profiles: untyped, file_users: untyped }
+    BUILDERS: Meibo::Profile::builders_type
+    DATA_MODELS: Meibo::Profile::data_models_type
+    DATA_SET: Meibo::Profile::data_set_type
 
-    DATA_SET: untyped
-
-    def initialize: (?builders: untyped, ?data_models: untyped, ?data_set: untyped) -> void
+    def initialize: (
+      ?builders: Meibo::Profile::builders_type,
+      ?data_models: Meibo::Profile::data_models_type,
+      ?data_set: Meibo::Profile::data_set_type
+    ) -> void
   end
 end

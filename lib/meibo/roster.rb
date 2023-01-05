@@ -50,17 +50,17 @@ module Meibo
 
       def validate_absent_files(reader, absent_filenames)
         absent_filenames.each do |absent_filename|
-          next unless reader.file_entry?(absent_filename)
-
-          raise NotSupportedError, "#{absent_filename}が存在します"
+          if reader.file_entry?(absent_filename)
+            raise NotSupportedError, "#{absent_filename}が存在します"
+          end
         end
       end
 
       def validate_bulk_files(reader, bulk_filenames)
         bulk_filenames.each do |bulk_filename|
-          next if reader.file_entry?(bulk_filename)
-
-          raise NotSupportedError, "#{bulk_filename}が存在しません"
+          unless reader.file_entry?(bulk_filename)
+            raise NotSupportedError, "#{bulk_filename}が存在しません"
+          end
         end
       end
 

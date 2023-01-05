@@ -2,7 +2,8 @@
 
 module Meibo
   class JapanProfile < ::Meibo::Profile
-    BUILDERS = {
+    # @type var builders: ::Meibo::Profile::builders_type
+    builders = {
       academic_session: Builder::AcademicSessionBuilder.create(AcademicSession),
       class: Builder::ClassroomBuilder.create(Classroom),
       course: Builder::CourseBuilder.create(Course),
@@ -12,9 +13,12 @@ module Meibo
       role: Builder::RoleBuilder.create(Role),
       user: Builder::UserBuilder.create(User),
       user_profile: Builder::UserProfileBuilder.create(UserProfile)
-    }.freeze
+    }
+    builders.freeze
+    BUILDERS = builders
 
-    DATA_MODELS = {
+    # @type var data_models: ::Meibo::Profile::data_models_type
+    data_models = {
       file_academic_sessions: AcademicSession,
       file_classes: Classroom,
       file_courses: Course,
@@ -24,11 +28,15 @@ module Meibo
       file_roles: Role,
       file_user_profiles: UserProfile,
       file_users: User
-    }.freeze
+    }
+    data_models.freeze
+    DATA_MODELS = data_models
 
-    DATA_SET = ::Meibo::Profile::DATA_SET.merge(
-      users: UserSet
-    )
+    # @type var data_set: ::Meibo::Profile::data_set_type
+    data_set = ::Meibo::Profile::DATA_SET.dup
+    data_set[:users] = UserSet
+    data_set.freeze
+    DATA_SET = data_set
 
     def initialize(builders: BUILDERS, data_models: DATA_MODELS, data_set: DATA_SET)
       super

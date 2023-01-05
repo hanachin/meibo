@@ -2,7 +2,8 @@
 
 module Meibo
   class Profile
-    BUILDERS = {
+    # @type var builders: ::Meibo::Profile::builders_type
+    builders = {
       academic_session: Builder::AcademicSessionBuilder.create(AcademicSession),
       class: Builder::ClassroomBuilder.create(Classroom),
       course: Builder::CourseBuilder.create(Course),
@@ -12,9 +13,12 @@ module Meibo
       role: Builder::RoleBuilder.create(Role),
       user: Builder::UserBuilder.create(User),
       user_profile: Builder::UserProfileBuilder.create(UserProfile)
-    }.freeze
+    }
+    builders.freeze
+    BUILDERS = builders
 
-    DATA_MODELS = {
+    # @type var data_models: ::Meibo::Profile::data_models_type
+    data_models = {
       file_academic_sessions: Meibo::AcademicSession,
       file_classes: Meibo::Classroom,
       file_courses: Meibo::Course,
@@ -24,9 +28,12 @@ module Meibo
       file_roles: Meibo::Role,
       file_user_profiles: Meibo::UserProfile,
       file_users: Meibo::User
-    }.freeze
+    }
+    data_models.freeze
+    DATA_MODELS = data_models
 
-    DATA_SET = {
+    # @type var data_set: ::Meibo::Profile::data_set_type
+    data_set = {
       academic_sessions: Meibo::AcademicSessionSet,
       classes: Meibo::ClassroomSet,
       courses: Meibo::CourseSet,
@@ -36,7 +43,9 @@ module Meibo
       roles: Meibo::RoleSet,
       user_profiles: Meibo::UserProfileSet,
       users: Meibo::UserSet
-    }.freeze
+    }
+    data_set.freeze
+    DATA_SET = data_set
 
     attr_reader :builders, :data_models, :data_set
 

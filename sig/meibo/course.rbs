@@ -1,13 +1,13 @@
 module Meibo
-  class Course
+  class Course[Grade]
     attr_reader sourced_id: sourced_id
     attr_reader title: String
     attr_reader org_sourced_id: sourced_id
     attr_reader status: status?
     attr_reader date_last_modified: DateTime?
     attr_reader school_year_sourced_id: sourced_id?
-    attr_reader course_code: Array[String]?
-    attr_reader grades: Array[grade]
+    attr_reader course_code: String?
+    attr_reader grades: Array[Grade]
     attr_reader subjects: Array[String]
     attr_reader subject_codes: Array[String]
     attr_reader extension_fields: Hash[Symbol, untyped]
@@ -19,8 +19,8 @@ module Meibo
       ?status: status?,
       ?date_last_modified: DateTime?,
       ?school_year_sourced_id: sourced_id?,
-      ?course_code: Array[String]?,
-      ?grades: Array[grade],
+      ?course_code: String?,
+      ?grades: Array[Grade],
       ?subjects: Array[String],
       ?subject_codes: Array[String],
       **Hash[Symbol, untyped] extension_fields

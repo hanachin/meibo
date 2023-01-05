@@ -1,10 +1,39 @@
 module Meibo
   class JapanProfile < ::Meibo::Profile
-    class User < ::Meibo::User
+    class User < ::Meibo::User[grade, Organization]
       # NOTE: enabled_userは必須ではないが固定
-      def initialize: (?enabled_user: bool, ?kana_given_name: untyped?, ?kana_family_name: untyped?, ?kana_middle_name: untyped?, ?home_class: untyped?, **untyped other_fields) -> void
+      def initialize: (
+        ?enabled_user: bool?,
+        ?kana_given_name: String?,
+        ?kana_family_name: String?,
+        ?kana_middle_name: String?,
+        ?home_class: sourced_id?,
+        sourced_id: sourced_id,
+        username: String,
+        given_name: String,
+        family_name: String,
+        ?status: status?,
+        ?date_last_modified: DateTime?,
+        ?user_ids: Array[String]?,
+        ?middle_name: String?,
+        ?identifier: String?,
+        ?email: String?,
+        ?sms: String?,
+        ?phone: String?,
+        ?agent_sourced_ids: Array[sourced_id],
+        ?grades: Array[grade]?,
+        ?password: String?,
+        ?user_master_identifier: String?,
+        ?resource_sourced_ids: Array[sourced_id]?,
+        ?preferred_given_name: String?,
+        ?preferred_middle_name: String?,
+        ?preferred_family_name: String?,
+        ?primary_org_sourced_id: sourced_id?,
+        ?pronouns: String?,
+        **Hash[Symbol, untyped] extension_fields
+      ) -> void
 
-      def home_classroom: () -> untyped
+      def home_classroom: () -> Meibo::JapanProfile::Classroom
     end
   end
 end

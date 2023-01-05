@@ -1,8 +1,20 @@
 module Meibo
   class JapanProfile < ::Meibo::Profile
-    class Course < ::Meibo::Course
+    class Course < ::Meibo::Course[grade]
       # NOTE: courseCodeは空文字固定
-      def initialize: (?course_code: ::String, **untyped other_fields) -> void
+      def initialize: (
+        ?course_code: String?,
+        sourced_id: sourced_id,
+        title: String,
+        org_sourced_id: sourced_id,
+        ?status: status?,
+        ?date_last_modified: DateTime?,
+        ?school_year_sourced_id: sourced_id?,
+        ?grades: Array[grade],
+        ?subjects: Array[String],
+        ?subject_codes: Array[String],
+        **Hash[Symbol, untyped] extension_fields
+      ) -> void
     end
   end
 end

@@ -2,6 +2,9 @@ module Meibo
   class DataSet
     include Enumerable[untyped]
 
+    @data: Array[untyped]
+    @cache: Hash[untyped, untyped]
+
     attr_reader roster: untyped
 
     def initialize: (untyped data, roster: untyped) -> void

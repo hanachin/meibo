@@ -1,5 +1,7 @@
 module Meibo
   class Reader
+    @manifest: untyped
+
     def self.open: (untyped file_path, ?profile: untyped) { (untyped) -> untyped } -> untyped
 
     def self.open_buffer: (untyped io, ?profile: untyped) { (untyped) -> untyped } -> untyped

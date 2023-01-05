@@ -1,5 +1,5 @@
 module Meibo
-  class User
+  class User[Grade < String, O < Organization]
     USER_ID_FORMAT_REGEXP: ::Regexp
 
     attr_reader sourced_id: sourced_id
@@ -16,7 +16,7 @@ module Meibo
     attr_reader sms: String?
     attr_reader phone: String?
     attr_reader agent_sourced_ids: Array[sourced_id]
-    attr_reader grades: Array[grade]?
+    attr_reader grades: Array[Grade]?
     attr_reader password: String?
     attr_reader user_master_identifier: String?
     attr_reader resource_sourced_ids: Array[sourced_id]?
@@ -42,7 +42,7 @@ module Meibo
       ?sms: String?,
       ?phone: String?,
       ?agent_sourced_ids: Array[sourced_id],
-      ?grades: Array[grade]?,
+      ?grades: Array[Grade]?,
       ?password: String?,
       ?user_master_identifier: String?,
       ?resource_sourced_ids: Array[sourced_id]?,
@@ -62,9 +62,9 @@ module Meibo
 
     def enrollments: () -> untyped
 
-    def primary_organization: () -> untyped
+    def primary_organization: () -> O
 
-    def primary_role_in: (untyped org) -> untyped
+    def primary_role_in: (O org) -> untyped
 
     def roles: () -> untyped
 

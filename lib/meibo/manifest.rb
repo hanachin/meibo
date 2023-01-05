@@ -5,13 +5,17 @@ module Meibo
     MANIFEST_VERSION = "1.0"
     ONEROSTER_VERSION = "1.2"
 
-    PROCESSING_MODES = {
+    # @type var processing_modes: ::Meibo::Manifest::processing_modes
+    processing_modes = {
       absent: ProcessingMode.new("absent"),
       bulk: ProcessingMode.new("bulk"),
       delta: ProcessingMode.new("delta")
-    }.freeze
+    }
+    processing_modes.freeze
+    PROCESSING_MODES = processing_modes
 
-    PROPERTY_NAME_TO_ATTRIBUTE_MAP = {
+    # @type var property_name_to_attribute_map: ::Meibo::Manifest::property_name_to_attribute_map
+    property_name_to_attribute_map = {
       "manifest.version" => :manifest_version,
       "oneroster.version" => :oneroster_version,
       "file.academicSessions" => :file_academic_sessions,
@@ -37,13 +41,19 @@ module Meibo
       "file.users" => :file_users,
       "source.systemName" => :source_system_name,
       "source.systemCode" => :source_system_code
-    }.freeze
-    ATTRIBUTE_TO_PROPERTY_NAME_MAP = PROPERTY_NAME_TO_ATTRIBUTE_MAP.to_h do |property_name, attribute|
+    }
+    property_name_to_attribute_map.freeze
+    PROPERTY_NAME_TO_ATTRIBUTE_MAP = property_name_to_attribute_map
+    # @type var attribute_to_property_name: ::Meibo::Manifest::attribute_to_property_name_map
+    attribute_to_property_name = PROPERTY_NAME_TO_ATTRIBUTE_MAP.to_h do |property_name, attribute|
       [attribute, property_name]
-    end.freeze
+    end
+    attribute_to_property_name.freeze
+    ATTRIBUTE_TO_PROPERTY_NAME_MAP = attribute_to_property_name
 
     # NOTE: 想定値
-    DEFAULT_VALUES = {
+    # @type var expected_values: ::Meibo::Manifest::expected_values
+    expected_values = {
       manifest_version: MANIFEST_VERSION,
       oneroster_version: ONEROSTER_VERSION,
       file_academic_sessions: PROCESSING_MODES[:bulk],
@@ -67,7 +77,9 @@ module Meibo
       file_user_profiles: PROCESSING_MODES[:bulk],
       file_user_resources: PROCESSING_MODES[:absent],
       file_users: PROCESSING_MODES[:bulk]
-    }.freeze
+    }
+    expected_values.freeze
+    DEFAULT_VALUES = expected_values
 
     attr_reader :manifest_version, :oneroster_version, :file_academic_sessions, :file_categories, :file_classes,
                 :file_class_resources, :file_courses, :file_course_resources, :file_demographics, :file_enrollments, :file_line_item_learning_objective_ids, :file_line_items, :file_line_item_score_scales, :file_orgs, :file_resources, :file_result_learning_objective_ids, :file_results, :file_result_score_scales, :file_roles, :file_score_scales, :file_user_profiles, :file_user_resources, :file_users, :source_system_name, :source_system_code

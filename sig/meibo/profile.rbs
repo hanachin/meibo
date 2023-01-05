@@ -1,18 +1,18 @@
 module Meibo
   class Profile
-    BUILDERS: { academic_session: untyped, class: untyped, course: untyped, demographic: untyped, enrollment: untyped, org: untyped, role: untyped, user: untyped, user_profile: untyped }
+    type builders_type = { academic_session: untyped, class: untyped, course: untyped, demographic: untyped, enrollment: untyped, org: untyped, role: untyped, user: untyped, user_profile: untyped }
+    type data_models_type = { file_academic_sessions: untyped, file_classes: untyped, file_courses: untyped, file_demographics: untyped, file_enrollments: untyped, file_orgs: untyped, file_roles: untyped, file_user_profiles: untyped, file_users: untyped }
+    type data_set_type = { academic_sessions: untyped, classes: untyped, courses: untyped, demographics: untyped, enrollments: untyped, orgs: untyped, roles: untyped, user_profiles: untyped, users: untyped }
 
-    DATA_MODELS: { file_academic_sessions: untyped, file_classes: untyped, file_courses: untyped, file_demographics: untyped, file_enrollments: untyped, file_orgs: untyped, file_roles: untyped, file_user_profiles: untyped, file_users: untyped }
+    BUILDERS: builders_type
+    DATA_MODELS: data_models_type
+    DATA_SET: data_set_type
 
-    DATA_SET: { academic_sessions: untyped, classes: untyped, courses: untyped, demographics: untyped, enrollments: untyped, orgs: untyped, roles: untyped, user_profiles: untyped, users: untyped }
+    attr_reader builders: builders_type
+    attr_reader data_models: data_models_type
+    attr_reader data_set: data_set_type
 
-    attr_reader builders: untyped
-
-    attr_reader data_models: untyped
-
-    attr_reader data_set: untyped
-
-    def initialize: (?builders: untyped, ?data_models: untyped, ?data_set: untyped) -> void
+    def initialize: (?builders: builders_type, ?data_models: data_models_type, ?data_set: data_set_type) -> void
 
     def builder_for: (untyped key) -> untyped
 

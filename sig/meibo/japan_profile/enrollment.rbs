@@ -5,7 +5,21 @@ module Meibo
 
       # NOTE: 児童生徒の場合primaryはfalse固定
       # MEMO: 保護者の場合もそうでは?
-      def initialize: (role: untyped, ?shusseki_no: untyped?, ?public_flg: untyped?, ?primary: untyped, **untyped other_fields) -> void
+      def initialize: (
+        role: Meibo::Enrollment::role_type,
+        ?shusseki_no: Integer?,
+        ?public_flg: bool?,
+        ?primary: bool?,
+        sourced_id: sourced_id,
+        class_sourced_id: sourced_id,
+        school_sourced_id: sourced_id,
+        user_sourced_id: sourced_id,
+        ?status: status?,
+        ?date_last_modified: DateTime?,
+        ?begin_date: Date?,
+        ?end_date: Date?,
+        **Hash[Symbol, untyped] extension_fields
+      ) -> void
 
       def guardian?: () -> untyped
     end

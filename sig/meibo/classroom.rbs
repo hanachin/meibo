@@ -1,5 +1,5 @@
 module Meibo
-  class Classroom
+  class Classroom[Grade]
     type classroom_type = "homeroom" | "scheduled"
     type classroom_types = { homeroom: "homeroom", scheduled: "scheduled" }
 
@@ -14,7 +14,7 @@ module Meibo
     attr_reader term_sourced_ids: Array[sourced_id]
     attr_reader status: status?
     attr_reader date_last_modified: DateTime?
-    attr_reader grades: Array[grade]
+    attr_reader grades: Array[Grade]
     attr_reader class_code: String?
     attr_reader location: String?
     attr_reader subjects: Array[String]
@@ -31,7 +31,7 @@ module Meibo
       term_sourced_ids: Array[sourced_id],
       ?status: status?,
       ?date_last_modified: DateTime?,
-      ?grades: Array[grade],
+      ?grades: Array[Grade],
       ?class_code: String?,
       ?location: String?,
       ?subjects: Array[String],
