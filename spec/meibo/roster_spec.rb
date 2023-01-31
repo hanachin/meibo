@@ -88,7 +88,7 @@ RSpec.describe Meibo::Roster do
         sourced_id: course_sourced_id,
         school_year_sourced_id: ^school_year_sourced_id,
         title: "2022\u5E74\u5EA6",
-        course_code: "",
+        course_code: nil,
         grades: [],
         org_sourced_id: ^org_sourced_id,
         subjects: [],

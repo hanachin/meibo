@@ -52,7 +52,7 @@ module Meibo
         end
         lambda do |field, field_info|
           # NOTE: convert blank sourcedId to nil
-          field = nil if field_info.index.zero? && field.empty?
+          field = nil if field.respond_to?(:empty?) && field.empty?
           converter_list.each { |converter| field = converter[field, field_info] }
           field
         end
