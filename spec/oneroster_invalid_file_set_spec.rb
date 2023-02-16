@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 RSpec.describe "OneRoster v1p2 CSV Conformance TestSet 20220707v1", skip: !Dir.exist?("tmp/TestSet") do # rubocop:disable RSpec/DescribeClass
+  around { |example| Meibo::Profiles.use("v1.2.0") { example.run } }
+
   Dir.glob("tmp/TestSet/InvalidFileSet/Rostering/IRb0*.zip") do |path|
     test_case = File.basename(path, ".zip")
     describe test_case do

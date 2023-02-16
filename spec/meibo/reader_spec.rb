@@ -4,7 +4,7 @@ RSpec.describe Meibo::Reader do
   let(:roster_io) { StringIO.new }
 
   before do
-    profile = Meibo::JapanProfile.new
+    profile = Meibo::Profiles["v1.2.0 jp v1.1"]
     roster = Meibo::Roster.new(profile: profile)
     builder = roster.builder
     school_year_academic_session = builder.build_academic_session(school_year: 2022)
@@ -50,7 +50,7 @@ RSpec.describe Meibo::Reader do
 
   it "works good" do
     expect do
-      described_class.open_buffer(roster_io, profile: Meibo::JapanProfile.new) do |reader|
+      described_class.open_buffer(roster_io, profile: Meibo::Profiles["v1.2.0 jp v1.1"]) do |reader|
         case reader.manifest
         in {
           manifest_version: "1.0",
@@ -167,7 +167,6 @@ RSpec.describe Meibo::Reader do
             grades: [],
             password: NilClass,
             user_master_identifier: NilClass,
-            resource_sourced_ids: [],
             preferred_given_name: NilClass,
             preferred_middle_name: NilClass,
             preferred_family_name: NilClass,

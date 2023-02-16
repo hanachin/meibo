@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Meibo
-  class JapanProfile < ::Meibo::Profile
+  module JapanProfile
     class Organization < ::Meibo::Organization
       TYPES = {
         district: "district",

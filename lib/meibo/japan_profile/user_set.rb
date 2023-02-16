@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Meibo
-  class JapanProfile < ::Meibo::Profile
+  module JapanProfile
     class UserSet < ::Meibo::UserSet
       def check_semantically_consistent
         super

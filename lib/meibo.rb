@@ -52,4 +52,4 @@ end
 
 loader.eager_load
 
-Meibo.default_profile = Meibo::Profile.new
+Meibo.default_profile = Meibo::Profiles["v1.2"]

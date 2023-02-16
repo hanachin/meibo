@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Meibo
-  class JapanProfile < ::Meibo::Profile
+  module JapanProfile
     class AcademicSession < ::Meibo::AcademicSession
       TYPES = { school_year: "schoolYear" }.freeze
 
