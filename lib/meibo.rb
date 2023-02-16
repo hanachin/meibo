@@ -14,10 +14,24 @@ module Meibo
   ENUM_EXT_PATTERN = /\Aext:[a-zA-Z0-9.\-_]+\z/.freeze
 
   class << self
-    attr_accessor :default_profile
+    def default_profile
+      thread_local_data[:default_profile]
+    end
+
+    def default_profile=(default_profile)
+      thread_local_data[:default_profile] = default_profile
+    end
 
     def current_roster
       thread_local_data[:roster]
+    end
+
+    def with_profile(default_profile)
+      orig_default_profile = thread_local_data[:default_profile]
+      thread_local_data[:default_profile] = default_profile
+      yield
+    ensure
+      thread_local_data[:default_profile] = orig_default_profile
     end
 
     def with_roster(roster)
