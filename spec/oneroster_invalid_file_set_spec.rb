@@ -61,7 +61,7 @@ RSpec.describe "OneRoster v1p2 CSV Conformance TestSet 20220707v1", skip: !Dir.e
     test_case = File.basename(path, ".zip")
     describe test_case do
       it "raise error" do
-        expect { Meibo::Roster.from_file(path) }.to raise_error(Meibo::MissingHeadersError)
+        expect { Meibo::Roster.from_file(path) }.to raise_error(Meibo::MissingHeaderFieldsError)
       end
     end
   end
@@ -70,7 +70,7 @@ RSpec.describe "OneRoster v1p2 CSV Conformance TestSet 20220707v1", skip: !Dir.e
     test_case = File.basename(path, ".zip")
     describe test_case do
       it "raise error" do
-        expect { Meibo::Roster.from_file(path) }.to raise_error(Meibo::ScrambledHeadersError)
+        expect { Meibo::Roster.from_file(path) }.to raise_error(Meibo::ScrambledHeaderFieldsError)
       end
     end
   end

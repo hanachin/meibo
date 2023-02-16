@@ -8,15 +8,21 @@ module Meibo
       def parse(csv)
         return to_enum(:parse, csv) unless block_given?
 
-        actual_headers = CSV.parse_line(csv)
-        missing_headers = header_fields - actual_headers
-        raise MissingHeadersError, "missing headers: #{missing_headers.join(",")}" unless missing_headers.empty?
-        raise ScrambledHeadersError unless actual_headers.take(header_fields.size) == header_fields
+        validate_header_fields(CSV.parse_line(csv))
 
         CSV.parse(csv, encoding: Meibo::CSV_ENCODING, headers: true, converters: parser_converters,
                        header_converters: header_converters).each do |row|
           yield new(**row.to_h)
         end
+      end
+
+      def validate_header_fields(actual_header_fields)
+        missing_header_fields = header_fields - actual_header_fields
+        unless missing_header_fields.empty?
+          message = "missing header fields: #{missing_header_fields.join(",")}"
+          raise MissingHeaderFieldsError.new(message, missing_header_fields: missing_header_fields)
+        end
+        raise ScrambledHeaderFieldsError unless actual_header_fields.take(header_fields.size) == header_fields
       end
     end
 
