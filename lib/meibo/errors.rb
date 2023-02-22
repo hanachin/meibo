@@ -6,6 +6,7 @@ module Meibo
   class DataNotFoundError < Error; end
   class InvalidDataTypeError < Error; end
   class MissingDataError < Error; end
+
   class MissingHeaderFieldsError < Error
     attr_reader :missing_header_fields
 
@@ -14,6 +15,7 @@ module Meibo
       @missing_header_fields = missing_header_fields
     end
   end
+
   class NotSupportedError < Error; end
   class ScrambledHeaderFieldsError < Error; end
   class SourcedIdDuplicatedError < Error; end
