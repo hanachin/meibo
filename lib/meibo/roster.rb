@@ -6,13 +6,13 @@ require "csv"
 module Meibo
   class Roster
     class << self
-      def from_file(file_path, profile: Meibo.default_profile)
+      def from_file(file_path, profile: Meibo.current_profile)
         Reader.open(file_path, profile: profile) do |reader|
           return read_data(reader, profile)
         end
       end
 
-      def from_buffer(io, profile: Meibo.default_profile)
+      def from_buffer(io, profile: Meibo.current_profile)
         Reader.open_buffer(io, profile: profile) do |reader|
           return read_data(reader, profile)
         end
@@ -86,7 +86,7 @@ module Meibo
     attr_reader :profile, :manifest_properties, :academic_sessions, :classes, :courses, :demographics, :enrollments,
                 :organizations, :roles, :user_profiles, :users
 
-    def initialize(profile: Meibo.default_profile, manifest_properties: {}, academic_sessions: [], classes: [],
+    def initialize(profile: Meibo.current_profile, manifest_properties: {}, academic_sessions: [], classes: [],
                    courses: [], demographics: [], enrollments: [], organizations: [], roles: [], user_profiles: [], users: [])
       @profile = profile
       @manifest_properties = manifest_properties

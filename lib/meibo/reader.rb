@@ -5,13 +5,13 @@ require "zip"
 
 module Meibo
   class Reader
-    def self.open(file_path, profile: Meibo.default_profile)
+    def self.open(file_path, profile: Meibo.current_profile)
       Zip::File.open(file_path) do |zipfile|
         yield new(zipfile: zipfile, profile: profile)
       end
     end
 
-    def self.open_buffer(io, profile: Meibo.default_profile)
+    def self.open_buffer(io, profile: Meibo.current_profile)
       Zip::File.open_buffer(io) do |zipfile|
         yield new(zipfile: zipfile, profile: profile)
       end

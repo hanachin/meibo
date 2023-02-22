@@ -11,7 +11,7 @@ module Meibo
     def_delegators :@roster, :academic_sessions, :classes, :courses, :demographics, :enrollments, :organizations,
                    :roles, :users, :user_profiles
 
-    def initialize(roster:, profile: Meibo.default_profile)
+    def initialize(roster:, profile: Meibo.current_profile)
       @roster = roster
       @profile = profile
     end
