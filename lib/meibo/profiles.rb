@@ -48,7 +48,7 @@ module Meibo
       data_set: profile121.data_set
     )
 
-    japan_profile121 = Profile.new(
+    japan_profile121_v11 = Profile.new(
       builders: profile121.builders.merge(
         academic_session: Builder::AcademicSessionBuilder.create(JapanProfile::AcademicSession),
         class: Builder::ClassroomBuilder.create(JapanProfile::Classroom),
@@ -56,7 +56,6 @@ module Meibo
         demographic: Builder::DemographicBuilder.create(JapanProfile::Demographic),
         enrollment: Builder::EnrollmentBuilder.create(JapanProfile::Enrollment),
         org: Builder::OrganizationBuilder.create(JapanProfile::Organization),
-        role: Builder::RoleBuilder.create(JapanProfile::Role),
         user: Builder::UserBuilder.create(JapanProfile::User)
       ),
       data_models: profile121.data_models.merge(
@@ -66,7 +65,6 @@ module Meibo
         file_demographics: JapanProfile::Demographic,
         file_enrollments: JapanProfile::Enrollment,
         file_orgs: JapanProfile::Organization,
-        file_roles: JapanProfile::Role,
         file_users: JapanProfile::User
       ),
       data_set: profile121.data_set.merge(
@@ -74,22 +72,33 @@ module Meibo
       )
     )
 
-    japan_profile120 = Profile.new(
-      builders: japan_profile121.builders.merge(
+    japan_profile120_v11 = Profile.new(
+      builders: japan_profile121_v11.builders.merge(
         user: Builder::UserBuilder.create(JapanProfile::UserM0)
       ),
-      data_models: japan_profile121.data_models.merge(
+      data_models: japan_profile121_v11.data_models.merge(
         file_users: JapanProfile::UserM0
       ),
-      data_set: japan_profile121.data_set
+      data_set: japan_profile121_v11.data_set
+    )
+
+    japan_profile120_v10 = Profile.new(
+      builders: japan_profile120_v11.builders.merge(
+        role: Builder::UserBuilder.create(JapanProfile::RoleJpM0)
+      ),
+      data_models: japan_profile120_v11.data_models.merge(
+        file_roles: JapanProfile::RoleJpM0
+      ),
+      data_set: japan_profile120_v11.data_set
     )
 
     PROFILES = {
       "v1.2" => profile121,
       "v1.2.1" => profile121,
       "v1.2.0" => profile120,
-      "v1.2.0 jp v1.1" => japan_profile120,
-      "v1.2.1 jp v1.1" => japan_profile121
+      "v1.2.0 jp v1.0" => japan_profile120_v10,
+      "v1.2.0 jp v1.1" => japan_profile120_v11,
+      "v1.2.1 jp v1.1" => japan_profile121_v11
     }.freeze
 
     def self.use(profile_name, &block)

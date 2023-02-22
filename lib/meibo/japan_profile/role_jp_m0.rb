@@ -2,7 +2,7 @@
 
 module Meibo
   module JapanProfile
-    class Role < ::Meibo::Role
+    class RoleJpM0 < ::Meibo::Role
       # NOTE: roleは固定
       #   - 児童生徒の場合student
       #   - 教職員の場合teacher

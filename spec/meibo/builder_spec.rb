@@ -37,8 +37,8 @@ RSpec.describe Meibo::Builder do
       organization.build_role(
         user: user,
         user_profile: user_profile,
-        role: Meibo::JapanProfile::Role::ROLES[:student],
-        role_type: Meibo::JapanProfile::Role::TYPES[:primary]
+        role: Meibo::Role::ROLES[:student],
+        role_type: Meibo::Role::TYPES[:primary]
       )
       classroom.build_enrollment(
         user: user,
