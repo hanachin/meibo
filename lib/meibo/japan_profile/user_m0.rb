@@ -4,8 +4,9 @@ module Meibo
   module JapanProfile
     class UserM0 < ::Meibo::UserM0
       include User::InstanceMethods
+      extend User::ClassMethods
 
-      DataModel.define(self, **User::ADDITIONAL_DEFINITION)
+      define_additional_definition(self)
     end
   end
 end

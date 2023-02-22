@@ -3,15 +3,21 @@
 module Meibo
   module JapanProfile
     class User < ::Meibo::User
-      ADDITIONAL_DEFINITION = {
-        attribute_name_to_header_field_map: superclass.attribute_name_to_header_field_map.merge(
-          kana_given_name: "metadata.jp.kanaGivenName",
-          kana_family_name: "metadata.jp.kanaFamilyName",
-          kana_middle_name: "metadata.jp.kanaMiddleName",
-          home_class: "metadata.jp.homeClass"
-        ).freeze,
-        converters: superclass.converters
-      }.freeze
+      module ClassMethods
+        def define_additional_definition(klass)
+          DataModel.define(
+            klass,
+            attribute_name_to_header_field_map: klass.superclass.attribute_name_to_header_field_map.merge(
+              kana_given_name: "metadata.jp.kanaGivenName",
+              kana_family_name: "metadata.jp.kanaFamilyName",
+              kana_middle_name: "metadata.jp.kanaMiddleName",
+              home_class: "metadata.jp.homeClass"
+            ).freeze,
+            converters: klass.superclass.converters
+          )
+        end
+      end
+
       module InstanceMethods
         # NOTE: enabled_userは必須ではないが固定
         def initialize(enabled_user: true, kana_given_name: nil, kana_family_name: nil, kana_middle_name: nil,
@@ -29,7 +35,9 @@ module Meibo
       end
 
       include InstanceMethods
-      DataModel.define(self, **ADDITIONAL_DEFINITION)
+      extend ClassMethods
+
+      define_additional_definition(self)
     end
   end
 end
