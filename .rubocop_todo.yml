@@ -29,7 +29,8 @@ Metrics/AbcSize:
 # Configuration parameters: CountComments, CountAsOne, ExcludedMethods, AllowedMethods, AllowedPatterns, IgnoredMethods, inherit_mode.
 # AllowedMethods: refine
 Metrics/BlockLength:
-  Max: 57
+  Exclude:
+    - 'lib/meibo/factory_bot/**/*.rb'
 
 # Offense count: 4
 # Configuration parameters: CountComments, CountAsOne.
