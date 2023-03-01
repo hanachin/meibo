@@ -10,7 +10,8 @@ module Meibo
         ).freeze,
         converters: superclass.converters.merge(
           boolean: [:special_needs].freeze,
-          enum: { class_type: TYPES.values.freeze }.freeze
+          enum: { class_type: TYPES.values.freeze }.freeze,
+          mext_grade_code: [:grades].freeze
         ).freeze
       )
 

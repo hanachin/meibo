@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require "date"
+require "set"
 require "time"
 
 module Meibo
@@ -12,6 +13,7 @@ module Meibo
       date
       datetime
       enum
+      mext_grade_code
       integer
       status
       user_ids
@@ -139,6 +141,17 @@ module Meibo
           raise InvalidDataTypeError if enum&.none? { |e| e.match?(field) }
 
           field
+        end
+      end
+
+      def build_mext_grade_code_field_parser_converter(grade_field_indexes)
+        valid_grade = %w[P1 P2 P3 P4 P5 P6 J1 J2 J3 H1 H2 H3 E1 E2 E3].to_set
+        lambda do |grades, field_info|
+          next grades unless grade_field_indexes.include?(field_info.index)
+
+          raise InvalidDataTypeError unless grades.all? { |grade| valid_grade.include?(grade) }
+
+          grades
         end
       end
 
