@@ -26,7 +26,8 @@ RSpec.describe Meibo::Reader do
     user = organization.build_user(
       username: "john.doe@example.com",
       given_name: "John",
-      family_name: "Doe"
+      family_name: "Doe",
+      middle_name: "NULL"
     )
     user.build_demographic(sex: Meibo::JapanProfile::Demographic::SEX[:male])
     user_profile = user.build_profile(

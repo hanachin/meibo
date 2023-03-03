@@ -38,8 +38,8 @@ module Meibo
 
       private
 
-      def build_converter(fields:, converters:, write_or_parser:)
-        converter_list = TYPES.filter_map do |converter_type|
+      def build_converter_list(fields:, converters:, write_or_parser:)
+        TYPES.filter_map do |converter_type|
           fields_to_be_converted = converters[converter_type]
           method_name = "build_#{converter_type}_field_#{write_or_parser}_converter"
           if fields_to_be_converted && respond_to?(method_name, true)
@@ -52,12 +52,20 @@ module Meibo
             end
           end
         end
+      end
+
+      def converter_list_to_convert_proc(converter_list)
         lambda do |field, field_info|
           # NOTE: convert blank sourcedId to nil
-          field = nil if field.respond_to?(:empty?) && field.empty?
+          field = nil if field == "NULL" || field == "" # rubocop:disable Style/MultipleComparison
           converter_list.each { |converter| field = converter[field, field_info] }
           field
         end
+      end
+
+      def build_converter(fields:, converters:, write_or_parser:)
+        converter_list = build_converter_list(fields: fields, converters: converters, write_or_parser: write_or_parser).freeze
+        converter_list_to_convert_proc(converter_list)
       end
 
       def build_boolean_field_parser_converter(boolean_field_indexes)
