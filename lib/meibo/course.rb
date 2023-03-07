@@ -50,7 +50,7 @@ module Meibo
     end
 
     def school_year
-      Meibo.current_roster.academic_sessions.find(school_year_sourced_id)
+      Meibo.current_roster.academic_sessions.find(school_year_sourced_id) if school_year_sourced_id
     end
 
     def classes
