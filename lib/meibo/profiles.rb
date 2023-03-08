@@ -93,10 +93,31 @@ module Meibo
       data_set: japan_profile120_v11.data_set
     )
 
+    eportal_v3 = Profile.new(
+      builders: japan_profile120_v11.builders.merge(
+        class: Builder::ClassroomBuilder.create(EportalV3::Classroom),
+        course: Builder::CourseBuilder.create(EportalV3::Course),
+        enrollment: Builder::EnrollmentBuilder.create(EportalV3::Enrollment),
+        organization: Builder::OrganizationBuilder.create(EportalV3::Organization),
+        user_profile: Builder::UserProfileBuilder.create(EportalV3::UserProfile),
+        user: Builder::UserBuilder.create(EportalV3::User)
+      ),
+      data_models: japan_profile120_v11.data_models.merge(
+        file_classes: EportalV3::Classroom,
+        file_courses: EportalV3::Course,
+        file_enrollments: EportalV3::Enrollment,
+        file_orgs: EportalV3::Organization,
+        file_user_profiles: EportalV3::UserProfile,
+        file_users: EportalV3::User
+      ),
+      data_set: japan_profile120_v11.data_set
+    )
+
     PROFILES = {
       "v1.2" => profile121,
       "v1.2.1" => profile121,
       "v1.2.0" => profile120,
+      "v1.2.0 ep v3.00" => eportal_v3,
       "v1.2.0 jp v1.0" => japan_profile120_v10,
       "v1.2.0 jp v1.1" => japan_profile120_v11,
       "v1.2.1 jp v1.1" => japan_profile121_v11

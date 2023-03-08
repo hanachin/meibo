@@ -13,6 +13,8 @@ module Meibo
       date
       datetime
       enum
+      format
+      fullwidth
       mext_grade_code
       integer
       status
@@ -43,9 +45,9 @@ module Meibo
           fields_to_be_converted = converters[converter_type]
           method_name = "build_#{converter_type}_field_#{write_or_parser}_converter"
           if fields_to_be_converted && respond_to?(method_name, true)
-            if converter_type == :enum
-              enum_definition = fields_to_be_converted.transform_keys { |field| fields.index(field) }
-              send(method_name, enum_definition)
+            if %i[enum format].include?(converter_type)
+              definition = fields_to_be_converted.transform_keys { |field| fields.index(field) }
+              send(method_name, definition)
             else
               indexes = fields_to_be_converted.map { |field| fields.index(field) }
               send(method_name, indexes)
@@ -147,6 +149,27 @@ module Meibo
 
           enum = enum_definition[field_info.index]
           raise InvalidDataTypeError if enum&.none? { |pat| pat.is_a?(String) ? field == pat : field.match?(pat) }
+
+          field
+        end
+      end
+
+      def build_format_field_parser_converter(format_definition)
+        format_definition = format_definition.dup.freeze
+        lambda do |field, field_info|
+          return field unless field
+
+          format = format_definition[field_info.index]
+          raise InvalidDataTypeError if format && !field.match?(format)
+
+          field
+        end
+      end
+
+      def build_fullwidth_field_parser_converter(fullwidth_field_indexes)
+        fullwidth_field_indexes = fullwidth_field_indexes.dup.freeze
+        lambda do |field, field_info|
+          raise InvalidDataTypeError if field && fullwidth_field_indexes.include?(field_info.index) && field.match?(/[\p{In_Halfwidth_and_Fullwidth_Forms}&&\p{Katakana}]/)
 
           field
         end
