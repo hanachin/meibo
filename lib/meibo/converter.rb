@@ -146,7 +146,7 @@ module Meibo
           return field unless field
 
           enum = enum_definition[field_info.index]
-          raise InvalidDataTypeError if enum&.none? { |e| e.match?(field) }
+          raise InvalidDataTypeError if enum&.none? { |pat| field.match?(pat) }
 
           field
         end

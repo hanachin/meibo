@@ -34,5 +34,16 @@ RSpec.describe Meibo::JapanProfile::Classroom do
         expect { described_class.parse(csv).to_a }.to raise_error(Meibo::InvalidDataTypeError)
       end
     end
+
+    context "when classType is not valid" do
+      let(:csv) { <<~CSV }
+        sourcedId,status,dateLastModified,title,grades,courseSourcedId,classCode,classType,location,schoolSourcedId,termSourcedIds,subjects,subjectCodes,periods,metadata.jp.specialNeeds
+        testClass,,,テスト組,,testCourse,,homeroo,,testOrg,testAcademicSession,,,,
+      CSV
+
+      it "failed" do
+        expect { described_class.parse(csv).to_a }.to raise_error(Meibo::InvalidDataTypeError)
+      end
+    end
   end
 end
