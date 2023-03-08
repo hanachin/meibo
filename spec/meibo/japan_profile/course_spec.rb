@@ -2,6 +2,28 @@
 
 RSpec.describe Meibo::JapanProfile::Course do
   describe ".parse" do
+    context "when courseCode is empty" do
+      let(:csv) { <<~CSV }
+        sourcedId,status,dateLastModified,schoolYearSourcedId,title,courseCode,grades,orgSourcedId,subjects,subjectCodes
+        testCourse,,,testAcademicSession,2022年度,"",,testOrg,,
+      CSV
+
+      it "success" do
+        expect { described_class.parse(csv).to_a }.not_to raise_error
+      end
+    end
+
+    context "when courseCode is not empty" do
+      let(:csv) { <<~CSV }
+        sourcedId,status,dateLastModified,schoolYearSourcedId,title,courseCode,grades,orgSourcedId,subjects,subjectCodes
+        testCourse,,,testAcademicSession,2022年度,"HI",,testOrg,,
+      CSV
+
+      it "failed" do
+        expect { described_class.parse(csv).to_a }.to raise_error(Meibo::InvalidDataTypeError)
+      end
+    end
+
     context "when grades is empty" do
       let(:csv) { <<~CSV }
         sourcedId,status,dateLastModified,schoolYearSourcedId,title,courseCode,grades,orgSourcedId,subjects,subjectCodes
