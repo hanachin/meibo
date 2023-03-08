@@ -6,7 +6,11 @@ module Meibo
       super
 
       each do |course|
-        roster.academic_sessions.school_year.find(course.school_year_sourced_id) if course.school_year_sourced_id
+        if course.school_year_sourced_id
+          school_year = roster.academic_sessions.find(course.school_year_sourced_id)
+
+          raise InvalidDataTypeError unless school_year.school_year?
+        end
 
         roster.organizations.find(course.org_sourced_id)
       end

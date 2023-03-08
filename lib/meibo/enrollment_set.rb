@@ -7,7 +7,9 @@ module Meibo
 
       each do |enrollment|
         roster.classes.find(enrollment.class_sourced_id)
-        roster.organizations.school.find(enrollment.school_sourced_id)
+        school = roster.organizations.find(enrollment.school_sourced_id)
+        raise InvalidDataTypeError unless school.school?
+
         roster.users.find(enrollment.user_sourced_id)
         raise InvalidDataTypeError if enrollment.primary && !enrollment.teacher?
       end

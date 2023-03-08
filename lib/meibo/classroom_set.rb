@@ -6,7 +6,9 @@ module Meibo
       super
 
       each do |classroom|
-        roster.organizations.school.find(classroom.school_sourced_id)
+        school = roster.organizations.find(classroom.school_sourced_id)
+        raise InvalidDataTypeError unless school.school?
+
         roster.courses.find(classroom.course_sourced_id)
 
         raise DataNotFoundError, "termSourcedIdは1つ以上指定してください" if classroom.term_sourced_ids.empty?
