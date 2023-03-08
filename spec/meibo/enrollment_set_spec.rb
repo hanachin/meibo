@@ -44,5 +44,27 @@ RSpec.describe Meibo::EnrollmentSet do
         end.to raise_error(Meibo::DataNotFoundError, /sourcedId: #{user.sourced_id} /)
       end
     end
+
+    describe "primary" do
+      context "when role teacher and primary = true" do
+        let(:enrollment) { build(:meibo_enrollment, :teacher, classroom: classroom, school: school, user: user, primary: true) }
+
+        it "does not raise error" do
+          roster = build(:meibo_roster, classes: [classroom], organizations: [school], users: [user])
+          enrollment_set = described_class.new([enrollment], roster: roster)
+          expect { enrollment_set.check_semantically_consistent }.not_to raise_error
+        end
+      end
+
+      context "when role student and primary = true" do
+        let(:enrollment) { build(:meibo_enrollment, :student, classroom: classroom, school: school, user: user, primary: true) }
+
+        it "does not raise error" do
+          roster = build(:meibo_roster, classes: [classroom], organizations: [school], users: [user])
+          enrollment_set = described_class.new([enrollment], roster: roster)
+          expect { enrollment_set.check_semantically_consistent }.to raise_error(Meibo::InvalidDataTypeError)
+        end
+      end
+    end
   end
 end

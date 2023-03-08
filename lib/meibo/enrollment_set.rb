@@ -9,6 +9,7 @@ module Meibo
         roster.classes.find(enrollment.class_sourced_id)
         roster.organizations.find(enrollment.school_sourced_id)
         roster.users.find(enrollment.user_sourced_id)
+        raise InvalidDataTypeError if enrollment.primary && !enrollment.teacher?
       end
     end
 
