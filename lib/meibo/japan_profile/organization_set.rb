@@ -2,7 +2,7 @@
 
 module Meibo
   module JapanProfile
-    class OrganizationSet < DataSet
+    class OrganizationSet < ::Meibo::OrganizationSet
       def check_semantically_consistent
         super
 
