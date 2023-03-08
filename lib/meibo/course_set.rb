@@ -6,7 +6,7 @@ module Meibo
       super
 
       each do |course|
-        roster.academic_sessions.find(course.school_year_sourced_id) if course.school_year_sourced_id
+        roster.academic_sessions.school_year.find(course.school_year_sourced_id) if course.school_year_sourced_id
 
         roster.organizations.find(course.org_sourced_id)
       end
