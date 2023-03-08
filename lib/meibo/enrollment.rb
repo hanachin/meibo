@@ -38,6 +38,7 @@ module Meibo
       @sourced_id = sourced_id
       @status = status
       @date_last_modified = date_last_modified
+      @primary = primary
       @class_sourced_id = class_sourced_id
       @school_sourced_id = school_sourced_id
       @user_sourced_id = user_sourced_id
