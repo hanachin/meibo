@@ -13,7 +13,9 @@ module Meibo
               kana_middle_name: "metadata.jp.kanaMiddleName",
               home_class: "metadata.jp.homeClass"
             ).freeze,
-            converters: klass.superclass.converters
+            converters: klass.superclass.converters.merge(
+              mext_grade_code: [:grades].freeze
+            )
           )
         end
       end
