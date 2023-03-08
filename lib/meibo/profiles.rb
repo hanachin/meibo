@@ -68,6 +68,7 @@ module Meibo
         file_users: JapanProfile::User
       ),
       data_set: profile121.data_set.merge(
+        orgs: JapanProfile::OrganizationSet,
         users: JapanProfile::UserSet
       )
     )
