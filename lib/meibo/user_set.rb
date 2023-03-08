@@ -5,6 +5,8 @@ module Meibo
     def check_semantically_consistent
       super
 
+      raise Error, "userMasterIdentifier\u304C\u91CD\u8907\u3057\u3066\u3044\u307E\u3059" if @data.filter_map(&:user_master_identifier).tally.values.any? { |v| v > 1 }
+
       each do |user|
         roster.organizations.find(user.primary_org_sourced_id) if user.primary_org_sourced_id
 
