@@ -49,5 +49,9 @@ FactoryBot.define do
     trait :private do
       public_flg { false }
     end
+
+    trait :eportal do
+      primary { false }
+    end
   end
 end
