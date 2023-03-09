@@ -27,6 +27,10 @@ FactoryBot.define do
     agent_sourced_ids { agents&.map(&:sourced_id) }
     primary_org_sourced_id { primary_organization&.sourced_id }
 
+    trait :id do
+      user_master_identifier { SecureRandom.uuid }
+    end
+
     trait :jp do
       initialize_with do
         case oneroster_version
