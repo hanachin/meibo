@@ -53,8 +53,8 @@ FactoryBot.define do
       jp
       sequence(:preferred_given_name) { |n| "山田#{n}" }
       sequence(:preferred_family_name) { |n| "太郎#{n}" }
-      sequence(:kana_given_name) { |n| "ヤマダ#{n}" }
-      sequence(:kana_family_name) { |n| "タロウ#{n}" }
+      kana_given_name { "ヤマダ" }
+      kana_family_name { "タロウ" }
     end
   end
 end
