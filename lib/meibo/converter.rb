@@ -236,11 +236,10 @@ module Meibo
       def build_required_field_parser_converter(required_field_indexes)
         required_field_indexes = required_field_indexes.dup.freeze
         lambda do |field, field_info|
-          if required_field_indexes.include?(field_info.index)
-            raise MissingDataError if field.nil?
-            raise MissingDataError if field.respond_to?(:empty?) && field.empty?
-          end
-          field
+          return field unless required_field_indexes.include?(field_info.index)
+          return field if field && (!field.respond_to?(:empty?) || !field.empty?)
+
+          raise MissingDataError.new(field: field, field_info: field_info)
         end
       end
 

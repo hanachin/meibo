@@ -16,7 +16,7 @@ module Meibo
     end
   end
 
-  class MissingDataError < Error; end
+  class MissingDataError < InvalidDataTypeError; end
 
   class MissingHeaderFieldsError < Error
     attr_reader :missing_header_fields
