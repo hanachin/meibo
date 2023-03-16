@@ -7,7 +7,11 @@ module Meibo
 
       each do |classroom|
         school = roster.organizations.find(classroom.school_sourced_id)
-        raise InvalidDataTypeError unless school.school?
+        unless school.school?
+          field = classroom.school_sourced_id
+          field_info = field_info_from(classroom, :school_sourced_id)
+          raise InvalidDataTypeError.new(field: field, field_info: field_info)
+        end
 
         roster.courses.find(classroom.course_sourced_id)
 

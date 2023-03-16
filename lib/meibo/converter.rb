@@ -82,7 +82,7 @@ module Meibo
             when nil
               nil
             else
-              raise InvalidDataTypeError
+              raise InvalidDataTypeError.new(field: field, field_info: field_info)
             end
           else
             field
@@ -108,7 +108,7 @@ module Meibo
             begin
               Date.strptime(field, "%Y-%m-%d")
             rescue StandardError
-              raise InvalidDataTypeError
+              raise InvalidDataTypeError.new(field: field, field_info: field_info)
             end
           else
             field
@@ -134,7 +134,7 @@ module Meibo
             begin
               Time.iso8601(field)
             rescue StandardError
-              raise InvalidDataTypeError
+              raise InvalidDataTypeError.new(field: field, field_info: field_info)
             end
           else
             field
@@ -148,7 +148,7 @@ module Meibo
           return field unless field
 
           enum = enum_definition[field_info.index]
-          raise InvalidDataTypeError if enum&.none? { |pat| pat.is_a?(String) ? field == pat : field.match?(pat) }
+          raise InvalidDataTypeError.new(field: field, field_info: field_info) if enum&.none? { |pat| pat.is_a?(String) ? field == pat : field.match?(pat) }
 
           field
         end
@@ -160,7 +160,7 @@ module Meibo
           return field unless field
 
           format = format_definition[field_info.index]
-          raise InvalidDataTypeError if format && !field.match?(format)
+          raise InvalidDataTypeError.new(field: field, field_info: field_info) if format && !field.match?(format)
 
           field
         end
@@ -169,7 +169,7 @@ module Meibo
       def build_fullwidth_field_parser_converter(fullwidth_field_indexes)
         fullwidth_field_indexes = fullwidth_field_indexes.dup.freeze
         lambda do |field, field_info|
-          raise InvalidDataTypeError if field && fullwidth_field_indexes.include?(field_info.index) && field.match?(/[\p{In_Halfwidth_and_Fullwidth_Forms}&&\p{Katakana}]/)
+          raise InvalidDataTypeError.new(field: field, field_info: field_info) if field && fullwidth_field_indexes.include?(field_info.index) && field.match?(/[\p{In_Halfwidth_and_Fullwidth_Forms}&&\p{Katakana}]/)
 
           field
         end
@@ -180,7 +180,7 @@ module Meibo
         lambda do |grades, field_info|
           next grades unless grade_field_indexes.include?(field_info.index)
 
-          raise InvalidDataTypeError unless grades.all? { |grade| valid_grade.include?(grade) }
+          raise InvalidDataTypeError.new(field: grades, field_info: field_info) unless grades.all? { |grade| valid_grade.include?(grade) }
 
           grades
         end
@@ -193,7 +193,7 @@ module Meibo
             begin
               Integer(field, 10)
             rescue StandardError
-              raise InvalidDataTypeError
+              raise InvalidDataTypeError.new(field: field, field_info: field_info)
             end
           else
             field
@@ -251,7 +251,7 @@ module Meibo
         status_field_indexes = status_field_indexes.dup.freeze
         lambda do |field, field_info|
           if field && status_field_indexes.include?(field_info.index)
-            raise InvalidDataTypeError, "invalid status: #{field}" unless %w[active tobedeleted].include?(field)
+            raise InvalidDataTypeError.new(field: field, field_info: field_info), "invalid status: #{field}" unless %w[active tobedeleted].include?(field)
           else
             field
           end
@@ -264,7 +264,7 @@ module Meibo
           if user_ids_field_indexes.include?(field_info.index) && !field.all? do |user_id|
                Meibo::User::USER_ID_FORMAT_REGEXP.match?(user_id)
              end
-            raise InvalidDataTypeError
+            raise InvalidDataTypeError.new(field: field, field_info: field_info)
           end
 
           field
@@ -289,7 +289,7 @@ module Meibo
             begin
               Integer(field, 10)
             rescue StandardError
-              raise InvalidDataTypeError
+              raise InvalidDataTypeError.new(field: field, field_info: field_info)
             end
           else
             field

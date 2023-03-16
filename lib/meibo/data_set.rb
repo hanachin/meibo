@@ -81,5 +81,11 @@ module Meibo
     def empty_set
       @empty_set ||= new([])
     end
+
+    def field_info_from(model, attribute_name)
+      index = model.class.attribute_names.index(attribute_name)
+      line = lineno(model)
+      CSV::FieldInfo.new(index, line, attribute_name, false)
+    end
   end
 end

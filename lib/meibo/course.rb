@@ -24,9 +24,22 @@ module Meibo
       }
     )
 
+    def self.parse(csv)
+      return to_enum(:parse, csv) unless block_given?
+
+      _parse(csv).with_index(1) do |row, line|
+        yield new(**row.to_h)
+      rescue SubjectsAndSubjectCodesLengthNotMatch
+        index = attribute_names.index(:subjects)
+        field = row[index]
+        field_info = CSV::FieldInfo.new(index, line, :subjects, false)
+        raise InvalidDataTypeError.new(field: field, field_info: field_info)
+      end
+    end
+
     def initialize(sourced_id:, title:, org_sourced_id:, status: nil, date_last_modified: nil, school_year_sourced_id: nil,
                    course_code: nil, grades: [], subjects: [], subject_codes: [], **extension_fields)
-      raise InvalidDataTypeError unless subjects.is_a?(Array) && subject_codes.is_a?(Array) && subjects.size == subject_codes.size
+      raise SubjectsAndSubjectCodesLengthNotMatch unless subjects.is_a?(Array) && subject_codes.is_a?(Array) && subjects.size == subject_codes.size
 
       @sourced_id = sourced_id
       @status = status

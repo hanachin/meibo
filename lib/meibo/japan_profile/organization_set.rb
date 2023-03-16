@@ -9,7 +9,11 @@ module Meibo
         each do |organization|
           next unless organization.parent_sourced_id
 
-          raise InvalidDataTypeError if organization.district?
+          next unless organization.district?
+
+          field = organization.parent_sourced_id
+          field_info = field_info_from(organization, :parent_sourced_id)
+          raise InvalidDataTypeError.new(field: field, field_info: field_info)
         end
       end
     end

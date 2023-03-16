@@ -15,3 +15,8 @@ Style/StringLiterals:
 Style/StringLiteralsInInterpolation:
   Enabled: true
   EnforcedStyle: double_quotes
+
+Naming/MethodParameterName:
+  AllowedNames:
+    - kw
+    - io

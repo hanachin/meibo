@@ -8,10 +8,17 @@ module Meibo
       each do |enrollment|
         roster.classes.find(enrollment.class_sourced_id)
         school = roster.organizations.find(enrollment.school_sourced_id)
-        raise InvalidDataTypeError unless school.school?
+
+        unless school.school?
+          field = enrollment.school_sourced_id
+          field_info = field_info_from(enrollment, :school_sourced_id)
+          raise InvalidDataTypeError.new(field: field, field_info: field_info)
+        end
 
         roster.users.find(enrollment.user_sourced_id)
-        raise InvalidDataTypeError if enrollment.primary && !enrollment.teacher?
+        next if !enrollment.primary || enrollment.teacher?
+
+        raise InvalidDataTypeError.new(field: enrollment.primary, field_info: field_info_from(enrollment, :primary))
       end
     end
 
