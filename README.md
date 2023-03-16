@@ -20,7 +20,18 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+```rb
+# First, choose OneRoster profile
+Meibo.default_profile = Meibo::Profiles["v1.2.0 ep v3.00"]
+
+# Then open OneRoster file
+file = File.open('oneroster.zip')
+Meibo::Roster.from_file(file) do |roster|
+  roster.users.each do |user|
+    import_user_to_your_system(user)
+  end
+end
+```
 
 ## Development
 
