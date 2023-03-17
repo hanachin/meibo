@@ -2,7 +2,7 @@
 
 module Meibo
   module JapanProfile
-    class UserProfile < ::Meibo::UserProfile
-    end
+    Role = ::Meibo::Role
+    UserProfile = ::Meibo::UserProfile
   end
 end
