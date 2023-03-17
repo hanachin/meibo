@@ -32,7 +32,7 @@ module Meibo
         begin
           manifest = reader.manifest
         rescue CsvFileNotFoundError
-          raise NotSupportedError, "OneRoster 1.0\u306F\u30B5\u30DD\u30FC\u30C8\u3057\u3066\u3044\u307E\u305B\u3093"
+          raise NotSupportedError, "OneRoster 1.0はサポートしていません"
         rescue StandardError
           raise NotSupportedError, "#{Meibo::Manifest.filename}の読み込みに失敗しました"
         end

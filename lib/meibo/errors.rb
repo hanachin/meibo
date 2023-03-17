@@ -2,7 +2,17 @@
 
 module Meibo
   class Error < StandardError; end
-  class CsvFileNotFoundError < Error; end
+
+  class CsvFileNotFoundError < Error
+    attr_reader :filename
+
+    def initialize(message = nil, filename:, **kw)
+      super(message, **kw)
+
+      @filename = filename
+    end
+  end
+
   class DataNotFoundError < Error; end
 
   class InvalidDataTypeError < Error

@@ -99,7 +99,7 @@ module Meibo
     def manifest
       @manifest ||= begin
         filename = Meibo::Manifest.filename
-        raise CsvFileNotFoundError, "#{filename} not found" unless file_entry?(filename)
+        raise CsvFileNotFoundError.new("#{filename} not found", filename: filename) unless file_entry?(filename)
 
         csv = @zipfile.read(filename)
         Meibo::Manifest.parse(csv)
@@ -133,7 +133,7 @@ module Meibo
 
     def read_data(file_attribute, &block)
       filename = Manifest.filename_for(file_attribute)
-      raise CsvFileNotFoundError, "#{filename} not found" unless file_entry?(filename)
+      raise CsvFileNotFoundError.new("#{filename} not found", filename: filename) unless file_entry?(filename)
 
       csv = @zipfile.read(filename)
       profile.data_model_for(file_attribute).parse(csv, &block)
