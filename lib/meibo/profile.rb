@@ -18,8 +18,8 @@ module Meibo
       data_models[file_attribute]
     end
 
-    def data_set_for(name)
-      data_set[name]
+    def data_set_for(file_attribute)
+      data_set[file_attribute]
     end
   end
 end

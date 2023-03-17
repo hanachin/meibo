@@ -26,15 +26,15 @@ module Meibo
         file_users: Meibo::User
       },
       data_set: {
-        academic_sessions: Meibo::AcademicSessionSet,
-        classes: Meibo::ClassroomSet,
-        courses: Meibo::CourseSet,
-        demographics: Meibo::DemographicSet,
-        enrollments: Meibo::EnrollmentSet,
-        orgs: Meibo::OrganizationSet,
-        roles: Meibo::RoleSet,
-        user_profiles: Meibo::UserProfileSet,
-        users: Meibo::UserSet
+        file_academic_sessions: Meibo::AcademicSessionSet,
+        file_classes: Meibo::ClassroomSet,
+        file_courses: Meibo::CourseSet,
+        file_demographics: Meibo::DemographicSet,
+        file_enrollments: Meibo::EnrollmentSet,
+        file_orgs: Meibo::OrganizationSet,
+        file_roles: Meibo::RoleSet,
+        file_user_profiles: Meibo::UserProfileSet,
+        file_users: Meibo::UserSet
       }
     )
 
@@ -72,8 +72,8 @@ module Meibo
         file_users: JapanProfile::User
       },
       data_set: profile121.data_set.merge(
-        orgs: JapanProfile::OrganizationSet,
-        users: JapanProfile::UserSet
+        file_orgs: JapanProfile::OrganizationSet,
+        file_users: JapanProfile::UserSet
       )
     )
 
