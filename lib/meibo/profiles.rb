@@ -49,24 +49,28 @@ module Meibo
     )
 
     japan_profile121_v11 = Profile.new(
-      builders: profile121.builders.merge(
+      builders: {
         academic_session: Builder::AcademicSessionBuilder.create(JapanProfile::AcademicSession),
         class: Builder::ClassroomBuilder.create(JapanProfile::Classroom),
         course: Builder::CourseBuilder.create(JapanProfile::Course),
         demographic: Builder::DemographicBuilder.create(JapanProfile::Demographic),
         enrollment: Builder::EnrollmentBuilder.create(JapanProfile::Enrollment),
         org: Builder::OrganizationBuilder.create(JapanProfile::Organization),
-        user: Builder::UserBuilder.create(JapanProfile::User)
-      ),
-      data_models: profile121.data_models.merge(
+        role: Builder::RoleBuilder.create(JapanProfile::Role),
+        user: Builder::UserBuilder.create(JapanProfile::User),
+        user_profile: Builder::UserProfileBuilder.create(JapanProfile::UserProfile)
+      },
+      data_models: {
         file_academic_sessions: JapanProfile::AcademicSession,
         file_classes: JapanProfile::Classroom,
         file_courses: JapanProfile::Course,
         file_demographics: JapanProfile::Demographic,
         file_enrollments: JapanProfile::Enrollment,
         file_orgs: JapanProfile::Organization,
+        file_roles: JapanProfile::Role,
+        file_user_profiles: JapanProfile::UserProfile,
         file_users: JapanProfile::User
-      ),
+      },
       data_set: profile121.data_set.merge(
         orgs: JapanProfile::OrganizationSet,
         users: JapanProfile::UserSet
@@ -94,22 +98,28 @@ module Meibo
     )
 
     eportal_v3 = Profile.new(
-      builders: japan_profile120_v11.builders.merge(
+      builders: {
+        academic_session: Builder::AcademicSessionBuilder.create(EportalV3::AcademicSession),
         class: Builder::ClassroomBuilder.create(EportalV3::Classroom),
         course: Builder::CourseBuilder.create(EportalV3::Course),
+        demographic: Builder::DemographicBuilder.create(EportalV3::Demographic),
         enrollment: Builder::EnrollmentBuilder.create(EportalV3::Enrollment),
         organization: Builder::OrganizationBuilder.create(EportalV3::Organization),
+        role: Builder::RoleBuilder.create(EportalV3::Role),
         user_profile: Builder::UserProfileBuilder.create(EportalV3::UserProfile),
         user: Builder::UserBuilder.create(EportalV3::User)
-      ),
-      data_models: japan_profile120_v11.data_models.merge(
+      },
+      data_models: {
+        file_academic_sessions: EportalV3::AcademicSession,
         file_classes: EportalV3::Classroom,
         file_courses: EportalV3::Course,
+        file_demographics: EportalV3::Demographic,
         file_enrollments: EportalV3::Enrollment,
         file_orgs: EportalV3::Organization,
+        file_roles: EportalV3::Role,
         file_user_profiles: EportalV3::UserProfile,
         file_users: EportalV3::User
-      ),
+      },
       data_set: japan_profile120_v11.data_set
     )
 

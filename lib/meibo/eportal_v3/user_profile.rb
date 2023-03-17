@@ -2,7 +2,7 @@
 
 module Meibo
   module EportalV3
-    class UserProfile < ::Meibo::UserProfile
+    class UserProfile < ::Meibo::JapanProfile::UserProfile
       DataModel.define(
         self,
         attribute_name_to_header_field_map: superclass.attribute_name_to_header_field_map,
