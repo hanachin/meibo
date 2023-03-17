@@ -108,19 +108,7 @@ module Meibo
 
     def load_bulk_files
       bulk_file_attributes = manifest.file_attributes(processing_mode: Meibo::Manifest::PROCESSING_MODES[:bulk])
-      {
-        file_academic_sessions: :academic_sessions,
-        file_classes: :classes,
-        file_courses: :courses,
-        file_demographics: :demographics,
-        file_enrollments: :enrollments,
-        file_orgs: :organizations,
-        file_roles: :roles,
-        file_users: :users,
-        file_user_profiles: :user_profiles
-      }.filter_map do |file_attribute, data_method|
-        [data_method, public_send(data_method).to_a] if bulk_file_attributes.include?(file_attribute)
-      end.to_h
+      bulk_file_attributes.to_h { |file_attribute| [file_attribute, read_data(file_attribute)&.to_a] }.compact
     end
 
     def file_entry?(filename)
@@ -136,7 +124,7 @@ module Meibo
       raise CsvFileNotFoundError.new("#{filename} not found", filename: filename) unless file_entry?(filename)
 
       csv = @zipfile.read(filename)
-      profile.data_model_for(file_attribute).parse(csv, &block)
+      profile.data_model_for(file_attribute)&.parse(csv, &block)
     end
   end
 end

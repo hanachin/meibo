@@ -6,6 +6,20 @@ require "csv"
 module Meibo
   class Roster
     class << self
+      def file_attribute_name_to_data_attribute_name(file_attribute)
+        {
+          file_academic_sessions: :academic_sessions,
+          file_classes: :classes,
+          file_courses: :courses,
+          file_demographics: :demographics,
+          file_enrollments: :enrollments,
+          file_orgs: :organizations,
+          file_roles: :roles,
+          file_user_profiles: :user_profiles,
+          file_users: :users
+        }[file_attribute]
+      end
+
       def from_file(file_path, profile: Meibo.current_profile)
         Reader.open(file_path, profile: profile) do |reader|
           return read_data(reader, profile)
@@ -44,8 +58,8 @@ module Meibo
         validate_absent_files(reader, manifest.filenames(processing_mode: processing_modes[:absent]))
         validate_bulk_files(reader, manifest.filenames(processing_mode: processing_modes[:bulk]))
 
-        new(manifest_properties: manifest.to_h, profile: profile,
-            **reader.load_bulk_files).tap(&:check_semantically_consistent)
+        data_attributes = reader.load_bulk_files.transform_keys { |file_attribute| file_attribute_name_to_data_attribute_name(file_attribute) }
+        new(manifest_properties: manifest.to_h, profile: profile, **data_attributes).tap(&:check_semantically_consistent)
       end
 
       def validate_absent_files(reader, absent_filenames)
@@ -162,18 +176,7 @@ module Meibo
     end
 
     def data_for(file_attribute)
-      data_method = {
-        file_academic_sessions: :academic_sessions,
-        file_classes: :classes,
-        file_courses: :courses,
-        file_demographics: :demographics,
-        file_enrollments: :enrollments,
-        file_orgs: :organizations,
-        file_roles: :roles,
-        file_user_profiles: :user_profiles,
-        file_users: :users
-      }[file_attribute]
-      public_send(data_method)
+      public_send(self.class.file_attribute_name_to_data_attribute_name(file_attribute))
     end
 
     def file_properties
