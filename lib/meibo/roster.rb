@@ -54,9 +54,8 @@ module Meibo
         validate_manifest_version(manifest.manifest_version)
         validate_oneroster_version(manifest.oneroster_version)
         validate_supported_processing_mode(manifest)
-        processing_modes = Meibo::Manifest::PROCESSING_MODES
-        validate_absent_files(reader, manifest.filenames(processing_mode: processing_modes[:absent]))
-        validate_bulk_files(reader, manifest.filenames(processing_mode: processing_modes[:bulk]))
+        validate_absent_files(reader, manifest.filenames(processing_mode: ProcessingMode.absent))
+        validate_bulk_files(reader, manifest.filenames(processing_mode: ProcessingMode.bulk))
 
         data_attributes = reader.load_bulk_files.transform_keys { |file_attribute| file_attribute_name_to_data_attribute_name(file_attribute) }
         new(manifest_properties: manifest.to_h, profile: profile, **data_attributes).tap(&:check_semantically_consistent)
@@ -91,7 +90,7 @@ module Meibo
       end
 
       def validate_supported_processing_mode(manifest)
-        return if manifest.file_attributes(processing_mode: Meibo::Manifest::PROCESSING_MODES[:delta]).empty?
+        return if manifest.file_attributes(processing_mode: ProcessingMode.delta).empty?
 
         raise NotSupportedError, "DELTA\u306F\u30B5\u30DD\u30FC\u30C8\u3057\u3066\u3044\u307E\u305B\u3093"
       end
@@ -149,8 +148,8 @@ module Meibo
 
     def write(zipfile)
       manifest = build_manifest
-      zipfile.get_output_stream(::Meibo::Manifest.filename) do |f|
-        f.puts ::Meibo::Manifest.header_fields.to_csv
+      zipfile.get_output_stream(Manifest.filename) do |f|
+        f.puts Manifest.header_fields.to_csv
         manifest.to_a.each do |row|
           f.puts row.to_csv
         end
@@ -171,8 +170,7 @@ module Meibo
     end
 
     def build_manifest
-      new_manifest_properties = file_properties.merge(manifest_properties)
-      Meibo::Manifest.build_from_default(**new_manifest_properties)
+      Manifest.new(**manifest_properties, **file_properties)
     end
 
     def data_for(file_attribute)
@@ -195,9 +193,9 @@ module Meibo
 
     def procesing_mode(data)
       if data.empty?
-        Meibo::Manifest::PROCESSING_MODES[:absent]
+        ProcessingMode.absent
       else
-        Meibo::Manifest::PROCESSING_MODES[:bulk]
+        ProcessingMode.bulk
       end
     end
   end

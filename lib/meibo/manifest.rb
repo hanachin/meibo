@@ -5,12 +5,6 @@ module Meibo
     MANIFEST_VERSION = "1.0"
     ONEROSTER_VERSION = "1.2"
 
-    PROCESSING_MODES = {
-      absent: ProcessingMode.new("absent"),
-      bulk: ProcessingMode.new("bulk"),
-      delta: ProcessingMode.new("delta")
-    }.freeze
-
     PROPERTY_NAME_TO_ATTRIBUTE_MAP = {
       "manifest.version" => :manifest_version,
       "oneroster.version" => :oneroster_version,
@@ -42,39 +36,11 @@ module Meibo
       [attribute, property_name]
     end.freeze
 
-    # NOTE: 想定値
-    DEFAULT_VALUES = {
-      manifest_version: MANIFEST_VERSION,
-      oneroster_version: ONEROSTER_VERSION,
-      file_academic_sessions: PROCESSING_MODES[:bulk],
-      file_categories: PROCESSING_MODES[:absent],
-      file_classes: PROCESSING_MODES[:bulk],
-      file_class_resources: PROCESSING_MODES[:absent],
-      file_courses: PROCESSING_MODES[:bulk],
-      file_course_resources: PROCESSING_MODES[:absent],
-      file_demographics: PROCESSING_MODES[:bulk],
-      file_enrollments: PROCESSING_MODES[:bulk],
-      file_line_item_learning_objective_ids: PROCESSING_MODES[:absent],
-      file_line_items: PROCESSING_MODES[:absent],
-      file_line_item_score_scales: PROCESSING_MODES[:absent],
-      file_orgs: PROCESSING_MODES[:bulk],
-      file_resources: PROCESSING_MODES[:absent],
-      file_result_learning_objective_ids: PROCESSING_MODES[:absent],
-      file_results: PROCESSING_MODES[:absent],
-      file_result_score_scales: PROCESSING_MODES[:absent],
-      file_roles: PROCESSING_MODES[:bulk],
-      file_score_scales: PROCESSING_MODES[:absent],
-      file_user_profiles: PROCESSING_MODES[:bulk],
-      file_user_resources: PROCESSING_MODES[:absent],
-      file_users: PROCESSING_MODES[:bulk]
-    }.freeze
-
-    attr_reader :manifest_version, :oneroster_version, :file_academic_sessions, :file_categories, :file_classes,
-                :file_class_resources, :file_courses, :file_course_resources, :file_demographics, :file_enrollments, :file_line_item_learning_objective_ids, :file_line_items, :file_line_item_score_scales, :file_orgs, :file_resources, :file_result_learning_objective_ids, :file_results, :file_result_score_scales, :file_roles, :file_score_scales, :file_user_profiles, :file_user_resources, :file_users, :source_system_name, :source_system_code
-
-    def self.build_from_default(**custom_properties)
-      new(**Manifest::DEFAULT_VALUES.merge(custom_properties))
-    end
+    attr_reader :manifest_version, :oneroster_version, :source_system_name, :source_system_code, :file_academic_sessions,
+                :file_categories, :file_classes, :file_class_resources, :file_courses, :file_course_resources,
+                :file_demographics, :file_enrollments, :file_line_item_learning_objective_ids, :file_line_items, :file_line_item_score_scales,
+                :file_orgs, :file_resources, :file_result_learning_objective_ids, :file_results, :file_result_score_scales,
+                :file_roles, :file_score_scales, :file_user_profiles, :file_user_resources, :file_users
 
     def self.filename
       "manifest.csv"
@@ -107,8 +73,33 @@ module Meibo
             end)
     end
 
-    def initialize(manifest_version:, oneroster_version:, file_academic_sessions:, file_categories:, file_classes:,
-                   file_class_resources:, file_courses:, file_course_resources:, file_demographics:, file_enrollments:, file_line_item_learning_objective_ids:, file_line_items:, file_line_item_score_scales:, file_orgs:, file_resources:, file_result_learning_objective_ids:, file_results:, file_result_score_scales:, file_roles:, file_score_scales:, file_user_profiles:, file_user_resources:, file_users:, source_system_name: nil, source_system_code: nil)
+    def initialize(
+      file_academic_sessions: ProcessingMode.absent,
+      file_categories: ProcessingMode.absent,
+      file_classes: ProcessingMode.absent,
+      file_class_resources: ProcessingMode.absent,
+      file_courses: ProcessingMode.absent,
+      file_course_resources: ProcessingMode.absent,
+      file_demographics: ProcessingMode.absent,
+      file_enrollments: ProcessingMode.absent,
+      file_line_item_learning_objective_ids: ProcessingMode.absent,
+      file_line_items: ProcessingMode.absent,
+      file_line_item_score_scales: ProcessingMode.absent,
+      file_orgs: ProcessingMode.absent,
+      file_resources: ProcessingMode.absent,
+      file_result_learning_objective_ids: ProcessingMode.absent,
+      file_results: ProcessingMode.absent,
+      file_result_score_scales: ProcessingMode.absent,
+      file_roles: ProcessingMode.absent,
+      file_score_scales: ProcessingMode.absent,
+      file_user_profiles: ProcessingMode.absent,
+      file_user_resources: ProcessingMode.absent,
+      file_users: ProcessingMode.absent,
+      manifest_version: MANIFEST_VERSION,
+      oneroster_version: ONEROSTER_VERSION,
+      source_system_name: nil,
+      source_system_code: nil
+    )
       @manifest_version = manifest_version
       @oneroster_version = oneroster_version
       @file_academic_sessions = file_academic_sessions

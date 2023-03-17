@@ -107,7 +107,7 @@ module Meibo
     end
 
     def load_bulk_files
-      bulk_file_attributes = manifest.file_attributes(processing_mode: Meibo::Manifest::PROCESSING_MODES[:bulk])
+      bulk_file_attributes = manifest.file_attributes(processing_mode: ProcessingMode.bulk)
       bulk_file_attributes.to_h { |file_attribute| [file_attribute, read_data(file_attribute)&.to_a] }.compact
     end
 
