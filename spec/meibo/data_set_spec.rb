@@ -9,7 +9,7 @@ RSpec.describe Meibo::DataSet do
       data_set = described_class.new([build(:meibo_academic_session, sourced_id: nil)], roster: roster)
       expect do
         data_set.check_semantically_consistent
-      end.to raise_error(Meibo::DataNotFoundError, "sourcedId\u304C\u3042\u308A\u307E\u305B\u3093")
+      end.to raise_error(Meibo::DataNotFoundError, "sourcedIdがありません")
     end
 
     it "does not raise error if sourcedId is unique" do

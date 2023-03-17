@@ -14,22 +14,14 @@ module Meibo
 
     def <<(new_data)
       raise DataNotFoundError, "sourcedIdがありません" unless new_data.sourced_id
-
-      if data_by_sourced_id.key?(new_data.sourced_id)
-        raise SourcedIdDuplicatedError,
-              "sourcedId\u304C\u91CD\u8907\u3057\u3066\u3044\u307E\u3059"
-      end
+      raise SourcedIdDuplicatedError, "sourcedIdが重複しています" if data_by_sourced_id.key?(new_data.sourced_id)
 
       @data << new_data
       @cache.clear
     end
 
     def check_semantically_consistent
-      unless @data.size == data_by_sourced_id.size
-        raise SourcedIdDuplicatedError,
-              "sourcedId\u304C\u91CD\u8907\u3057\u3066\u3044\u307E\u3059"
-      end
-
+      raise SourcedIdDuplicatedError, "sourcedIdが重複しています" unless @data.size == data_by_sourced_id.size
       raise DataNotFoundError, "sourcedIdがありません" unless data_by_sourced_id[nil].nil?
     end
 

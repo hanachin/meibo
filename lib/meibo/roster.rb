@@ -92,7 +92,7 @@ module Meibo
       def validate_supported_processing_mode(manifest)
         return if manifest.file_attributes(processing_mode: ProcessingMode.delta).empty?
 
-        raise NotSupportedError, "DELTA\u306F\u30B5\u30DD\u30FC\u30C8\u3057\u3066\u3044\u307E\u305B\u3093"
+        raise NotSupportedError, "DELTAはサポートしていません"
       end
     end
 

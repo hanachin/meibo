@@ -51,8 +51,7 @@ RSpec.describe Meibo::ClassroomSet do
           classroom_set = described_class.new([classroom], roster: roster)
           expect do
             classroom_set.check_semantically_consistent
-          end.to raise_error(Meibo::DataNotFoundError,
-                             "termSourcedId\u306F1\u3064\u4EE5\u4E0A\u6307\u5B9A\u3057\u3066\u304F\u3060\u3055\u3044")
+          end.to raise_error(Meibo::DataNotFoundError, "termSourcedIdは1つ以上指定してください")
         end
       end
     end

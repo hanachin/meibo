@@ -8,16 +8,16 @@ RSpec.describe Meibo::Builder do
       builder = described_class.new(roster: roster, profile: profile)
       school_year_academic_session = builder.build_academic_session(school_year: 2022)
       organization = builder.build_organization(
-        name: "\u5C0F\u5B66\u6821",
+        name: "小学校",
         type: Meibo::JapanProfile::Organization::TYPES[:school],
         identifier: "B101200000019"
       )
       course = organization.build_course(
-        title: "2022\u5E74\u5EA6",
+        title: "2022年度",
         school_year: school_year_academic_session
       )
       classroom = course.build_classroom(
-        title: "1\u5E741\u7D44",
+        title: "1年1組",
         grades: ["P1"], # TODO: 定数化
         terms: [school_year_academic_session],
         class_type: Meibo::JapanProfile::Classroom::TYPES[:homeroom]
