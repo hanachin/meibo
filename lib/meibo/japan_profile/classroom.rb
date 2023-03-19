@@ -3,17 +3,17 @@
 module Meibo
   module JapanProfile
     class Classroom < ::Meibo::Classroom
-      DataModel.define(
-        self,
-        attribute_name_to_header_field_map: superclass.attribute_name_to_header_field_map.merge(
-          special_needs: "metadata.jp.specialNeeds"
-        ).freeze,
-        converters: superclass.converters.merge(
-          boolean: [:special_needs].freeze,
-          enum: { class_type: TYPES.values.freeze }.freeze,
-          mext_grade_code: [:grades].freeze
-        ).freeze
+      attribute_names_to_header_fields = superclass.attribute_names_to_header_fields.merge(
+        special_needs: "metadata.jp.specialNeeds"
       )
+      define_attributes(attribute_names_to_header_fields)
+
+      converters = superclass.converters.merge(
+        boolean: [:special_needs],
+        enum: { class_type: TYPES.values },
+        mext_grade_code: [:grades]
+      )
+      define_converters(converters)
 
       def initialize(special_needs: nil, **other_fields)
         super(**other_fields)

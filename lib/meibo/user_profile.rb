@@ -2,26 +2,26 @@
 
 module Meibo
   class UserProfile
-    DataModel.define(
-      self,
-      attribute_name_to_header_field_map: {
-        sourced_id: "sourcedId",
-        status: "status",
-        date_last_modified: "dateLastModified",
-        user_sourced_id: "userSourcedId",
-        profile_type: "profileType",
-        vendor_id: "vendorId",
-        application_id: "applicationId",
-        description: "description",
-        credential_type: "credentialType",
-        username: "username",
-        password: "password"
-      },
-      converters: {
-        datetime: [:date_last_modified],
-        required: %i[sourced_id user_sourced_id profile_type vendor_id credential_type username],
-        status: [:status]
-      }
+    include DataModel
+
+    define_attributes(
+      sourced_id: "sourcedId",
+      status: "status",
+      date_last_modified: "dateLastModified",
+      user_sourced_id: "userSourcedId",
+      profile_type: "profileType",
+      vendor_id: "vendorId",
+      application_id: "applicationId",
+      description: "description",
+      credential_type: "credentialType",
+      username: "username",
+      password: "password"
+    )
+
+    define_converters(
+      datetime: [:date_last_modified],
+      required: %i[sourced_id user_sourced_id profile_type vendor_id credential_type username],
+      status: [:status]
     )
 
     def initialize(sourced_id:, user_sourced_id:, profile_type:, vendor_id:, credential_type:, username:, status: nil, date_last_modified: nil,

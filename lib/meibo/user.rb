@@ -2,42 +2,42 @@
 
 module Meibo
   class User
+    include DataModel
+
     USER_ID_FORMAT_REGEXP = /\A\{[^:}]+:[^}]+\}\z/.freeze
 
-    DataModel.define(
-      self,
-      attribute_name_to_header_field_map: {
-        sourced_id: "sourcedId",
-        status: "status",
-        date_last_modified: "dateLastModified",
-        enabled_user: "enabledUser",
-        username: "username",
-        user_ids: "userIds",
-        given_name: "givenName",
-        family_name: "familyName",
-        middle_name: "middleName",
-        identifier: "identifier",
-        email: "email",
-        sms: "sms",
-        phone: "phone",
-        agent_sourced_ids: "agentSourcedIds",
-        grades: "grades",
-        password: "password",
-        user_master_identifier: "userMasterIdentifier",
-        preferred_given_name: "preferredGivenName",
-        preferred_middle_name: "preferredMiddleName",
-        preferred_family_name: "preferredFamilyName",
-        primary_org_sourced_id: "primaryOrgSourcedId",
-        pronouns: "pronouns"
-      }.freeze,
-      converters: {
-        boolean: [:enabled_user].freeze,
-        datetime: [:date_last_modified].freeze,
-        list: %i[user_ids agent_sourced_ids grades].freeze,
-        required: %i[sourced_id enabled_user username given_name family_name].freeze,
-        status: [:status].freeze,
-        user_ids: [:user_ids].freeze
-      }.freeze
+    define_attributes(
+      sourced_id: "sourcedId",
+      status: "status",
+      date_last_modified: "dateLastModified",
+      enabled_user: "enabledUser",
+      username: "username",
+      user_ids: "userIds",
+      given_name: "givenName",
+      family_name: "familyName",
+      middle_name: "middleName",
+      identifier: "identifier",
+      email: "email",
+      sms: "sms",
+      phone: "phone",
+      agent_sourced_ids: "agentSourcedIds",
+      grades: "grades",
+      password: "password",
+      user_master_identifier: "userMasterIdentifier",
+      preferred_given_name: "preferredGivenName",
+      preferred_middle_name: "preferredMiddleName",
+      preferred_family_name: "preferredFamilyName",
+      primary_org_sourced_id: "primaryOrgSourcedId",
+      pronouns: "pronouns"
+    )
+
+    define_converters(
+      boolean: [:enabled_user],
+      datetime: [:date_last_modified],
+      list: %i[user_ids agent_sourced_ids grades],
+      required: %i[sourced_id enabled_user username given_name family_name],
+      status: [:status],
+      user_ids: [:user_ids]
     )
 
     def initialize(sourced_id:, username:, given_name:, family_name:, status: nil, date_last_modified: nil,

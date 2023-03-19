@@ -2,6 +2,8 @@
 
 module Meibo
   class Demographic
+    include DataModel
+
     SEX = {
       male: "male",
       female: "female",
@@ -9,42 +11,40 @@ module Meibo
       other: "other"
     }.freeze
 
-    DataModel.define(
-      self,
-      attribute_name_to_header_field_map: {
-        sourced_id: "sourcedId",
-        status: "status",
-        date_last_modified: "dateLastModified",
-        birth_date: "birthDate",
-        sex: "sex",
-        american_indian_or_alaska_native: "americanIndianOrAlaskaNative",
-        asian: "asian",
-        black_or_african_american: "blackOrAfricanAmerican",
-        native_hawaiian_or_other_pacific_islander: "nativeHawaiianOrOtherPacificIslander",
-        white: "white",
-        demographic_race_two_or_more_races: "demographicRaceTwoOrMoreRaces",
-        hispanic_or_latino_ethnicity: "hispanicOrLatinoEthnicity",
-        country_of_birth_code: "countryOfBirthCode",
-        state_of_birth_abbreviation: "stateOfBirthAbbreviation",
-        city_of_birth: "cityOfBirth",
-        public_school_residence_status: "publicSchoolResidenceStatus"
-      }.freeze,
-      converters: {
-        boolean: %i[
-          american_indian_or_alaska_native
-          asian
-          black_or_african_american
-          native_hawaiian_or_other_pacific_islander
-          white
-          demographic_race_two_or_more_races
-          hispanic_or_latino_ethnicity
-        ].freeze,
-        date: [:birth_date].freeze,
-        datetime: [:date_last_modified].freeze,
-        enum: { sex: [*SEX.values, ENUM_EXT_PATTERN].freeze }.freeze,
-        required: [:sourced_id].freeze,
-        status: [:status].freeze
-      }
+    define_attributes(
+      sourced_id: "sourcedId",
+      status: "status",
+      date_last_modified: "dateLastModified",
+      birth_date: "birthDate",
+      sex: "sex",
+      american_indian_or_alaska_native: "americanIndianOrAlaskaNative",
+      asian: "asian",
+      black_or_african_american: "blackOrAfricanAmerican",
+      native_hawaiian_or_other_pacific_islander: "nativeHawaiianOrOtherPacificIslander",
+      white: "white",
+      demographic_race_two_or_more_races: "demographicRaceTwoOrMoreRaces",
+      hispanic_or_latino_ethnicity: "hispanicOrLatinoEthnicity",
+      country_of_birth_code: "countryOfBirthCode",
+      state_of_birth_abbreviation: "stateOfBirthAbbreviation",
+      city_of_birth: "cityOfBirth",
+      public_school_residence_status: "publicSchoolResidenceStatus"
+    )
+
+    define_converters(
+      boolean: %i[
+        american_indian_or_alaska_native
+        asian
+        black_or_african_american
+        native_hawaiian_or_other_pacific_islander
+        white
+        demographic_race_two_or_more_races
+        hispanic_or_latino_ethnicity
+      ],
+      date: [:birth_date],
+      datetime: [:date_last_modified],
+      enum: { sex: [*SEX.values, ENUM_EXT_PATTERN] },
+      required: [:sourced_id],
+      status: [:status]
     )
 
     def initialize(sourced_id:, status: nil, date_last_modified: nil, birth_date: nil, sex: nil,

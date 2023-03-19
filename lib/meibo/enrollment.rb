@@ -2,6 +2,8 @@
 
 module Meibo
   class Enrollment
+    include DataModel
+
     ROLES = {
       administrator: "administrator",
       proctor: "proctor",
@@ -9,28 +11,26 @@ module Meibo
       teacher: "teacher"
     }.freeze
 
-    DataModel.define(
-      self,
-      attribute_name_to_header_field_map: {
-        sourced_id: "sourcedId",
-        status: "status",
-        date_last_modified: "dateLastModified",
-        class_sourced_id: "classSourcedId",
-        school_sourced_id: "schoolSourcedId",
-        user_sourced_id: "userSourcedId",
-        role: "role",
-        primary: "primary",
-        begin_date: "beginDate",
-        end_date: "endDate"
-      }.freeze,
-      converters: {
-        boolean: [:primary].freeze,
-        date: %i[begin_date end_date].freeze,
-        datetime: [:date_last_modified].freeze,
-        enum: { role: [*ROLES.values, ENUM_EXT_PATTERN].freeze }.freeze,
-        required: %i[sourced_id class_sourced_id school_sourced_id user_sourced_id role].freeze,
-        status: [:status].freeze
-      }
+    define_attributes(
+      sourced_id: "sourcedId",
+      status: "status",
+      date_last_modified: "dateLastModified",
+      class_sourced_id: "classSourcedId",
+      school_sourced_id: "schoolSourcedId",
+      user_sourced_id: "userSourcedId",
+      role: "role",
+      primary: "primary",
+      begin_date: "beginDate",
+      end_date: "endDate"
+    )
+
+    define_converters(
+      boolean: [:primary],
+      date: %i[begin_date end_date],
+      datetime: [:date_last_modified],
+      enum: { role: [*ROLES.values, ENUM_EXT_PATTERN] },
+      required: %i[sourced_id class_sourced_id school_sourced_id user_sourced_id role],
+      status: [:status]
     )
 
     def initialize(sourced_id:, class_sourced_id:, school_sourced_id:, user_sourced_id:, role:, status: nil,

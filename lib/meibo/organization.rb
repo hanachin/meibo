@@ -2,6 +2,8 @@
 
 module Meibo
   class Organization
+    include DataModel
+
     TYPES = {
       department: "department",
       school: "school",
@@ -11,23 +13,21 @@ module Meibo
       national: "national"
     }.freeze
 
-    DataModel.define(
-      self,
-      attribute_name_to_header_field_map: {
-        sourced_id: "sourcedId",
-        status: "status",
-        date_last_modified: "dateLastModified",
-        name: "name",
-        type: "type",
-        identifier: "identifier",
-        parent_sourced_id: "parentSourcedId"
-      },
-      converters: {
-        datetime: [:date_last_modified],
-        enum: { type: [*TYPES.values, ENUM_EXT_PATTERN].freeze },
-        required: %i[sourced_id name type],
-        status: [:status]
-      }
+    define_attributes(
+      sourced_id: "sourcedId",
+      status: "status",
+      date_last_modified: "dateLastModified",
+      name: "name",
+      type: "type",
+      identifier: "identifier",
+      parent_sourced_id: "parentSourcedId"
+    )
+
+    define_converters(
+      datetime: [:date_last_modified],
+      enum: { type: [*TYPES.values, ENUM_EXT_PATTERN] },
+      required: %i[sourced_id name type],
+      status: [:status]
     )
 
     def initialize(sourced_id:, name:, type:, status: nil, date_last_modified: nil, identifier: nil, parent_sourced_id: nil, **extension_fields)

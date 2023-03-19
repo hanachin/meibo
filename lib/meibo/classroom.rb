@@ -2,44 +2,44 @@
 
 module Meibo
   class Classroom
+    include DataModel
+
     TYPES = {
       homeroom: "homeroom",
       scheduled: "scheduled"
     }.freeze
 
-    DataModel.define(
-      self,
-      attribute_name_to_header_field_map: {
-        sourced_id: "sourcedId",
-        status: "status",
-        date_last_modified: "dateLastModified",
-        title: "title",
-        grades: "grades",
-        course_sourced_id: "courseSourcedId",
-        class_code: "classCode",
-        class_type: "classType",
-        location: "location",
-        school_sourced_id: "schoolSourcedId",
-        term_sourced_ids: "termSourcedIds",
-        subjects: "subjects",
-        subject_codes: "subjectCodes",
-        periods: "periods"
-      }.freeze,
-      converters: {
-        datetime: [:date_last_modified].freeze,
-        enum: {
-          class_type: [*TYPES.values, ENUM_EXT_PATTERN].freeze
-        }.freeze,
-        list: %i[
-          grades
-          term_sourced_ids
-          subjects
-          subject_codes
-          periods
-        ].freeze,
-        required: %i[sourced_id title class_type course_sourced_id term_sourced_ids school_sourced_id].freeze,
-        status: [:status].freeze
-      }
+    define_attributes(
+      sourced_id: "sourcedId",
+      status: "status",
+      date_last_modified: "dateLastModified",
+      title: "title",
+      grades: "grades",
+      course_sourced_id: "courseSourcedId",
+      class_code: "classCode",
+      class_type: "classType",
+      location: "location",
+      school_sourced_id: "schoolSourcedId",
+      term_sourced_ids: "termSourcedIds",
+      subjects: "subjects",
+      subject_codes: "subjectCodes",
+      periods: "periods"
+    )
+
+    define_converters(
+      datetime: [:date_last_modified],
+      enum: {
+        class_type: [*TYPES.values, ENUM_EXT_PATTERN]
+      },
+      list: %i[
+        grades
+        term_sourced_ids
+        subjects
+        subject_codes
+        periods
+      ],
+      required: %i[sourced_id title class_type course_sourced_id term_sourced_ids school_sourced_id],
+      status: [:status]
     )
 
     def self.parse(csv)

@@ -5,14 +5,12 @@ module Meibo
     class AcademicSession < ::Meibo::AcademicSession
       TYPES = { school_year: "schoolYear" }.freeze
 
-      DataModel.define(
-        self,
-        attribute_name_to_header_field_map: superclass.attribute_name_to_header_field_map,
-        converters: superclass.converters.merge(
-          format: { title: /\A\d+年度\z/ },
-          enum: { type: TYPES.values.freeze }.freeze
-        )
+      converters = superclass.converters.merge(
+        format: { title: /\A\d+年度\z/ },
+        enum: { type: TYPES.values }
       )
+
+      define_converters(converters)
 
       # NOTE: 以下固定
       #   - titleは連携処理実行時の対象年度西暦 + 「年度」を設定

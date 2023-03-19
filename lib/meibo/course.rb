@@ -2,26 +2,26 @@
 
 module Meibo
   class Course
-    DataModel.define(
-      self,
-      attribute_name_to_header_field_map: {
-        sourced_id: "sourcedId",
-        status: "status",
-        date_last_modified: "dateLastModified",
-        school_year_sourced_id: "schoolYearSourcedId",
-        title: "title",
-        course_code: "courseCode",
-        grades: "grades",
-        org_sourced_id: "orgSourcedId",
-        subjects: "subjects",
-        subject_codes: "subjectCodes"
-      },
-      converters: {
-        datetime: [:date_last_modified],
-        list: %i[grades subjects subject_codes],
-        required: %i[sourced_id title org_sourced_id],
-        status: [:status]
-      }
+    include DataModel
+
+    define_attributes(
+      sourced_id: "sourcedId",
+      status: "status",
+      date_last_modified: "dateLastModified",
+      school_year_sourced_id: "schoolYearSourcedId",
+      title: "title",
+      course_code: "courseCode",
+      grades: "grades",
+      org_sourced_id: "orgSourcedId",
+      subjects: "subjects",
+      subject_codes: "subjectCodes"
+    )
+
+    define_converters(
+      datetime: [:date_last_modified],
+      list: %i[grades subjects subject_codes],
+      required: %i[sourced_id title org_sourced_id],
+      status: [:status]
     )
 
     def self.parse(csv)

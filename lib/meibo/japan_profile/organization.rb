@@ -8,13 +8,10 @@ module Meibo
         school: "school"
       }.freeze
 
-      DataModel.define(
-        self,
-        attribute_name_to_header_field_map: superclass.attribute_name_to_header_field_map,
-        converters: superclass.converters.merge(
-          enum: { type: TYPES.values.freeze }
-        ).freeze
+      converters = superclass.converters.merge(
+        enum: { type: TYPES.values }
       )
+      define_converters(converters)
     end
   end
 end

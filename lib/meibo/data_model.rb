@@ -5,6 +5,25 @@ require "csv"
 module Meibo
   module DataModel
     module ClassMethods
+      def define_attributes(attribute_names_to_header_fields)
+        attribute_names_to_header_fields = attribute_names_to_header_fields.dup.freeze
+        attribute_names = attribute_names_to_header_fields.keys.freeze
+        header_fields = attribute_names_to_header_fields.values.freeze
+        define_class_attribute(:attribute_names_to_header_fields, attribute_names_to_header_fields)
+        define_class_attribute(:attribute_names, attribute_names)
+        define_class_attribute(:header_fields, header_fields)
+
+        attr_reader(*attribute_names, :extension_fields)
+      end
+
+      def define_converters(converters)
+        converters = converters.dup.freeze
+        define_class_attribute(:converters, converters)
+        define_header_converters
+        define_parser_converters(converters)
+        define_write_converters(converters)
+      end
+
       def parse(csv)
         return to_enum(:parse, csv) unless block_given?
 
@@ -29,44 +48,30 @@ module Meibo
 
         CSV.parse(csv, encoding: Meibo::CSV_ENCODING, headers: true, converters: parser_converters, header_converters: header_converters).each(&block)
       end
+
+      def define_class_attribute(attribute, value)
+        define_singleton_method(attribute) { value }
+      end
+
+      def define_header_converters
+        header_converters = Converter.build_header_field_to_attribute_converter(attribute_names_to_header_fields)
+        define_class_attribute(:header_converters, header_converters)
+      end
+
+      def define_parser_converters(converters)
+        parser_converter = Converter.build_parser_converter(fields: attribute_names, converters: converters)
+        define_class_attribute(:parser_converters, parser_converter)
+      end
+
+      def define_write_converters(converters)
+        write_converter = Converter.build_write_converter(fields: attribute_names, converters: converters)
+        define_class_attribute(:write_converters, write_converter)
+      end
     end
 
-    def self.define(klass, attribute_name_to_header_field_map:, converters: {})
-      attribute_name_to_header_field_map = attribute_name_to_header_field_map.dup.freeze
-      attribute_names = attribute_name_to_header_field_map.keys.freeze
-      header_fields = attribute_name_to_header_field_map.values.freeze
-      converters = converters.dup.freeze
-      define_class_attribute(klass, :attribute_name_to_header_field_map, attribute_name_to_header_field_map)
-      define_class_attribute(klass, :attribute_names, attribute_names)
-      define_class_attribute(klass, :header_fields, header_fields)
-      define_class_attribute(klass, :converters, converters)
-
-      define_header_converters(klass, attribute_name_to_header_field_map)
-      define_parser_converters(klass, attribute_names: attribute_names, converters: converters)
-      define_write_converters(klass, attribute_names: attribute_names, converters: converters)
-
-      klass.attr_reader(*attribute_names, :extension_fields)
-      klass.extend(ClassMethods)
-      klass.include(self)
-    end
-
-    def self.define_class_attribute(klass, attribute, value)
-      klass.define_singleton_method(attribute) { value }
-    end
-
-    def self.define_header_converters(klass, attribute_name_to_header_field_map)
-      header_converters = Converter.build_header_field_to_attribute_converter(attribute_name_to_header_field_map)
-      define_class_attribute(klass, :header_converters, header_converters)
-    end
-
-    def self.define_parser_converters(klass, attribute_names:, converters:)
-      parser_converter = Converter.build_parser_converter(fields: attribute_names, converters: converters)
-      define_class_attribute(klass, :parser_converters, parser_converter)
-    end
-
-    def self.define_write_converters(klass, attribute_names:, converters:)
-      write_converter = Converter.build_write_converter(fields: attribute_names, converters: converters)
-      define_class_attribute(klass, :write_converters, write_converter)
+    def self.included(base)
+      super
+      base.extend(ClassMethods)
     end
 
     def lineno

@@ -2,6 +2,8 @@
 
 module Meibo
   class Role
+    include DataModel
+
     TYPES = {
       primary: "primary",
       secondary: "secondary"
@@ -22,30 +24,28 @@ module Meibo
       teacher: "teacher"
     }.freeze
 
-    DataModel.define(
-      self,
-      attribute_name_to_header_field_map: {
-        sourced_id: "sourcedId",
-        status: "status",
-        date_last_modified: "dateLastModified",
-        user_sourced_id: "userSourcedId",
-        role_type: "roleType",
-        role: "role",
-        begin_date: "beginDate",
-        end_date: "endDate",
-        org_sourced_id: "orgSourcedId",
-        user_profile_sourced_id: "userProfileSourcedId"
-      }.freeze,
-      converters: {
-        date: %i[begin_date end_date].freeze,
-        datetime: [:date_last_modified].freeze,
-        required: %i[sourced_id user_sourced_id role_type role org_sourced_id].freeze,
-        enum: {
-          role: [*ROLES.values, ENUM_EXT_PATTERN].freeze,
-          role_type: TYPES.values.freeze
-        }.freeze,
-        status: [:status].freeze
-      }.freeze
+    define_attributes(
+      sourced_id: "sourcedId",
+      status: "status",
+      date_last_modified: "dateLastModified",
+      user_sourced_id: "userSourcedId",
+      role_type: "roleType",
+      role: "role",
+      begin_date: "beginDate",
+      end_date: "endDate",
+      org_sourced_id: "orgSourcedId",
+      user_profile_sourced_id: "userProfileSourcedId"
+    )
+
+    define_converters(
+      date: %i[begin_date end_date],
+      datetime: [:date_last_modified],
+      required: %i[sourced_id user_sourced_id role_type role org_sourced_id],
+      enum: {
+        role: [*ROLES.values, ENUM_EXT_PATTERN],
+        role_type: TYPES.values
+      },
+      status: [:status]
     )
 
     def initialize(sourced_id:, user_sourced_id:, role_type:, role:, org_sourced_id:, status: nil, date_last_modified: nil,

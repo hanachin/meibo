@@ -10,18 +10,18 @@ module Meibo
         guardian: "guardian"
       }.freeze
 
-      DataModel.define(
-        self,
-        attribute_name_to_header_field_map: superclass.attribute_name_to_header_field_map.merge(
-          shusseki_no: "metadata.jp.ShussekiNo",
-          public_flg: "metadata.jp.PublicFlg"
-        ).freeze,
-        converters: superclass.converters.merge(
-          boolean: [*superclass.converters[:boolean], :public_flg].freeze,
-          enum: { role: ROLES.values.freeze }.freeze,
-          integer: [:shusseki_no].freeze
-        ).freeze
+      attribute_names_to_header_fields = superclass.attribute_names_to_header_fields.merge(
+        shusseki_no: "metadata.jp.ShussekiNo",
+        public_flg: "metadata.jp.PublicFlg"
       )
+      define_attributes(attribute_names_to_header_fields)
+
+      converters = superclass.converters.merge(
+        boolean: [*superclass.converters[:boolean], :public_flg],
+        enum: { role: ROLES.values },
+        integer: [:shusseki_no]
+      )
+      define_converters(converters)
 
       # NOTE: 児童生徒の場合primaryはfalse固定
       # MEMO: 保護者の場合もそうでは?

@@ -2,6 +2,8 @@
 
 module Meibo
   class AcademicSession
+    include DataModel
+
     TYPES = {
       grading_period: "gradingPeriod",
       semester: "semester",
@@ -9,27 +11,25 @@ module Meibo
       term: "term"
     }.freeze
 
-    DataModel.define(
-      self,
-      attribute_name_to_header_field_map: {
-        sourced_id: "sourcedId",
-        status: "status",
-        date_last_modified: "dateLastModified",
-        title: "title",
-        type: "type",
-        start_date: "startDate",
-        end_date: "endDate",
-        parent_sourced_id: "parentSourcedId",
-        school_year: "schoolYear"
-      }.freeze,
-      converters: {
-        enum: { type: [*TYPES.values.freeze, ENUM_EXT_PATTERN] }.freeze,
-        date: %i[start_date end_date].freeze,
-        datetime: [:date_last_modified].freeze,
-        required: %i[sourced_id title type start_date end_date school_year].freeze,
-        status: [:status].freeze,
-        year: [:school_year].freeze
-      }.freeze
+    define_attributes(
+      sourced_id: "sourcedId",
+      status: "status",
+      date_last_modified: "dateLastModified",
+      title: "title",
+      type: "type",
+      start_date: "startDate",
+      end_date: "endDate",
+      parent_sourced_id: "parentSourcedId",
+      school_year: "schoolYear"
+    )
+
+    define_converters(
+      enum: { type: [*TYPES.values, ENUM_EXT_PATTERN] },
+      date: %i[start_date end_date],
+      datetime: [:date_last_modified],
+      required: %i[sourced_id title type start_date end_date school_year],
+      status: [:status],
+      year: [:school_year]
     )
 
     def initialize(sourced_id:, school_year:, type:, start_date:, end_date:, status: nil, date_last_modified: nil,

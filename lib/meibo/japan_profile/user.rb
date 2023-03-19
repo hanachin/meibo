@@ -4,19 +4,19 @@ module Meibo
   module JapanProfile
     class User < ::Meibo::User
       module ClassMethods
-        def define_additional_definition(klass)
-          DataModel.define(
-            klass,
-            attribute_name_to_header_field_map: klass.superclass.attribute_name_to_header_field_map.merge(
-              kana_given_name: "metadata.jp.kanaGivenName",
-              kana_family_name: "metadata.jp.kanaFamilyName",
-              kana_middle_name: "metadata.jp.kanaMiddleName",
-              home_class: "metadata.jp.homeClass"
-            ).freeze,
-            converters: klass.superclass.converters.merge(
-              mext_grade_code: [:grades].freeze
-            )
+        def define_additional_definition
+          attribute_names_to_header_fields = superclass.attribute_names_to_header_fields.merge(
+            kana_given_name: "metadata.jp.kanaGivenName",
+            kana_family_name: "metadata.jp.kanaFamilyName",
+            kana_middle_name: "metadata.jp.kanaMiddleName",
+            home_class: "metadata.jp.homeClass"
           )
+          define_attributes(attribute_names_to_header_fields)
+
+          converters = superclass.converters.merge(
+            mext_grade_code: [:grades].freeze
+          )
+          define_converters(converters)
         end
       end
 
@@ -39,7 +39,7 @@ module Meibo
       include InstanceMethods
       extend ClassMethods
 
-      define_additional_definition(self)
+      define_additional_definition
     end
   end
 end

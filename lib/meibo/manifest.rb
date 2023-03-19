@@ -46,13 +46,17 @@ module Meibo
       "manifest.csv"
     end
 
-    attribute_name_to_header_field_map = {
+    attribute_names_to_header_fields = {
       property_name: "propertyName",
       value: "value"
-    }
-    header_fields = attribute_name_to_header_field_map.values
+    }.freeze
+    attribute_names = attribute_names_to_header_fields.keys.freeze
+    header_converters = Converter.build_header_field_to_attribute_converter(attribute_names_to_header_fields)
+    header_fields = attribute_names_to_header_fields.values.freeze
+    define_singleton_method(:attribute_names_to_header_fields) { attribute_names_to_header_fields }
+    define_singleton_method(:attribute_names) { attribute_names }
+    define_singleton_method(:header_converters) { header_converters }
     define_singleton_method(:header_fields) { header_fields }
-    DataModel.define_header_converters(self, attribute_name_to_header_field_map)
 
     def self.attribute_to_property_name(attribute)
       ATTRIBUTE_TO_PROPERTY_NAME_MAP.fetch(attribute)

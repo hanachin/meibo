@@ -6,7 +6,7 @@ module Meibo
       include User::InstanceMethods
       extend User::ClassMethods
 
-      define_additional_definition(self)
+      define_additional_definition
     end
   end
 end
