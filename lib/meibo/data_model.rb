@@ -56,17 +56,17 @@ module Meibo
 
     def self.define_header_converters(klass, attribute_name_to_header_field_map)
       header_converters = Converter.build_header_field_to_attribute_converter(attribute_name_to_header_field_map)
-      klass.define_singleton_method(:header_converters) { header_converters }
+      define_class_attribute(klass, :header_converters, header_converters)
     end
 
     def self.define_parser_converters(klass, attribute_names:, converters:)
       parser_converter = Converter.build_parser_converter(fields: attribute_names, converters: converters)
-      klass.define_singleton_method(:parser_converters) { parser_converter }
+      define_class_attribute(klass, :parser_converters, parser_converter)
     end
 
     def self.define_write_converters(klass, attribute_names:, converters:)
       write_converter = Converter.build_write_converter(fields: attribute_names, converters: converters)
-      klass.define_singleton_method(:write_converters) { write_converter }
+      define_class_attribute(klass, :write_converters, write_converter)
     end
 
     def lineno
