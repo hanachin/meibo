@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require "date"
-require "set"
 require "time"
 
 module Meibo
