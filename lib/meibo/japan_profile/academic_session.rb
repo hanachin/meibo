@@ -20,7 +20,7 @@ module Meibo
       def initialize(school_year:, title: "#{school_year}年度", type: TYPES[:school_year],
                      start_date: Date.new(school_year, 4,
                                           1), end_date: Date.new(school_year + 1, 3, 31), **other_fields)
-        super(school_year: school_year, title: title, type: type, start_date: start_date, end_date: end_date, **other_fields)
+        super
       end
     end
   end
