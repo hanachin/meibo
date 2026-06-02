@@ -21,7 +21,7 @@ module Meibo
       year
     ].freeze
 
-    class << self
+    class << self # rubocop:disable Metrics/ClassLength
       def build_header_field_to_attribute_converter(attribute_name_to_header_field_map)
         header_field_to_attribute_name_map = attribute_name_to_header_field_map.to_h do |attribute, header_field|
           [header_field, attribute]
