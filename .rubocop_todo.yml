@@ -83,13 +83,6 @@ Naming/MethodParameterName:
 RSpec/ExampleLength:
   Max: 213
 
-# Offense count: 1
-# Configuration parameters: Include, CustomTransform, IgnoreMethods, SpecSuffixOnly.
-# Include: **/*_spec*rb*, **/spec/**/*
-RSpec/FilePath:
-  Exclude:
-    - 'spec/meibo/japan_profile_user_set_spec.rb'
-
 # Offense count: 2
 RSpec/MultipleExpectations:
   Max: 9
