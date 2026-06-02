@@ -43,10 +43,10 @@ module Meibo
 
       private
 
-      def _parse(csv, &block)
+      def _parse(csv, &)
         validate_header_fields(CSV.parse_line(csv))
 
-        CSV.parse(csv, encoding: Meibo::CSV_ENCODING, headers: true, converters: parser_converters, header_converters: header_converters).each(&block)
+        CSV.parse(csv, encoding: Meibo::CSV_ENCODING, headers: true, converters: parser_converters, header_converters: header_converters).each(&)
       end
 
       def define_class_attribute(attribute, value)

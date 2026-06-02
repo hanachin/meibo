@@ -80,7 +80,7 @@ RSpec.describe Meibo::Reader do
           source_system_name: nil,
           source_system_code: nil
         }
-      end
+        end
 
         academic_sessions = *reader.each_academic_session
         start_date = Date.new(2022, 4, 1)
@@ -97,7 +97,7 @@ RSpec.describe Meibo::Reader do
             school_year: 2022
           }
         ]
-      end
+        end
 
         organizations = *reader.each_organization
         case organizations
@@ -110,7 +110,7 @@ RSpec.describe Meibo::Reader do
             parent_sourced_id: NilClass
           }
         ]
-      end
+        end
 
         courses = *reader.each_course
         case courses
@@ -126,7 +126,7 @@ RSpec.describe Meibo::Reader do
             subject_codes: []
           }
         ]
-      end
+        end
 
         classes = *reader.each_class
         case classes
@@ -147,7 +147,7 @@ RSpec.describe Meibo::Reader do
             special_needs: NilClass
           }
         ]
-      end
+        end
 
         users = *reader.each_user
         case users
@@ -178,7 +178,7 @@ RSpec.describe Meibo::Reader do
             home_class: NilClass
           }
         ]
-      end
+        end
 
         demographics = *reader.each_demographic
         case demographics
@@ -200,7 +200,7 @@ RSpec.describe Meibo::Reader do
             public_school_residence_status: NilClass
           }
         ]
-      end
+        end
 
         user_profiles = *reader.each_user_profile
         case user_profiles
@@ -217,7 +217,7 @@ RSpec.describe Meibo::Reader do
             password: NilClass
           }
         ]
-      end
+        end
 
         roles = *reader.each_role
         case roles
@@ -233,7 +233,7 @@ RSpec.describe Meibo::Reader do
             user_profile_sourced_id: ^user_profile_sourced_id
           }
         ]
-      end
+        end
 
         enrollments = *reader.each_enrollment
         case enrollments
@@ -250,7 +250,7 @@ RSpec.describe Meibo::Reader do
             public_flg: NilClass
           }
         ]
-      end
+        end
       end
     end.not_to raise_error
   end

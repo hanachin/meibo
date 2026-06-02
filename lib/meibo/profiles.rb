@@ -133,8 +133,8 @@ module Meibo
       "v1.2.1 jp v1.1" => japan_profile121_v11
     }.freeze
 
-    def self.use(profile_name, &block)
-      Meibo.with_profile(self[profile_name], &block)
+    def self.use(profile_name, &)
+      Meibo.with_profile(self[profile_name], &)
     end
 
     def self.[](profile_name)

@@ -4,7 +4,7 @@ module Meibo
   class User
     include DataModel
 
-    USER_ID_FORMAT_REGEXP = /\A\{[^:}]+:[^}]+\}\z/.freeze
+    USER_ID_FORMAT_REGEXP = /\A\{[^:}]+:[^}]+\}\z/
 
     define_attributes(
       sourced_id: "sourcedId",

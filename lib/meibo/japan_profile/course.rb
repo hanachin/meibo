@@ -8,7 +8,7 @@ module Meibo
 
       # NOTE: courseCodeは空文字固定
       def initialize(course_code: "", **other_fields)
-        super(course_code: course_code, **other_fields)
+        super
       end
     end
   end
