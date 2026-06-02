@@ -132,8 +132,8 @@ module Meibo
       ].each(&:check_semantically_consistent)
     end
 
-    def write_to_buffer(io)
-      Zip::File.open_buffer(io) do |zipfile|
+    def write_to_buffer(io, create: true)
+      Zip::File.open_buffer(io, create:) do |zipfile|
         write(zipfile)
       end
     end
