@@ -32,9 +32,9 @@ module Meibo
         end
       end
 
-      def open(io_or_path, **opts)
+      def open(io_or_path, **)
         m = io_or_path.is_a?(IO) ? :from_buffer : :from_file
-        roster = public_send(m, io_or_path, **opts)
+        roster = public_send(m, io_or_path, **)
         return roster unless block_given?
 
         Meibo.with_roster(roster) { yield roster }
