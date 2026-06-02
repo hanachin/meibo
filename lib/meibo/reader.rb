@@ -60,40 +60,40 @@ module Meibo
       each_user_profile.to_a
     end
 
-    def each_academic_session(&block)
-      read_data(:file_academic_sessions, &block)
+    def each_academic_session(&)
+      read_data(:file_academic_sessions, &)
     end
 
-    def each_class(&block)
-      read_data(:file_classes, &block)
+    def each_class(&)
+      read_data(:file_classes, &)
     end
 
-    def each_course(&block)
-      read_data(:file_courses, &block)
+    def each_course(&)
+      read_data(:file_courses, &)
     end
 
-    def each_demographic(&block)
-      read_data(:file_demographics, &block)
+    def each_demographic(&)
+      read_data(:file_demographics, &)
     end
 
-    def each_enrollment(&block)
-      read_data(:file_enrollments, &block)
+    def each_enrollment(&)
+      read_data(:file_enrollments, &)
     end
 
-    def each_organization(&block)
-      read_data(:file_orgs, &block)
+    def each_organization(&)
+      read_data(:file_orgs, &)
     end
 
-    def each_role(&block)
-      read_data(:file_roles, &block)
+    def each_role(&)
+      read_data(:file_roles, &)
     end
 
-    def each_user_profile(&block)
-      read_data(:file_user_profiles, &block)
+    def each_user_profile(&)
+      read_data(:file_user_profiles, &)
     end
 
-    def each_user(&block)
-      read_data(:file_users, &block)
+    def each_user(&)
+      read_data(:file_users, &)
     end
 
     def manifest
@@ -119,12 +119,12 @@ module Meibo
 
     private
 
-    def read_data(file_attribute, &block)
+    def read_data(file_attribute, &)
       filename = Manifest.filename_for(file_attribute)
       raise CsvFileNotFoundError.new("#{filename} not found", filename: filename) unless file_entry?(filename)
 
       csv = @zipfile.read(filename)
-      profile.data_model_for(file_attribute)&.parse(csv, &block)
+      profile.data_model_for(file_attribute)&.parse(csv, &)
     end
   end
 end
