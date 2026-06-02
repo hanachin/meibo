@@ -66,7 +66,7 @@ RSpec.describe Meibo::Roster do
         school_year: 2022
       }
     ]
-  end
+    end
 
     organizations = *roster.organizations
     case organizations
@@ -79,7 +79,7 @@ RSpec.describe Meibo::Roster do
         parent_sourced_id: NilClass
       }
     ]
-  end
+    end
 
     courses = *roster.courses
     case courses
@@ -95,7 +95,7 @@ RSpec.describe Meibo::Roster do
         subject_codes: []
       }
     ]
-  end
+    end
 
     classes = *roster.classes
     case classes
@@ -116,7 +116,7 @@ RSpec.describe Meibo::Roster do
         special_needs: NilClass
       }
     ]
-  end
+    end
 
     users = *roster.users
     case users
@@ -147,7 +147,7 @@ RSpec.describe Meibo::Roster do
         home_class: NilClass
       }
     ]
-  end
+    end
 
     demographics = *roster.demographics
     case demographics
@@ -169,7 +169,7 @@ RSpec.describe Meibo::Roster do
         public_school_residence_status: NilClass
       }
     ]
-  end
+    end
 
     user_profiles = *roster.user_profiles
     case user_profiles
@@ -186,7 +186,7 @@ RSpec.describe Meibo::Roster do
         password: NilClass
       }
     ]
-  end
+    end
 
     roles = *roster.roles
     case roles
@@ -202,7 +202,7 @@ RSpec.describe Meibo::Roster do
         user_profile_sourced_id: ^user_profile_sourced_id
       }
     ]
-  end
+    end
 
     enrollments = *roster.enrollments
     case enrollments
@@ -219,7 +219,7 @@ RSpec.describe Meibo::Roster do
         public_flg: NilClass
       }
     ]
-  end
+    end
 
     Meibo.with_roster(roster) do
       # make sure relation methods works
