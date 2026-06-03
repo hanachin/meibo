@@ -20,3 +20,11 @@ Naming/MethodParameterName:
   AllowedNames:
     - kw
     - io
+
+Naming/ClassAndModuleCamelCase:
+  AllowedNames:
+    - V1_2_Ed2
+
+RSpec/SpecFilePathFormat:
+  CustomTransform:
+    V1_2_Ed2: v1_2_ed2

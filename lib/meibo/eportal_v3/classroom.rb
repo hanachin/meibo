@@ -2,7 +2,7 @@
 
 module Meibo
   module EportalV3
-    class Classroom < ::Meibo::JapanProfile::Classroom
+    class Classroom < ::Meibo::JapanProfile::V1_2_Ed2::Classroom
       converters = superclass.converters.merge(
         fullwidth: %i[title location]
       )

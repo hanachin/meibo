@@ -2,7 +2,7 @@
 
 module Meibo
   module EportalV3
-    class Organization < ::Meibo::JapanProfile::Organization
+    class Organization < ::Meibo::JapanProfile::V1_2_Ed2::Organization
       converters = superclass.converters.merge(
         fullwidth: %i[name]
       )

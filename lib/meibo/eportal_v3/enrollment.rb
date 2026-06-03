@@ -2,7 +2,7 @@
 
 module Meibo
   module EportalV3
-    class Enrollment < ::Meibo::JapanProfile::Enrollment
+    class Enrollment < ::Meibo::JapanProfile::V1_2_Ed2::Enrollment
       converters = superclass.converters.merge(
         required: [*superclass.converters[:required], :primary]
       )

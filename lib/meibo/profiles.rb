@@ -50,49 +50,49 @@ module Meibo
 
     japan_profile121_v11 = Profile.new(
       builders: {
-        academic_session: Builder::AcademicSessionBuilder.create(JapanProfile::AcademicSession),
-        class: Builder::ClassroomBuilder.create(JapanProfile::Classroom),
-        course: Builder::CourseBuilder.create(JapanProfile::Course),
-        demographic: Builder::DemographicBuilder.create(JapanProfile::Demographic),
-        enrollment: Builder::EnrollmentBuilder.create(JapanProfile::Enrollment),
-        org: Builder::OrganizationBuilder.create(JapanProfile::Organization),
-        role: Builder::RoleBuilder.create(JapanProfile::Role),
-        user: Builder::UserBuilder.create(JapanProfile::User),
-        user_profile: Builder::UserProfileBuilder.create(JapanProfile::UserProfile)
+        academic_session: Builder::AcademicSessionBuilder.create(JapanProfile::V1_2_Ed2::AcademicSession),
+        class: Builder::ClassroomBuilder.create(JapanProfile::V1_2_Ed2::Classroom),
+        course: Builder::CourseBuilder.create(JapanProfile::V1_2_Ed2::Course),
+        demographic: Builder::DemographicBuilder.create(JapanProfile::V1_2_Ed2::Demographic),
+        enrollment: Builder::EnrollmentBuilder.create(JapanProfile::V1_2_Ed2::Enrollment),
+        org: Builder::OrganizationBuilder.create(JapanProfile::V1_2_Ed2::Organization),
+        role: Builder::RoleBuilder.create(JapanProfile::V1_2_Ed2::Role),
+        user: Builder::UserBuilder.create(JapanProfile::V1_2_Ed2::User),
+        user_profile: Builder::UserProfileBuilder.create(JapanProfile::V1_2_Ed2::UserProfile)
       },
       data_models: {
-        file_academic_sessions: JapanProfile::AcademicSession,
-        file_classes: JapanProfile::Classroom,
-        file_courses: JapanProfile::Course,
-        file_demographics: JapanProfile::Demographic,
-        file_enrollments: JapanProfile::Enrollment,
-        file_orgs: JapanProfile::Organization,
-        file_roles: JapanProfile::Role,
-        file_user_profiles: JapanProfile::UserProfile,
-        file_users: JapanProfile::User
+        file_academic_sessions: JapanProfile::V1_2_Ed2::AcademicSession,
+        file_classes: JapanProfile::V1_2_Ed2::Classroom,
+        file_courses: JapanProfile::V1_2_Ed2::Course,
+        file_demographics: JapanProfile::V1_2_Ed2::Demographic,
+        file_enrollments: JapanProfile::V1_2_Ed2::Enrollment,
+        file_orgs: JapanProfile::V1_2_Ed2::Organization,
+        file_roles: JapanProfile::V1_2_Ed2::Role,
+        file_user_profiles: JapanProfile::V1_2_Ed2::UserProfile,
+        file_users: JapanProfile::V1_2_Ed2::User
       },
       data_set: profile121.data_set.merge(
-        file_orgs: JapanProfile::OrganizationSet,
-        file_users: JapanProfile::UserSet
+        file_orgs: JapanProfile::V1_2_Ed2::OrganizationSet,
+        file_users: JapanProfile::V1_2_Ed2::UserSet
       )
     )
 
     japan_profile120_v11 = Profile.new(
       builders: japan_profile121_v11.builders.merge(
-        user: Builder::UserBuilder.create(JapanProfile::UserM0)
+        user: Builder::UserBuilder.create(JapanProfile::V1_2_Ed2::UserM0)
       ),
       data_models: japan_profile121_v11.data_models.merge(
-        file_users: JapanProfile::UserM0
+        file_users: JapanProfile::V1_2_Ed2::UserM0
       ),
       data_set: japan_profile121_v11.data_set
     )
 
     japan_profile120_v10 = Profile.new(
       builders: japan_profile120_v11.builders.merge(
-        role: Builder::UserBuilder.create(JapanProfile::RoleJpM0)
+        role: Builder::UserBuilder.create(JapanProfile::V1_2_Ed2::RoleJpM0)
       ),
       data_models: japan_profile120_v11.data_models.merge(
-        file_roles: JapanProfile::RoleJpM0
+        file_roles: JapanProfile::V1_2_Ed2::RoleJpM0
       ),
       data_set: japan_profile120_v11.data_set
     )

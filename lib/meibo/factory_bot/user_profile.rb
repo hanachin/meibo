@@ -19,7 +19,7 @@ FactoryBot.define do
     sequence(:username) { |n| "user#{n}" }
 
     trait :jp do
-      initialize_with { Meibo::JapanProfile::UserProfile.new(**attributes) }
+      initialize_with { Meibo::JapanProfile::V1_2_Ed2::UserProfile.new(**attributes) }
     end
   end
 end

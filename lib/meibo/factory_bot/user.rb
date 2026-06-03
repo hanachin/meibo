@@ -35,9 +35,9 @@ FactoryBot.define do
       initialize_with do
         case oneroster_version
         when "1.2.1"
-          Meibo::JapanProfile::User.new(**attributes)
+          Meibo::JapanProfile::V1_2_Ed2::User.new(**attributes)
         when "1.2", "1.2.0"
-          Meibo::JapanProfile::UserM0.new(**attributes)
+          Meibo::JapanProfile::V1_2_Ed2::UserM0.new(**attributes)
         end
       end
 

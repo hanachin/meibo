@@ -82,7 +82,7 @@ FactoryBot.define do
         when "1.1"
           Meibo::Role.new(**attributes)
         when "1.0"
-          Meibo::JapanProfile::RoleJpM0.new(**attributes)
+          Meibo::JapanProfile::V1_2_Ed2::RoleJpM0.new(**attributes)
         end
       end
     end

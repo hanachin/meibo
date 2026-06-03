@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe Meibo::JapanProfile::Course do
+RSpec.describe Meibo::JapanProfile::V1_2_Ed2::Course do
   describe ".parse" do
     context "when courseCode is empty" do
       let(:csv) { <<~CSV }

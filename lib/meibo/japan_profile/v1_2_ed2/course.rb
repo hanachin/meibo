@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Meibo
-  module JapanProfile
+  module JapanProfile::V1_2_Ed2
     class Course < ::Meibo::Course
       converters = superclass.converters.merge(enum: { course_code: [""] }, mext_grade_code: [:grades])
       define_converters(converters)

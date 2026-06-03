@@ -4,6 +4,7 @@ require "zeitwerk"
 loader = Zeitwerk::Loader.for_gem
 loader.ignore("#{__dir__}/meibo/errors.rb")
 loader.ignore("#{__dir__}/meibo/factory_bot")
+loader.inflector.inflect("v1_2_ed2" => "V1_2_Ed2")
 loader.setup
 
 require_relative "meibo/version"

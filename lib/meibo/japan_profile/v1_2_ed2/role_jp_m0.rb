@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Meibo
-  module JapanProfile
+  module JapanProfile::V1_2_Ed2
     class RoleJpM0 < ::Meibo::Role
       # NOTE: roleは固定
       #   - 児童生徒の場合student
