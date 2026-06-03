@@ -9,7 +9,7 @@ FactoryBot.define do
       case oneroster_version
       when "1.2.1"
         new(**attributes)
-      when "1.2", "1.2.0"
+      when "1.2"
         Meibo::UserM0.new(**attributes)
       end
     end
@@ -36,7 +36,7 @@ FactoryBot.define do
         case oneroster_version
         when "1.2.1"
           Meibo::JapanProfile::User.new(**attributes)
-        when "1.2", "1.2.0"
+        when "1.2"
           Meibo::JapanProfile::UserM0.new(**attributes)
         end
       end
