@@ -51,8 +51,8 @@ module Meibo
           raise NotSupportedError, "#{Meibo::Manifest.filename}の読み込みに失敗しました"
         end
 
-        validate_manifest_version(manifest.manifest_version)
-        validate_oneroster_version(manifest.oneroster_version)
+        validate_manifest_version(profile, manifest.manifest_version)
+        validate_oneroster_version(profile, manifest.oneroster_version)
         validate_supported_processing_mode(manifest)
         validate_absent_files(reader, manifest.filenames(processing_mode: ProcessingMode.absent))
         validate_bulk_files(reader, manifest.filenames(processing_mode: ProcessingMode.bulk))
@@ -77,14 +77,14 @@ module Meibo
         end
       end
 
-      def validate_manifest_version(manifest_version)
-        return if manifest_version == Meibo::Manifest::MANIFEST_VERSION
+      def validate_manifest_version(profile, manifest_version)
+        return if manifest_version == profile.manifest_version
 
         raise NotSupportedError, "manifest.version: #{manifest_version}はサポートしていません"
       end
 
-      def validate_oneroster_version(oneroster_version)
-        return if oneroster_version == Meibo::Manifest::ONEROSTER_VERSION
+      def validate_oneroster_version(profile, oneroster_version)
+        return if oneroster_version == profile.oneroster_version
 
         raise NotSupportedError, "oneroster.version: #{oneroster_version}はサポートしていません"
       end
@@ -169,9 +169,7 @@ module Meibo
       end
     end
 
-    def build_manifest
-      Manifest.new(**manifest_properties, **file_properties)
-    end
+    def build_manifest = Manifest.new(**profile.manifest_properties, **manifest_properties, **file_properties)
 
     def data_for(file_attribute)
       public_send(self.class.file_attribute_name_to_data_attribute_name(file_attribute))

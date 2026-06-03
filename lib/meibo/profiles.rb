@@ -35,7 +35,8 @@ module Meibo
         file_roles: Meibo::RoleSet,
         file_user_profiles: Meibo::UserProfileSet,
         file_users: Meibo::UserSet
-      }
+      },
+      manifest_properties: { oneroster_version: "1.2.1" }
     )
 
     profile120 = Profile.new(
@@ -45,7 +46,8 @@ module Meibo
       data_models: profile121.data_models.merge(
         file_users: UserM0
       ),
-      data_set: profile121.data_set
+      data_set: profile121.data_set,
+      manifest_properties: { oneroster_version: "1.2" }
     )
 
     japan_profile121_v11 = Profile.new(
@@ -74,7 +76,8 @@ module Meibo
       data_set: profile121.data_set.merge(
         file_orgs: JapanProfile::OrganizationSet,
         file_users: JapanProfile::UserSet
-      )
+      ),
+      manifest_properties: { oneroster_version: "1.2" }
     )
 
     japan_profile120_v11 = Profile.new(
@@ -84,7 +87,8 @@ module Meibo
       data_models: japan_profile121_v11.data_models.merge(
         file_users: JapanProfile::UserM0
       ),
-      data_set: japan_profile121_v11.data_set
+      data_set: japan_profile121_v11.data_set,
+      manifest_properties: { oneroster_version: "1.2" }
     )
 
     japan_profile120_v10 = Profile.new(
@@ -94,7 +98,8 @@ module Meibo
       data_models: japan_profile120_v11.data_models.merge(
         file_roles: JapanProfile::RoleJpM0
       ),
-      data_set: japan_profile120_v11.data_set
+      data_set: japan_profile120_v11.data_set,
+      manifest_properties: { oneroster_version: "1.2" }
     )
 
     eportal_v3 = Profile.new(
@@ -120,7 +125,8 @@ module Meibo
         file_user_profiles: EportalV3::UserProfile,
         file_users: EportalV3::User
       },
-      data_set: japan_profile120_v11.data_set
+      data_set: japan_profile120_v11.data_set,
+      manifest_properties: { oneroster_version: "1.2" }
     )
 
     PROFILES = {

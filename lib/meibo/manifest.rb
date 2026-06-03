@@ -3,7 +3,7 @@
 module Meibo
   class Manifest
     MANIFEST_VERSION = "1.0"
-    ONEROSTER_VERSION = "1.2"
+    ONEROSTER_VERSION = "1.2.1"
 
     PROPERTY_NAME_TO_ATTRIBUTE_MAP = {
       "manifest.version" => :manifest_version,
