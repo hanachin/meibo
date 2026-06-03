@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Meibo
-  module EportalV3
+  module Eportal::V3
     class Enrollment < ::Meibo::JapanProfile::V1_2_Ed2::Enrollment
       converters = superclass.converters.merge(
         required: [*superclass.converters[:required], :primary]

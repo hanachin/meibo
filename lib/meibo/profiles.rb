@@ -99,26 +99,26 @@ module Meibo
 
     eportal_v3 = Profile.new(
       builders: {
-        academic_session: Builder::AcademicSessionBuilder.create(EportalV3::AcademicSession),
-        class: Builder::ClassroomBuilder.create(EportalV3::Classroom),
-        course: Builder::CourseBuilder.create(EportalV3::Course),
-        demographic: Builder::DemographicBuilder.create(EportalV3::Demographic),
-        enrollment: Builder::EnrollmentBuilder.create(EportalV3::Enrollment),
-        organization: Builder::OrganizationBuilder.create(EportalV3::Organization),
-        role: Builder::RoleBuilder.create(EportalV3::Role),
-        user_profile: Builder::UserProfileBuilder.create(EportalV3::UserProfile),
-        user: Builder::UserBuilder.create(EportalV3::User)
+        academic_session: Builder::AcademicSessionBuilder.create(Eportal::V3::AcademicSession),
+        class: Builder::ClassroomBuilder.create(Eportal::V3::Classroom),
+        course: Builder::CourseBuilder.create(Eportal::V3::Course),
+        demographic: Builder::DemographicBuilder.create(Eportal::V3::Demographic),
+        enrollment: Builder::EnrollmentBuilder.create(Eportal::V3::Enrollment),
+        organization: Builder::OrganizationBuilder.create(Eportal::V3::Organization),
+        role: Builder::RoleBuilder.create(Eportal::V3::Role),
+        user_profile: Builder::UserProfileBuilder.create(Eportal::V3::UserProfile),
+        user: Builder::UserBuilder.create(Eportal::V3::User)
       },
       data_models: {
-        file_academic_sessions: EportalV3::AcademicSession,
-        file_classes: EportalV3::Classroom,
-        file_courses: EportalV3::Course,
-        file_demographics: EportalV3::Demographic,
-        file_enrollments: EportalV3::Enrollment,
-        file_orgs: EportalV3::Organization,
-        file_roles: EportalV3::Role,
-        file_user_profiles: EportalV3::UserProfile,
-        file_users: EportalV3::User
+        file_academic_sessions: Eportal::V3::AcademicSession,
+        file_classes: Eportal::V3::Classroom,
+        file_courses: Eportal::V3::Course,
+        file_demographics: Eportal::V3::Demographic,
+        file_enrollments: Eportal::V3::Enrollment,
+        file_orgs: Eportal::V3::Organization,
+        file_roles: Eportal::V3::Role,
+        file_user_profiles: Eportal::V3::UserProfile,
+        file_users: Eportal::V3::User
       },
       data_set: japan_profile120_v11.data_set
     )
