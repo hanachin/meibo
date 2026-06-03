@@ -50,7 +50,7 @@ module Meibo
       manifest_properties: { oneroster_version: "1.2" }
     )
 
-    japan_profile121_v11 = Profile.new(
+    japan_profile121_v12 = Profile.new(
       builders: {
         academic_session: Builder::AcademicSessionBuilder.create(JapanProfile::AcademicSession),
         class: Builder::ClassroomBuilder.create(JapanProfile::Classroom),
@@ -81,13 +81,13 @@ module Meibo
     )
 
     japan_profile120_v11 = Profile.new(
-      builders: japan_profile121_v11.builders.merge(
+      builders: japan_profile121_v12.builders.merge(
         user: Builder::UserBuilder.create(JapanProfile::UserM0)
       ),
-      data_models: japan_profile121_v11.data_models.merge(
+      data_models: japan_profile121_v12.data_models.merge(
         file_users: JapanProfile::UserM0
       ),
-      data_set: japan_profile121_v11.data_set,
+      data_set: japan_profile121_v12.data_set,
       manifest_properties: { oneroster_version: "1.2" }
     )
 
@@ -124,7 +124,7 @@ module Meibo
       "v1.2 ep v3.00" => eportal_v3,
       "v1.2 jp v1.1" => japan_profile120_v11,
       "v1.2 jp v1.1.1" => japan_profile120_v11,
-      "v1.2.1 jp v1.1" => japan_profile121_v11
+      "v1.2.1 jp v1.2" => japan_profile121_v12
     }.freeze
 
     def self.use(profile_name, &)
