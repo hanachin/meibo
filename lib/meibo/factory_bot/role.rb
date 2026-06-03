@@ -79,10 +79,8 @@ FactoryBot.define do
 
       initialize_with do
         case jp_version
-        when "1.1", "1.1.1"
+        in "1.1", "1.1.1"
           Meibo::Role.new(**attributes)
-        when "1.0"
-          Meibo::JapanProfile::RoleJpM0.new(**attributes)
         end
       end
     end

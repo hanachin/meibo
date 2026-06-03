@@ -91,17 +91,6 @@ module Meibo
       manifest_properties: { oneroster_version: "1.2" }
     )
 
-    japan_profile120_v10 = Profile.new(
-      builders: japan_profile120_v11.builders.merge(
-        role: Builder::UserBuilder.create(JapanProfile::RoleJpM0)
-      ),
-      data_models: japan_profile120_v11.data_models.merge(
-        file_roles: JapanProfile::RoleJpM0
-      ),
-      data_set: japan_profile120_v11.data_set,
-      manifest_properties: { oneroster_version: "1.2" }
-    )
-
     eportal_v3 = Profile.new(
       builders: {
         academic_session: Builder::AcademicSessionBuilder.create(EportalV3::AcademicSession),
@@ -133,7 +122,6 @@ module Meibo
       "v1.2" => profile120,
       "v1.2.1" => profile121,
       "v1.2 ep v3.00" => eportal_v3,
-      "v1.2 jp v1.0" => japan_profile120_v10,
       "v1.2 jp v1.1" => japan_profile120_v11,
       "v1.2 jp v1.1.1" => japan_profile120_v11,
       "v1.2.1 jp v1.1" => japan_profile121_v11
