@@ -35,7 +35,8 @@ module Meibo
         file_roles: Meibo::RoleSet,
         file_user_profiles: Meibo::UserProfileSet,
         file_users: Meibo::UserSet
-      }
+      },
+      manifest_properties: { oneroster_version: "1.2.1" }
     )
 
     profile120 = Profile.new(
@@ -45,10 +46,11 @@ module Meibo
       data_models: profile121.data_models.merge(
         file_users: UserM0
       ),
-      data_set: profile121.data_set
+      data_set: profile121.data_set,
+      manifest_properties: { oneroster_version: "1.2" }
     )
 
-    japan_profile121_v11 = Profile.new(
+    japan_profile121_v12 = Profile.new(
       builders: {
         academic_session: Builder::AcademicSessionBuilder.create(JapanProfile::AcademicSession),
         class: Builder::ClassroomBuilder.create(JapanProfile::Classroom),
@@ -74,27 +76,19 @@ module Meibo
       data_set: profile121.data_set.merge(
         file_orgs: JapanProfile::OrganizationSet,
         file_users: JapanProfile::UserSet
-      )
+      ),
+      manifest_properties: { oneroster_version: "1.2" }
     )
 
     japan_profile120_v11 = Profile.new(
-      builders: japan_profile121_v11.builders.merge(
+      builders: japan_profile121_v12.builders.merge(
         user: Builder::UserBuilder.create(JapanProfile::UserM0)
       ),
-      data_models: japan_profile121_v11.data_models.merge(
+      data_models: japan_profile121_v12.data_models.merge(
         file_users: JapanProfile::UserM0
       ),
-      data_set: japan_profile121_v11.data_set
-    )
-
-    japan_profile120_v10 = Profile.new(
-      builders: japan_profile120_v11.builders.merge(
-        role: Builder::UserBuilder.create(JapanProfile::RoleJpM0)
-      ),
-      data_models: japan_profile120_v11.data_models.merge(
-        file_roles: JapanProfile::RoleJpM0
-      ),
-      data_set: japan_profile120_v11.data_set
+      data_set: japan_profile121_v12.data_set,
+      manifest_properties: { oneroster_version: "1.2" }
     )
 
     eportal_v3 = Profile.new(
@@ -120,17 +114,17 @@ module Meibo
         file_user_profiles: EportalV3::UserProfile,
         file_users: EportalV3::User
       },
-      data_set: japan_profile120_v11.data_set
+      data_set: japan_profile120_v11.data_set,
+      manifest_properties: { oneroster_version: "1.2" }
     )
 
     PROFILES = {
-      "v1.2" => profile121,
+      "v1.2" => profile120,
       "v1.2.1" => profile121,
-      "v1.2.0" => profile120,
-      "v1.2.0 ep v3.00" => eportal_v3,
-      "v1.2.0 jp v1.0" => japan_profile120_v10,
-      "v1.2.0 jp v1.1" => japan_profile120_v11,
-      "v1.2.1 jp v1.1" => japan_profile121_v11
+      "v1.2 ep v3.00" => eportal_v3,
+      "v1.2 jp v1.1" => japan_profile120_v11,
+      "v1.2 jp v1.1.1" => japan_profile120_v11,
+      "v1.2.1 jp v1.2" => japan_profile121_v12
     }.freeze
 
     def self.use(profile_name, &)

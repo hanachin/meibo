@@ -75,14 +75,12 @@ FactoryBot.define do
     end
 
     trait :jp do
-      jp_version { "1.1" }
+      jp_version { "1.1.1" }
 
       initialize_with do
         case jp_version
-        when "1.1"
+        in "1.1", "1.1.1"
           Meibo::Role.new(**attributes)
-        when "1.0"
-          Meibo::JapanProfile::RoleJpM0.new(**attributes)
         end
       end
     end
