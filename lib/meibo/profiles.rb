@@ -136,6 +136,7 @@ module Meibo
       "v1.2.0 ep v3.00" => eportal_v3,
       "v1.2.0 jp v1.0" => japan_profile120_v10,
       "v1.2.0 jp v1.1" => japan_profile120_v11,
+      "v1.2.0 jp v1.1.1" => japan_profile120_v11,
       "v1.2.1 jp v1.1" => japan_profile121_v11
     }.freeze
 
