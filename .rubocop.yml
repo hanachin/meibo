@@ -23,4 +23,5 @@ Naming/MethodParameterName:
 
 Naming/ClassAndModuleCamelCase:
   AllowedNames:
+    - V1_2_1
     - V1_2
