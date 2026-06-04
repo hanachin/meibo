@@ -20,3 +20,10 @@ Naming/MethodParameterName:
   AllowedNames:
     - kw
     - io
+
+Naming/ClassAndModuleCamelCase:
+  AllowedNames:
+    - V1_1_1
+    - V1_1
+    - V1_2_1
+    - V1_2
