@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
 module Meibo
-  module EportalV3
-    class Organization < ::Meibo::JapanProfile::Organization
+  module Eportal::V3
+    class Classroom < ::Meibo::JapanProfile::Classroom
       converters = superclass.converters.merge(
-        fullwidth: %i[name]
+        fullwidth: %i[title location]
       )
       define_converters(converters)
     end
