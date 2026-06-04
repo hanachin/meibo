@@ -2,36 +2,6 @@
 
 module Meibo
   module Profiles
-    japan_profile121_v12 = Profile.new(
-      builders: {
-        academic_session: Builder::AcademicSessionBuilder.create(JapanProfile::AcademicSession),
-        class: Builder::ClassroomBuilder.create(JapanProfile::Classroom),
-        course: Builder::CourseBuilder.create(JapanProfile::Course),
-        demographic: Builder::DemographicBuilder.create(JapanProfile::Demographic),
-        enrollment: Builder::EnrollmentBuilder.create(JapanProfile::Enrollment),
-        org: Builder::OrganizationBuilder.create(JapanProfile::Organization),
-        role: Builder::RoleBuilder.create(JapanProfile::Role),
-        user: Builder::UserBuilder.create(JapanProfile::User),
-        user_profile: Builder::UserProfileBuilder.create(JapanProfile::UserProfile)
-      },
-      data_models: {
-        file_academic_sessions: JapanProfile::AcademicSession,
-        file_classes: JapanProfile::Classroom,
-        file_courses: JapanProfile::Course,
-        file_demographics: JapanProfile::Demographic,
-        file_enrollments: JapanProfile::Enrollment,
-        file_orgs: JapanProfile::Organization,
-        file_roles: JapanProfile::Role,
-        file_user_profiles: JapanProfile::UserProfile,
-        file_users: JapanProfile::User
-      },
-      data_set: OneRoster::V1_2::PROFILE.data_set.merge(
-        file_orgs: JapanProfile::OrganizationSet,
-        file_users: JapanProfile::UserSet
-      ),
-      manifest_properties: { oneroster_version: "1.2" }
-    )
-
     eportal_v3 = Profile.new(
       builders: {
         academic_session: Builder::AcademicSessionBuilder.create(Eportal::V3::AcademicSession),
@@ -65,7 +35,7 @@ module Meibo
       "v1.2 ep v3.00" => eportal_v3,
       "v1.2 jp v1.1" => JapanProfile::V1_1::PROFILE,
       "v1.2 jp v1.1.1" => JapanProfile::V1_1_1::PROFILE,
-      "v1.2.1 jp v1.2" => japan_profile121_v12,
+      "v1.2.1 jp v1.2" => JapanProfile::V1_2::PROFILE,
       "v1.2.1 ep v4.00" => Meibo::Eportal::V4::PROFILE
     }.freeze
 
