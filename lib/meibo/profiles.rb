@@ -124,7 +124,8 @@ module Meibo
       "v1.2 ep v3.00" => eportal_v3,
       "v1.2 jp v1.1" => japan_profile120_v11,
       "v1.2 jp v1.1.1" => japan_profile120_v11,
-      "v1.2.1 jp v1.2" => japan_profile121_v12
+      "v1.2.1 jp v1.2" => japan_profile121_v12,
+      "v1.2.1 ep v4.00" => Meibo::Eportal::V4::PROFILE
     }.freeze
 
     def self.use(profile_name, &)
