@@ -64,7 +64,7 @@ module Meibo
       "v1.2.1" => OneRoster::V1_2_1::PROFILE,
       "v1.2 ep v3.00" => eportal_v3,
       "v1.2 jp v1.1" => JapanProfile::V1_1::PROFILE,
-      "v1.2 jp v1.1.1" => JapanProfile::V1_1::PROFILE,
+      "v1.2 jp v1.1.1" => JapanProfile::V1_1_1::PROFILE,
       "v1.2.1 jp v1.2" => japan_profile121_v12,
       "v1.2.1 ep v4.00" => Meibo::Eportal::V4::PROFILE
     }.freeze

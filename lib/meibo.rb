@@ -6,6 +6,7 @@ loader.ignore("#{__dir__}/meibo/errors.rb")
 loader.ignore("#{__dir__}/meibo/factory_bot")
 loader.inflector.inflect(
   "oneroster" => "OneRoster",
+  "v1_1_1" => "V1_1_1",
   "v1_1" => "V1_1",
   "v1_2_1" => "V1_2_1",
   "v1_2" => "V1_2"
