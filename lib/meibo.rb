@@ -4,6 +4,10 @@ require "zeitwerk"
 loader = Zeitwerk::Loader.for_gem
 loader.ignore("#{__dir__}/meibo/errors.rb")
 loader.ignore("#{__dir__}/meibo/factory_bot")
+loader.inflector.inflect(
+  "oneroster" => "OneRoster",
+  "v1_2" => "V1_2"
+)
 loader.setup
 
 require_relative "meibo/version"

@@ -39,17 +39,6 @@ module Meibo
       manifest_properties: { oneroster_version: "1.2.1" }
     )
 
-    profile120 = Profile.new(
-      builders: profile121.builders.merge(
-        user: Builder::UserBuilder.create(UserM0)
-      ),
-      data_models: profile121.data_models.merge(
-        file_users: UserM0
-      ),
-      data_set: profile121.data_set,
-      manifest_properties: { oneroster_version: "1.2" }
-    )
-
     japan_profile121_v12 = Profile.new(
       builders: {
         academic_session: Builder::AcademicSessionBuilder.create(JapanProfile::AcademicSession),
@@ -119,7 +108,7 @@ module Meibo
     )
 
     PROFILES = {
-      "v1.2" => profile120,
+      "v1.2" => OneRoster::V1_2::PROFILE,
       "v1.2.1" => profile121,
       "v1.2 ep v3.00" => eportal_v3,
       "v1.2 jp v1.1" => japan_profile120_v11,
