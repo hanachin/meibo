@@ -11,7 +11,8 @@ module Meibo
       "OneRoster Japan Profile v.1.2.1" => JapanProfile::V1_2::PROFILE,
       "学習eポータル標準モデル Ver. 4.00" => Meibo::Eportal::V4::PROFILE,
       "初等中等教育におけるシステム間連携のための相互運用標準モデル Ver. 5.00" => Meibo::PSEInteroperabilityStandard::V5::PROFILE,
-      "1EdTech OneRoster 1.2 CSV Binding: Japan K-12/Schools Profile" => JapanK12SchoolsProfile::V1::PROFILE
+      "1EdTech OneRoster 1.2 CSV Binding: Japan K-12/Schools Profile" => JapanK12SchoolsProfile::V1::PROFILE,
+      "初等中等教育におけるシステム間連携のための相互運用標準モデル Ver. 6.00" => Meibo::PSEInteroperabilityStandard::V6::PROFILE
     }.freeze
 
     def self.use(profile_name, &)

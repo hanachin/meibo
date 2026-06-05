@@ -3,7 +3,7 @@
 module Meibo
   module PSEInteroperabilityStandard
     module V5
-      PROFILE = Eportal::V4::PROFILE
+      include Eportal::V4
     end
   end
 end
