@@ -22,7 +22,7 @@ Or install it yourself as:
 
 ```rb
 # First, choose OneRoster profile
-Meibo.default_profile = Meibo::Profiles["v1.2.0 ep v3.00"]
+Meibo.default_profile = Meibo::Profiles["学習eポータル標準モデル Ver. 3.00"]
 
 # Then open OneRoster file
 file = File.open('oneroster.zip')

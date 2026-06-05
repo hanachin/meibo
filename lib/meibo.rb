@@ -57,4 +57,4 @@ end
 
 loader.eager_load
 
-Meibo.default_profile = Meibo::Profiles["v1.2.1"]
+Meibo.default_profile = Meibo::Profiles["IMS OneRoster: CSV Binding Final Release v1.2.1"]
