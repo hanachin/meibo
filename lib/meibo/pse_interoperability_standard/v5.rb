@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 module Meibo
-  module Eportal
+  module PSEInteroperabilityStandard
     module V5
-      PROFILE = V4::PROFILE
+      include Eportal::V4
     end
   end
 end
