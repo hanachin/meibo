@@ -38,9 +38,5 @@ module Meibo
       super(**other_fields)
       @resource_sourced_ids = resource_sourced_ids
     end
-
-    def home_classroom
-      home_class && Meibo.current_roster.classes.find(home_class)
-    end
   end
 end
