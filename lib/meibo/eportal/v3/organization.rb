@@ -1,12 +1,11 @@
 # frozen_string_literal: true
 
 module Meibo
-  module Eportal::V3
-    class Organization < ::Meibo::JapanProfile::Organization
-      converters = superclass.converters.merge(
-        fullwidth: %i[name]
-      )
-      define_converters(converters)
+  module Eportal
+    module V3
+      class Organization < ::Meibo::JapanProfile::V1_1::Organization
+        define_converters(superclass.converters.merge(fullwidth: [*superclass.converters[:fullwidth], :name]))
+      end
     end
   end
 end

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe Meibo::JapanProfile::User do
+RSpec.describe Meibo::JapanProfile::V1_2::User do
   describe "#kana_preferred_family_name" do
     subject { user.kana_preferred_family_name }
 

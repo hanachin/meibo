@@ -3,7 +3,7 @@
 module Meibo
   module PSEInteroperabilityStandard
     module V6
-      class Enrollment < JapanK12SchoolsProfile::Enrollment
+      class Enrollment < ::Meibo::JapanK12SchoolsProfile::V1::Enrollment
         define_converters(superclass.converters.merge(required: [*superclass.converters[:required], :primary]))
       end
     end

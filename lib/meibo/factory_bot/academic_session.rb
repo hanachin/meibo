@@ -37,7 +37,7 @@ FactoryBot.define do
     end
 
     trait :jp do
-      initialize_with { Meibo::JapanProfile::AcademicSession.new(**attributes) }
+      initialize_with { Meibo::JapanProfile::V1_2::AcademicSession.new(**attributes) }
     end
   end
 end

@@ -64,7 +64,7 @@ FactoryBot.define do
     end
 
     trait :jp do
-      initialize_with { Meibo::JapanProfile::Organization.new(**attributes) }
+      initialize_with { Meibo::JapanProfile::V1_2::Organization.new(**attributes) }
       sequence(:name) { |n| "第#{n}教委" }
     end
   end

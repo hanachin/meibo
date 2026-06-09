@@ -23,15 +23,15 @@ module Meibo
 
       PROFILE = Profile.new(
         builders: {
-          academic_session: Builder::AcademicSessionBuilder.create(::Meibo::OneRoster::V1_2::AcademicSession),
-          class: Builder::ClassroomBuilder.create(::Meibo::OneRoster::V1_2::Classroom),
-          course: Builder::CourseBuilder.create(::Meibo::OneRoster::V1_2::Course),
-          demographic: Builder::DemographicBuilder.create(::Meibo::OneRoster::V1_2::Demographic),
-          enrollment: Builder::EnrollmentBuilder.create(::Meibo::OneRoster::V1_2::Enrollment),
-          org: Builder::OrganizationBuilder.create(::Meibo::OneRoster::V1_2::Organization),
-          role: Builder::RoleBuilder.create(::Meibo::OneRoster::V1_2::Role),
-          user: Builder::UserBuilder.create(::Meibo::OneRoster::V1_2::User),
-          user_profile: Builder::UserProfileBuilder.create(::Meibo::OneRoster::V1_2::UserProfile)
+          academic_session: ::Meibo::Builder::AcademicSessionBuilder.create(::Meibo::OneRoster::V1_2::AcademicSession),
+          class: ::Meibo::Builder::ClassroomBuilder.create(::Meibo::OneRoster::V1_2::Classroom),
+          course: ::Meibo::Builder::CourseBuilder.create(::Meibo::OneRoster::V1_2::Course),
+          demographic: ::Meibo::Builder::DemographicBuilder.create(::Meibo::OneRoster::V1_2::Demographic),
+          enrollment: ::Meibo::Builder::EnrollmentBuilder.create(::Meibo::OneRoster::V1_2::Enrollment),
+          org: ::Meibo::Builder::OrganizationBuilder.create(::Meibo::OneRoster::V1_2::Organization),
+          role: ::Meibo::Builder::RoleBuilder.create(::Meibo::OneRoster::V1_2::Role),
+          user: ::Meibo::Builder::UserBuilder.create(::Meibo::OneRoster::V1_2::User),
+          user_profile: ::Meibo::Builder::UserProfileBuilder.create(::Meibo::OneRoster::V1_2::UserProfile)
         },
         data_models: {
           file_academic_sessions: ::Meibo::OneRoster::V1_2::AcademicSession,

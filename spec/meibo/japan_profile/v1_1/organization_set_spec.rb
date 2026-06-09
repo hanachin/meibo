@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe Meibo::JapanProfile::OrganizationSet do
+RSpec.describe Meibo::JapanProfile::V1_1::OrganizationSet do
   describe "#check_semantically_consistent" do
     it "does not raise error if school does not have parent organization" do
       school = build(:meibo_organization, :jp, :elementary_school)

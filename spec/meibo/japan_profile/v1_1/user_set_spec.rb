@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe Meibo::JapanProfile::UserSet do
+RSpec.describe Meibo::JapanProfile::V1_1::UserSet do
   describe "#check_semantically_consistent" do
     let(:school) { build(:meibo_organization, :elementary_school) }
 

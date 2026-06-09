@@ -29,7 +29,7 @@ FactoryBot.define do
     end
 
     trait :jp do
-      initialize_with { Meibo::JapanProfile::Classroom.new(**attributes) }
+      initialize_with { Meibo::JapanProfile::V1_2::Classroom.new(**attributes) }
     end
 
     trait :special_needs do
