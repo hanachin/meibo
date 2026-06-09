@@ -2,9 +2,7 @@
 
 module Meibo
   module Eportal::V3
-    AcademicSession = ::Meibo::JapanProfile::AcademicSession
-    Demographic = ::Meibo::JapanProfile::Demographic
-    Role = ::Meibo::JapanProfile::Role
+    include JapanProfile
 
     PROFILE = Profile.new(
       builders: {
