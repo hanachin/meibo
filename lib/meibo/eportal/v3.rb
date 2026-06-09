@@ -1,44 +1,28 @@
 # frozen_string_literal: true
 
 module Meibo
-  module Eportal::V3
-    include JapanProfile
-
-    PROFILE = Profile.new(
-      builders: {
-        academic_session: Builder::AcademicSessionBuilder.create(AcademicSession),
-        class: Builder::ClassroomBuilder.create(Classroom),
-        course: Builder::CourseBuilder.create(Course),
-        demographic: Builder::DemographicBuilder.create(Demographic),
-        enrollment: Builder::EnrollmentBuilder.create(Enrollment),
-        org: Builder::OrganizationBuilder.create(Organization),
-        role: Builder::RoleBuilder.create(Role),
-        user: Builder::UserBuilder.create(User),
-        user_profile: Builder::UserProfileBuilder.create(UserProfile)
-      },
-      data_models: {
-        file_academic_sessions: AcademicSession,
-        file_classes: Classroom,
-        file_courses: Course,
-        file_demographics: Demographic,
-        file_enrollments: Enrollment,
-        file_orgs: Organization,
-        file_roles: Role,
-        file_user_profiles: UserProfile,
-        file_users: User
-      },
-      data_set: {
-        file_academic_sessions: AcademicSessionSet,
-        file_classes: ClassroomSet,
-        file_courses: CourseSet,
-        file_demographics: DemographicSet,
-        file_enrollments: EnrollmentSet,
-        file_orgs: OrganizationSet,
-        file_roles: RoleSet,
-        file_user_profiles: UserProfileSet,
-        file_users: UserSet
-      },
-      manifest_properties: { oneroster_version: "1.2" }
-    )
+  module Eportal
+    module V3
+      PROFILE = Profile.new(
+        builders: ::Meibo::JapanProfile::V1_2::PROFILE.builders.merge(
+          class: Builder::ClassroomBuilder.create(::Meibo::Eportal::V3::Classroom),
+          course: Builder::CourseBuilder.create(::Meibo::Eportal::V3::Course),
+          enrollment: Builder::EnrollmentBuilder.create(::Meibo::Eportal::V3::Enrollment),
+          org: Builder::OrganizationBuilder.create(::Meibo::Eportal::V3::Organization),
+          user_profile: Builder::UserProfileBuilder.create(::Meibo::Eportal::V3::UserProfile),
+          user: Builder::UserBuilder.create(::Meibo::Eportal::V3::User)
+        ),
+        data_models: ::Meibo::JapanProfile::V1_2::PROFILE.data_models.merge(
+          file_classes: ::Meibo::Eportal::V3::Classroom,
+          file_courses: ::Meibo::Eportal::V3::Course,
+          file_enrollments: ::Meibo::Eportal::V3::Enrollment,
+          file_orgs: ::Meibo::Eportal::V3::Organization,
+          file_user_profiles: ::Meibo::Eportal::V3::UserProfile,
+          file_users: ::Meibo::Eportal::V3::User
+        ),
+        data_set: ::Meibo::JapanProfile::V1_2::PROFILE.data_set,
+        manifest_properties: { oneroster_version: "1.2" }
+      )
+    end
   end
 end
