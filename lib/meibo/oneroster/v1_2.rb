@@ -17,7 +17,6 @@ module Meibo
       OrganizationSet = ::Meibo::OrganizationSet
       Role = ::Meibo::Role
       RoleSet = ::Meibo::RoleSet
-      UserM0 = ::Meibo::UserM0
       UserSet = ::Meibo::UserSet
       UserProfile = ::Meibo::UserProfile
       UserProfileSet = ::Meibo::UserProfileSet
@@ -31,7 +30,7 @@ module Meibo
           enrollment: Builder::EnrollmentBuilder.create(::Meibo::OneRoster::V1_2::Enrollment),
           org: Builder::OrganizationBuilder.create(::Meibo::OneRoster::V1_2::Organization),
           role: Builder::RoleBuilder.create(::Meibo::OneRoster::V1_2::Role),
-          user: Builder::UserBuilder.create(::Meibo::OneRoster::V1_2::UserM0),
+          user: Builder::UserBuilder.create(::Meibo::OneRoster::V1_2::User),
           user_profile: Builder::UserProfileBuilder.create(::Meibo::OneRoster::V1_2::UserProfile)
         },
         data_models: {
@@ -43,7 +42,7 @@ module Meibo
           file_orgs: ::Meibo::OneRoster::V1_2::Organization,
           file_roles: ::Meibo::OneRoster::V1_2::Role,
           file_user_profiles: ::Meibo::OneRoster::V1_2::UserProfile,
-          file_users: ::Meibo::OneRoster::V1_2::UserM0
+          file_users: ::Meibo::OneRoster::V1_2::User
         },
         data_set: {
           file_academic_sessions: ::Meibo::OneRoster::V1_2::AcademicSessionSet,

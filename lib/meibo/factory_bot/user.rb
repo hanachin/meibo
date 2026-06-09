@@ -10,7 +10,7 @@ FactoryBot.define do
       when "1.2.1"
         new(**attributes)
       when "1.2"
-        Meibo::UserM0.new(**attributes)
+        Meibo::OneRoster::V1_2::User.new(**attributes)
       end
     end
 
@@ -37,7 +37,7 @@ FactoryBot.define do
         when "1.2.1"
           Meibo::JapanProfile::User.new(**attributes)
         when "1.2"
-          Meibo::JapanProfile::UserM0.new(**attributes)
+          Meibo::JapanProfile::V1_1::User.new(**attributes)
         end
       end
 

@@ -11,7 +11,7 @@ module Meibo
           demographic: Builder::DemographicBuilder.create(::Meibo::JapanProfile::Demographic),
           enrollment: Builder::EnrollmentBuilder.create(::Meibo::JapanProfile::Enrollment),
           org: Builder::OrganizationBuilder.create(::Meibo::JapanProfile::Organization),
-          user: Builder::UserBuilder.create(::Meibo::JapanProfile::UserM0)
+          user: Builder::UserBuilder.create(::Meibo::JapanProfile::V1_1::User)
         ),
         data_models: ::Meibo::OneRoster::V1_2::PROFILE.data_models.merge(
           file_academic_sessions: ::Meibo::JapanProfile::AcademicSession,
@@ -20,7 +20,7 @@ module Meibo
           file_demographics: ::Meibo::JapanProfile::Demographic,
           file_enrollments: ::Meibo::JapanProfile::Enrollment,
           file_orgs: ::Meibo::JapanProfile::Organization,
-          file_users: ::Meibo::JapanProfile::UserM0
+          file_users: ::Meibo::JapanProfile::V1_1::User
         ),
         data_set: ::Meibo::OneRoster::V1_2::PROFILE.data_set.merge(
           file_orgs: ::Meibo::JapanProfile::OrganizationSet,

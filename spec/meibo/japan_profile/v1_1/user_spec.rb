@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe Meibo::JapanProfile::UserM0 do
+RSpec.describe Meibo::JapanProfile::V1_1::User do
   describe ".parse" do
     context "when grades is empty" do
       let(:csv) { <<~CSV }
