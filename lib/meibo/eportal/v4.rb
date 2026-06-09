@@ -6,8 +6,8 @@ module Meibo
       include V3
 
       PROFILE = Profile.new(
-        builders: V3::PROFILE.builders.merge(user: Builder::UserBuilder.create(User)),
-        data_models: V3::PROFILE.data_models.merge(file_users: User),
+        builders: V3::PROFILE.builders.merge(user: Builder::UserBuilder.create(::Meibo::Eportal::V4::User)),
+        data_models: V3::PROFILE.data_models.merge(file_users: ::Meibo::Eportal::V4::User),
         data_set: V3::PROFILE.data_set,
         manifest_properties: { oneroster_version: "1.2.1" }
       )
