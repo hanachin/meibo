@@ -46,6 +46,7 @@
             buildInputs = [
               env
               bundixcli
+              pkgs.pinact
             ];
           };
         };
