@@ -3,39 +3,57 @@
 module Meibo
   module OneRoster
     module V1_2
+      AcademicSession = ::Meibo::AcademicSession
+      AcademicSessionSet = ::Meibo::AcademicSessionSet
+      Classroom = ::Meibo::Classroom
+      ClassroomSet = ::Meibo::ClassroomSet
+      Course = ::Meibo::Course
+      CourseSet = ::Meibo::CourseSet
+      Demographic = ::Meibo::Demographic
+      DemographicSet = ::Meibo::DemographicSet
+      Enrollment = ::Meibo::Enrollment
+      EnrollmentSet = ::Meibo::EnrollmentSet
+      Organization = ::Meibo::Organization
+      OrganizationSet = ::Meibo::OrganizationSet
+      Role = ::Meibo::Role
+      RoleSet = ::Meibo::RoleSet
+      UserSet = ::Meibo::UserSet
+      UserProfile = ::Meibo::UserProfile
+      UserProfileSet = ::Meibo::UserProfileSet
+
       PROFILE = Profile.new(
         builders: {
-          academic_session: Builder::AcademicSessionBuilder.create(AcademicSession),
-          class: Builder::ClassroomBuilder.create(Classroom),
-          course: Builder::CourseBuilder.create(Course),
-          demographic: Builder::DemographicBuilder.create(Demographic),
-          enrollment: Builder::EnrollmentBuilder.create(Enrollment),
-          org: Builder::OrganizationBuilder.create(Organization),
-          role: Builder::RoleBuilder.create(Role),
-          user: Builder::UserBuilder.create(UserM0),
-          user_profile: Builder::UserProfileBuilder.create(UserProfile)
+          academic_session: ::Meibo::Builder::AcademicSessionBuilder.create(::Meibo::OneRoster::V1_2::AcademicSession),
+          class: ::Meibo::Builder::ClassroomBuilder.create(::Meibo::OneRoster::V1_2::Classroom),
+          course: ::Meibo::Builder::CourseBuilder.create(::Meibo::OneRoster::V1_2::Course),
+          demographic: ::Meibo::Builder::DemographicBuilder.create(::Meibo::OneRoster::V1_2::Demographic),
+          enrollment: ::Meibo::Builder::EnrollmentBuilder.create(::Meibo::OneRoster::V1_2::Enrollment),
+          org: ::Meibo::Builder::OrganizationBuilder.create(::Meibo::OneRoster::V1_2::Organization),
+          role: ::Meibo::Builder::RoleBuilder.create(::Meibo::OneRoster::V1_2::Role),
+          user: ::Meibo::Builder::UserBuilder.create(::Meibo::OneRoster::V1_2::User),
+          user_profile: ::Meibo::Builder::UserProfileBuilder.create(::Meibo::OneRoster::V1_2::UserProfile)
         },
         data_models: {
-          file_academic_sessions: Meibo::AcademicSession,
-          file_classes: Meibo::Classroom,
-          file_courses: Meibo::Course,
-          file_demographics: Meibo::Demographic,
-          file_enrollments: Meibo::Enrollment,
-          file_orgs: Meibo::Organization,
-          file_roles: Meibo::Role,
-          file_user_profiles: Meibo::UserProfile,
-          file_users: Meibo::UserM0
+          file_academic_sessions: ::Meibo::OneRoster::V1_2::AcademicSession,
+          file_classes: ::Meibo::OneRoster::V1_2::Classroom,
+          file_courses: ::Meibo::OneRoster::V1_2::Course,
+          file_demographics: ::Meibo::OneRoster::V1_2::Demographic,
+          file_enrollments: ::Meibo::OneRoster::V1_2::Enrollment,
+          file_orgs: ::Meibo::OneRoster::V1_2::Organization,
+          file_roles: ::Meibo::OneRoster::V1_2::Role,
+          file_user_profiles: ::Meibo::OneRoster::V1_2::UserProfile,
+          file_users: ::Meibo::OneRoster::V1_2::User
         },
         data_set: {
-          file_academic_sessions: Meibo::AcademicSessionSet,
-          file_classes: Meibo::ClassroomSet,
-          file_courses: Meibo::CourseSet,
-          file_demographics: Meibo::DemographicSet,
-          file_enrollments: Meibo::EnrollmentSet,
-          file_orgs: Meibo::OrganizationSet,
-          file_roles: Meibo::RoleSet,
-          file_user_profiles: Meibo::UserProfileSet,
-          file_users: Meibo::UserSet
+          file_academic_sessions: ::Meibo::OneRoster::V1_2::AcademicSessionSet,
+          file_classes: ::Meibo::OneRoster::V1_2::ClassroomSet,
+          file_courses: ::Meibo::OneRoster::V1_2::CourseSet,
+          file_demographics: ::Meibo::OneRoster::V1_2::DemographicSet,
+          file_enrollments: ::Meibo::OneRoster::V1_2::EnrollmentSet,
+          file_orgs: ::Meibo::OneRoster::V1_2::OrganizationSet,
+          file_roles: ::Meibo::OneRoster::V1_2::RoleSet,
+          file_user_profiles: ::Meibo::OneRoster::V1_2::UserProfileSet,
+          file_users: ::Meibo::OneRoster::V1_2::UserSet
         },
         manifest_properties: { oneroster_version: "1.2" }
       )

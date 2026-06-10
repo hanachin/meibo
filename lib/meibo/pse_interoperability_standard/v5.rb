@@ -3,7 +3,7 @@
 module Meibo
   module PSEInteroperabilityStandard
     module V5
-      include Eportal::V4
+      include ::Meibo::Eportal::V4
     end
   end
 end

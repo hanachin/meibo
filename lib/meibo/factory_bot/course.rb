@@ -19,7 +19,7 @@ FactoryBot.define do
     org_sourced_id { organization&.sourced_id }
 
     trait :jp do
-      initialize_with { Meibo::JapanProfile::Course.new(**attributes) }
+      initialize_with { Meibo::JapanProfile::V1_2::Course.new(**attributes) }
     end
   end
 end

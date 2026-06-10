@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
 module Meibo
-  module JapanProfile
+  module OneRoster
   end
 end
