@@ -1,5 +1,8 @@
 # frozen_string_literal: true
 
+require "tempfile"
+require "tmpdir"
+
 RSpec.describe Meibo::Roster do
   let(:roster_io) { StringIO.new }
 
@@ -46,6 +49,52 @@ RSpec.describe Meibo::Roster do
       role: Meibo::JapanProfile::V1_2::Enrollment::ROLES[:student]
     )
     roster.write_to_buffer(roster_io)
+  end
+
+  describe "#write_to_file" do
+    it "creates a readable roster at a new path" do
+      profile = Meibo::Profiles["OneRoster Japan Profile 第2版"]
+      roster = described_class.from_buffer(roster_io, profile: profile)
+
+      Dir.mktmpdir do |directory|
+        path = File.join(directory, "roster.zip")
+        roster.write_to_file(path)
+
+        imported_roster = described_class.from_file(path, profile: profile)
+        expect(imported_roster.users.map(&:to_h)).to eq(roster.users.map(&:to_h))
+        expect(imported_roster.organizations.map(&:to_h)).to eq(roster.organizations.map(&:to_h))
+      end
+    end
+
+    it "writes a readable roster to an existing empty file" do
+      profile = Meibo::Profiles["OneRoster Japan Profile 第2版"]
+      roster = described_class.from_buffer(roster_io, profile: profile)
+
+      Tempfile.create(["roster", ".zip"]) do |file|
+        roster.write_to_file(file.path)
+
+        imported_roster = described_class.from_file(file.path, profile: profile)
+        expect(imported_roster.users.map(&:to_h)).to eq(roster.users.map(&:to_h))
+      end
+    end
+
+    it "updates an existing archive without removing unrelated entries" do
+      profile = Meibo::Profiles["OneRoster Japan Profile 第2版"]
+      roster = described_class.from_buffer(roster_io, profile: profile)
+
+      Dir.mktmpdir do |directory|
+        path = File.join(directory, "roster.zip")
+        Zip::File.open(path, create: true) do |zipfile|
+          zipfile.get_output_stream("note.txt") { |file| file.write("preserved") }
+          zipfile.get_output_stream("users.csv") { |file| file.write("outdated") }
+        end
+        roster.write_to_file(path)
+
+        imported_roster = described_class.from_file(path, profile: profile)
+        expect(imported_roster.users.map(&:to_h)).to eq(roster.users.map(&:to_h))
+        Zip::File.open(path) { |zipfile| expect(zipfile.read("note.txt")).to eq("preserved") }
+      end
+    end
   end
 
   it "works good" do
