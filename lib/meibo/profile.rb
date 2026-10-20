@@ -2,13 +2,14 @@
 
 module Meibo
   class Profile
-    attr_reader :builders, :data_models, :data_set, :manifest_properties
+    attr_reader :builders, :data_models, :data_set, :manifest_properties, :allow_duplicate_user_master_identifiers
 
-    def initialize(builders:, data_models:, data_set:, manifest_properties: {})
+    def initialize(builders:, data_models:, data_set:, manifest_properties: {}, allow_duplicate_user_master_identifiers: true)
       @builders = builders
       @data_models = data_models
       @data_set = data_set
       @manifest_properties = manifest_properties
+      @allow_duplicate_user_master_identifiers = allow_duplicate_user_master_identifiers
     end
 
     def builder_for(key)

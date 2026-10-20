@@ -97,6 +97,65 @@ RSpec.describe Meibo::Roster do
     end
   end
 
+  describe "userMasterIdentifier validation when reading" do
+    let(:profile) do
+      base_profile = Meibo.current_profile
+      Meibo::Profile.new(
+        builders: base_profile.builders,
+        data_models: base_profile.data_models,
+        data_set: base_profile.data_set,
+        manifest_properties: base_profile.manifest_properties,
+        allow_duplicate_user_master_identifiers: false
+      )
+    end
+
+    let(:duplicate_roster_io) do
+      users = build_list(:meibo_user, 2, user_master_identifier: "foo", enabled_user: true)
+      roster = build(:meibo_roster, users: users)
+      StringIO.new.tap { |io| roster.write_to_buffer(io) }
+    end
+
+    it "allows duplicate values from a buffer by default" do
+      expect(described_class.from_buffer(duplicate_roster_io).users.count).to eq(2)
+    end
+
+    it "rejects duplicate values from a buffer with the configured profile" do
+      expect do
+        described_class.from_buffer(duplicate_roster_io, profile: profile)
+      end.to raise_error(Meibo::Error, "userMasterIdentifierが重複しています")
+    end
+
+    it "allows duplicate values from a file by default" do
+      Tempfile.create(["roster", ".zip"]) do |file|
+        file.binmode
+        file.write(duplicate_roster_io.string)
+        file.flush
+
+        expect(described_class.from_file(file.path).users.count).to eq(2)
+      end
+    end
+
+    it "rejects duplicate values from a file with the configured profile" do
+      Tempfile.create(["roster", ".zip"]) do |file|
+        file.binmode
+        file.write(duplicate_roster_io.string)
+        file.flush
+
+        expect do
+          described_class.from_file(file.path, profile: profile)
+        end.to raise_error(Meibo::Error, "userMasterIdentifierが重複しています")
+      end
+    end
+
+    it "uses the current profile when reading a roster" do
+      Meibo.with_profile(profile) do
+        expect do
+          described_class.from_buffer(duplicate_roster_io)
+        end.to raise_error(Meibo::Error, "userMasterIdentifierが重複しています")
+      end
+    end
+  end
+
   it "works good" do
     roster = described_class.from_buffer(roster_io, profile: Meibo::Profiles["OneRoster Japan Profile 第2版"])
 
