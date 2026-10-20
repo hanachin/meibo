@@ -59,6 +59,71 @@ RSpec.describe Meibo::UserSet do
       end
     end
 
+    context "when duplicate userMasterIdentifier values are disallowed" do
+      let(:profile) do
+        base_profile = Meibo.current_profile
+        Meibo::Profile.new(
+          builders: base_profile.builders,
+          data_models: base_profile.data_models,
+          data_set: base_profile.data_set,
+          manifest_properties: base_profile.manifest_properties,
+          allow_duplicate_user_master_identifiers: false
+        )
+      end
+
+      it "raises the original error for duplicate values" do
+        users = build_list(:meibo_user, 2, user_master_identifier: "foo")
+        roster = build(:meibo_roster, profile: profile, users: users)
+
+        expect { roster.check_semantically_consistent }.to raise_error(Meibo::Error, "userMasterIdentifierが重複しています")
+      end
+
+      it "rejects duplicates across organizations" do
+        organizations = build_list(:meibo_organization, 2, :elementary_school)
+        users = organizations.map do |organization|
+          build(:meibo_user, user_master_identifier: "foo", primary_organization: organization)
+        end
+        roster = build(:meibo_roster, profile: profile, organizations: organizations, users: users)
+
+        expect { roster.check_semantically_consistent }.to raise_error(Meibo::Error, "userMasterIdentifierが重複しています")
+      end
+
+      it "rejects duplicates across roles" do
+        organization = build(:meibo_organization, :elementary_school)
+        users = build_list(:meibo_user, 2, user_master_identifier: "foo", primary_organization: organization)
+        roles = [
+          build(:meibo_role, :teacher, :primary, organization: organization, user: users[0]),
+          build(:meibo_role, :student, :primary, organization: organization, user: users[1])
+        ]
+        roster = build(:meibo_roster, profile: profile, organizations: [organization], roles: roles, users: users)
+
+        expect { roster.check_semantically_consistent }.to raise_error(Meibo::Error, "userMasterIdentifierが重複しています")
+      end
+
+      it "accepts unique values" do
+        users = [build(:meibo_user, user_master_identifier: "foo"), build(:meibo_user, user_master_identifier: "bar")]
+        roster = build(:meibo_roster, profile: profile, users: users)
+
+        expect { roster.check_semantically_consistent }.not_to raise_error
+      end
+
+      it "ignores nil values as before" do
+        users = build_list(:meibo_user, 2, user_master_identifier: nil)
+        roster = build(:meibo_roster, profile: profile, users: users)
+
+        expect { roster.check_semantically_consistent }.not_to raise_error
+      end
+
+      it "does not change validation for other profiles" do
+        users = build_list(:meibo_user, 2, user_master_identifier: "foo")
+        strict_roster = build(:meibo_roster, profile: profile, users: users)
+        default_roster = build(:meibo_roster, users: users)
+
+        expect { strict_roster.check_semantically_consistent }.to raise_error(Meibo::Error, "userMasterIdentifierが重複しています")
+        expect { default_roster.check_semantically_consistent }.not_to raise_error
+      end
+    end
+
     context "when user has primary_organization" do
       let(:primary_organization) { build(:meibo_organization, :elementary_school) }
       let(:user) { build(:meibo_user, primary_organization: primary_organization) }
