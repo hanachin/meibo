@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+## [0.30.1] - 2026-10-20
+
 - Add `allow_duplicate_user_master_identifiers` to profiles (default: `true`).
   Set it to `false` to restore the duplicate validation used before version 0.29.
 
