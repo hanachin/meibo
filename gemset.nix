@@ -241,7 +241,7 @@
       type = "path";
     };
     targets = [];
-    version = "0.28.0";
+    version = "0.30.0";
   };
   minitest = {
     dependencies = ["drb" "prism"];
